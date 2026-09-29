@@ -48,7 +48,9 @@ affiliated with or endorsed by Tin Can, and "Tin Can" is their trademark.
 | Connections across servers ("knock, then talk"), calls, voicemail, presence, Lounge guests | done |
 | The free public hub (fair use, operator tools, export and account deletion) | live at hub.openloungephone.app |
 | Voicemail for every unanswered call, greetings (standard, your name, your own), ring time | done (software) |
-| Per-buddy call timeline; rooms and 3-way calls; interop tests; professional features | planned |
+| Per-buddy call timeline, retention per connection | done (software) |
+| Rooms (party lines, phone rooms with addresses), hold, 3-way calls, transfer | done (software) |
+| Interop tests; professional features | planned |
 | One-command deploy (done), desktop app | desktop app next |
 | Circuit board (one ESP32-S3 board, one BOM) | in design: parts placed, routing next |
 | 3D-printable base | prototype box designed; product enclosure not designed yet |
