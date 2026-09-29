@@ -14,8 +14,8 @@ permissions, and forgets them when they're done.
 
 1. Open `<your server>/device/` on an old phone or tablet (or use Lounge hardware later), choose
    **Add to Home Screen**, open it and pick **Lounge phone**.
-2. A guardian pairs it like any phone ([Pair a phone](/how-to/pair-a-phone/)). The pairing screen
-   can also turn any phone into a Lounge phone (**Kind of phone**).
+2. A guardian pairs it like any phone ([Pair a phone](/how-to/pair-a-phone/)) and picks
+   **Lounge phone** as how it will be used.
 
 The idle phone shows a **QR code** on its display. Each code works once and only for a couple
 of minutes; the phone fetches a new one by itself.
@@ -52,10 +52,21 @@ call you still follows **Available for calls** in your app.
 Your session ends — and the phone forgets you completely (name, speed-dial, calls) — when:
 
 - you press **MENU**, then **9 Log out** on the phone, or **Leave** in the app;
-- the phone sits hung up and unused for **10 minutes** (guardians can change this under
-  **Lounge settings** on the Home screen);
+- the space's **session length** runs out. Guardians choose it under **Lounge settings** on the
+  Home screen: after the phone sits hung up and unused for some minutes (10 by default — a venue),
+  at the **end of the day** (hot desks), or only when the person **logs out** (an office desk);
 - someone else takes the phone over;
 - the phone stays offline for more than a minute (a short Wi-Fi hiccup doesn't log you out).
+
+## When nobody is signed in
+
+A free Lounge phone is dead by default: its keys do nothing until someone signs in. Guardians can
+turn on, under **Lounge settings → When nobody is signed in**:
+
+- **House-line keys** — keys that call *as the space*: a person here, someone's desk phone, or
+  **several people**, where the first to answer takes the call (a front desk, a staff group).
+- **Who's here** — the phone shows people signed in at the space's other Lounge phones who are
+  open to chat.
 
 The server only records *that* a session happened — who, which phone, when — so guardians can
 see it under **Lounge settings and history**. Nothing about the calls is kept.
