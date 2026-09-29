@@ -69,6 +69,12 @@ const SOURCES: Source[] = [
     title: "Federation: connecting servers",
   },
   { from: "docs/export.md", slug: "reference/export", order: 5, title: "Account export format" },
+  {
+    from: "docs/workplace.md",
+    slug: "reference/workplace",
+    order: 6,
+    title: "Team and org spaces",
+  },
   { from: "docs/hub.md", slug: "project/hub", order: 4, title: "The public hub" },
   { from: "docs/privacy.md", slug: "project/privacy", order: 5, title: "Privacy and retention" },
   { from: "docs/protocol.md", slug: "reference/protocol", order: 2, title: "Wire protocol" },
