@@ -5,14 +5,18 @@ sidebar:
   order: 5
 ---
 
-The phone is a compact 3D-printed base with an off-the-shelf G-style handset on a USB-C cord. All
-electronics sit on **one circuit board** in the base: an ESP32-S3, a hardware-echo-cancelling
-audio codec, twelve hot-swap mechanical keys with per-key lights, a small e-ink status strip, NFC
-and an optional battery. It's powered by USB-C. Hardware is licensed under CERN-OHL-S-2.0.
+The phone is a compact 3D-printed base with an off-the-shelf analog G-style handset that plugs
+into a 3.5 mm jack (for example the Opis 60s Micro). All electronics sit on **one circuit board**
+in the base: an ESP32-S3, an audio codec for the handset, a speaker for the ringer, twelve
+hot-swap mechanical keys with per-key lights, a small e-ink status strip, NFC and an optional
+battery. The handset's microphone gets power only when the mute switch is off *and* the handset
+is lifted — in hardware, with two lights wired to that power. It's powered (and flashed) over
+USB-C. Hardware is licensed under CERN-OHL-S-2.0.
 
 :::caution[Status]
-The hardware is a **pre-production design**: the schematic is captured as code and checked, the
-board's parts are placed and routing comes next, and no boards have been built yet. There is one
+The hardware is a **pre-production design**: the schematic is captured as code, checked,
+simulated and reviewed (revision H5, 2026-09-30); the board layout is being redone for it, and no
+boards have been built yet. There is one
 board with one parts list (no variants). Expect changes.
 :::
 

@@ -30,7 +30,7 @@ affiliated with or endorsed by Tin Can, and "Tin Can" is their trademark.
 - **No phone network, no text chat.** A closed, spam-free network of people who accepted each
   other.
 - **Screen-light by design.** Keys, lights and voice first; a small status strip at most.
-- **Repairable.** Hot-swap keys, a drop-in display, a standard USB-C handset cable.
+- **Repairable.** Hot-swap keys, a drop-in display, a standard 3.5 mm handset plug.
 - **Open.** Software under **AGPL-3.0-or-later**, hardware under **CERN-OHL-S-2.0**. If you run a
   modified server for others, you share your changes.
 
