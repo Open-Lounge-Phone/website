@@ -1,0 +1,7 @@
+dist/
+.astro/
+src/content/docs/
+public/images/
+node_modules/
+.wrangler/
+.DS_Store
