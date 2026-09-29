@@ -68,11 +68,19 @@ const SOURCES: Source[] = [
     order: 4,
     title: "Federation: connecting servers",
   },
-  { from: "docs/export.md", slug: "reference/export", order: 5, title: "Account export format" },
+  {
+    from: "docs/federation-spec.md",
+    slug: "reference/federation-spec",
+    order: 5,
+    title: "Federation protocol v1 (spec)",
+    description:
+      "The normative /fed/v1 protocol: discovery, keys, signatures, every endpoint, the stream, errors, versioning and security.",
+  },
+  { from: "docs/export.md", slug: "reference/export", order: 6, title: "Account export format" },
   {
     from: "docs/workplace.md",
     slug: "reference/workplace",
-    order: 6,
+    order: 7,
     title: "Team and org spaces",
   },
   { from: "docs/hub.md", slug: "project/hub", order: 4, title: "The public hub" },

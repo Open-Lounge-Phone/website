@@ -29,6 +29,18 @@ server instead (below) — it reaches everyone just the same.
   [deploy guide](/how-to/deploy-cloudflare/).
 - **With Docker** on a spare computer, NAS or small server — [self-hosting](/how-to/self-host/).
 
+Both start from a copy of the main repository and its command-line tool, which asks a few
+questions, checks everything first and never echoes your keys:
+
+```sh
+git clone https://github.com/Open-Lounge-Phone/open-lounge-phone.git && cd open-lounge-phone
+npm install && npm run build
+npx openloungephone doctor               # is this machine ready?
+npx openloungephone deploy cloudflare    # your Cloudflare account (after: npx wrangler login)
+npx openloungephone selfhost init        # or: compose.yaml + .env for Docker, then docker compose up -d
+npx openloungephone status phone.example.com   # check any server
+```
+
 Federation is **on by default**: people on your server can connect with (and call) people on the
 hub and on every other server. It's also how you try everything on your own computer first — see
 below.
@@ -103,4 +115,6 @@ the companion app. Or press **Call** in the app and lift the phone's handset to 
 - [Add family and quiet hours](/how-to/family-and-quiet-hours/)
 - [Lounge phones](/how-to/lounge-phone/)
 - [How it works](/reference/architecture/) and [how servers connect](/reference/federation/)
+  (the exact protocol, for anyone writing their own server:
+  [federation spec](/reference/federation-spec/))
 - [Privacy and retention](/project/privacy/)
