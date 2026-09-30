@@ -103,6 +103,7 @@ const SOURCES: Source[] = [
     title: "Layout checklist",
   },
   { from: "hardware/ASSEMBLY.md", slug: "hardware/assembly", order: 6, title: "Assembly" },
+  { from: "hardware/BRINGUP.md", slug: "hardware/bring-up", order: 7, title: "Bring-up" },
   { from: "CONTRIBUTING.md", slug: "project/contributing", order: 2, title: "Contributing" },
 ];
 

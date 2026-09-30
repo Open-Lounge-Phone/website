@@ -38,5 +38,6 @@ Read in this order:
    layout must meet, and building the board (JLCPCB first; any PCB house or hand assembly).
 
 Until then, the [browser emulator](/getting-started/) behaves exactly like the phone. The
-firmware (v0: keys, ringer, e-paper strip, pairing and call signaling, no call audio yet) builds
-with ESP-IDF and runs in the Wokwi simulator; see the [firmware reference](/reference/firmware/).
+firmware (calls with two-way audio, Wi-Fi setup from your phone, updates, and the rest of the
+phone) builds with ESP-IDF and runs in a simulator; see the [firmware reference](/reference/firmware/).
+When a board arrives, [Bring-up](/hardware/bring-up/) is the checklist for trying it.
