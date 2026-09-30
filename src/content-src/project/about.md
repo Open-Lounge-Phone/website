@@ -54,7 +54,7 @@ affiliated with or endorsed by Tin Can, and "Tin Can" is their trademark.
 | One-command deploy (done), desktop app | desktop app next |
 | Circuit board (one ESP32-S3 board, one BOM) | in design: parts placed, routing next |
 | 3D-printable base | prototype box designed; product enclosure not designed yet |
-| ESP32-S3 firmware | after the board |
+| ESP32-S3 firmware | v0 runs in the Wokwi simulator: pairs, signs in, rings and does call signaling; call audio next |
 
 See the [introduction](/intro/) for the full picture and [contributing](/project/contributing/)
 to get involved.

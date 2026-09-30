@@ -35,5 +35,6 @@ Read in this order:
 5. [Layout checklist](/hardware/layout/) and [Assembly](/hardware/assembly/) — what the 2-layer
    layout must meet, and building the board (JLCPCB first; any PCB house or hand assembly).
 
-Until then, the [browser emulator](/getting-started/) behaves exactly like the phone, and the
-firmware notes are in the [firmware reference](/reference/firmware/).
+Until then, the [browser emulator](/getting-started/) behaves exactly like the phone. The
+firmware (v0: keys, ringer, e-paper strip, pairing and call signaling, no call audio yet) builds
+with ESP-IDF and runs in the Wokwi simulator; see the [firmware reference](/reference/firmware/).
