@@ -96,7 +96,12 @@ const SOURCES: Source[] = [
     title: "Design guidelines",
   },
   { from: "hardware/SCHEMATIC.md", slug: "hardware/schematic", order: 4, title: "Schematic" },
-  { from: "hardware/LAYOUT.md", slug: "hardware/layout", order: 5, title: "PCB layout" },
+  {
+    from: "hardware/BOARD_REQUIREMENTS.md",
+    slug: "hardware/layout",
+    order: 5,
+    title: "Layout checklist",
+  },
   { from: "hardware/ASSEMBLY.md", slug: "hardware/assembly", order: 6, title: "Assembly" },
   { from: "CONTRIBUTING.md", slug: "project/contributing", order: 2, title: "Contributing" },
 ];

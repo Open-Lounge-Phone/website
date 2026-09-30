@@ -15,7 +15,7 @@ only in the open:
   recorded.
 - **Always announced to everyone.** When a recorded call starts, *everyone* on it hears "This call
   is recorded." — including people on other servers, from their own app or phone. The app shows
-  a red **Recording** mark, and a phone lights its separate **recording light** and shows `REC`,
+  a red **Recording** mark, and a phone lights its **recording light** (its status light) and shows `REC`,
   until the call ends. If you don't want to be recorded, hang up. There is no hidden mode.
 
 ## Where the recording is made
