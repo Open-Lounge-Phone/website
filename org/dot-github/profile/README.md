@@ -22,7 +22,7 @@ Most calls are peer to peer and encrypted end to end. The server never hears the
 | Public hub (free) | [hub.openloungephone.app](https://hub.openloungephone.app) |
 | Software license | AGPL-3.0-or-later |
 | Hardware license | CERN-OHL-S-2.0 |
-| Status | Software works end to end; the hardware (one ESP32-S3 board, a printable base, an analog G-style handset on a 3.5 mm jack) is in design |
+| Status | Software works end to end; hardware [v0.1](https://github.com/Open-Lounge-Phone/open-lounge-phone/releases/tag/hw-v0.1) is an early dev board prototype (one ESP32-S3 board, a printable base, an analog G-style handset on a 3.5 mm jack) |
 
 **Support the project:** [GitHub Sponsors](https://github.com/sponsors/previousdolphin). Proudly
 supported by [unsubscribe.llc](https://www.unsubscribe.llc/).

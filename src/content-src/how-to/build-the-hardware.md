@@ -21,9 +21,11 @@ The phone is mains/USB-powered like a landline: no battery by design, it is not 
 Hardware is licensed under CERN-OHL-S-2.0.
 
 :::caution[Status]
-The hardware is a **pre-production design**: the minimal board's schematic is captured as code
-and checked (M1, 2026-09-30) and its parts are placed (M2: 156 × 88 mm, every SMD part on the
-bottom); routing comes next, and no boards have been built yet. Expect changes.
+**Hardware v0.1 is an early dev board prototype** (silkscreen rev A, 156 × 88 mm, 2 layers, 53
+parts): designed, routed and checked, with the first boards ordered from JLCPCB on 2026-09-30.
+It hasn't been brought up yet, so expect a revision. The exact manufacturing files (Gerbers,
+BOM/CPL, schematic and layer PDFs, STEP) and the build and flash guide are in the
+[hw-v0.1 release](https://github.com/Open-Lounge-Phone/open-lounge-phone/releases/tag/hw-v0.1).
 :::
 
 Read in this order:
