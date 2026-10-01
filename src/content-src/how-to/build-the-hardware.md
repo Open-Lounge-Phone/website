@@ -37,6 +37,23 @@ Read in this order:
 5. [Layout checklist](/hardware/layout/) and [Assembly](/hardware/assembly/) — what the 2-layer
    layout must meet, and building the board (JLCPCB first; any PCB house or hand assembly).
 
+## Your keys, your server
+
+A phone you build depends on nobody, this project included:
+
+- **No server until you choose one.** Its setup page asks for your Wi-Fi and a server: **My own
+  server** (its address) or **Public hub (free, to try it)**. Change it later with MENU → 4.
+- **No updates unless you set them up.** Firmware built from source has no update key and checks
+  nothing. To update your own phones, make your own key (`firmware/tools/release.sh keygen`) and
+  publish to your own channel. Only the project's official firmware downloads take the project's
+  updates.
+- **Its device key is made on the phone** and never leaves it. If you turn on Secure Boot, it uses
+  your key.
+
+Details: "Your keys, your server" in the [firmware reference](/reference/firmware/).
+
+## Until the boards arrive
+
 Until then, the [browser emulator](/getting-started/) behaves exactly like the phone. The
 firmware (calls with two-way audio, Wi-Fi setup from your phone, updates, and the rest of the
 phone) builds with ESP-IDF and runs in a simulator; see the [firmware reference](/reference/firmware/).

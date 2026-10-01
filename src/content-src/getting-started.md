@@ -1,6 +1,6 @@
 ---
 title: Getting started
-description: Three ways in — the public hub, your own server, or an invite — and trying everything on your own computer in five minutes.
+description: Three ways in — your own server, the public hub to try it, or an invite — and trying everything on your own computer in five minutes.
 sidebar:
   order: 2
 ---
@@ -8,22 +8,7 @@ sidebar:
 There are three ways to start. Whichever you pick, you get an **address** (`name@server`) that
 people on any Open Lounge Phone server can knock on, and any device can be a phone.
 
-## 1. Join the public hub
-
-The public hub, `hub.openloungephone.app`, is free and funded by donations
-([funding](/project/funding/)). It's live: [sign up at hub.openloungephone.app](https://hub.openloungephone.app).
-
-1. Open the hub and choose **Create an account**.
-2. Pick a **handle** — your address will be `handle@hub.openloungephone.app` — and create a
-   **passkey** on your device. No email, no phone number, no password.
-3. Use any device as a phone: open `hub.openloungephone.app/device/` on an old phone, tablet or
-   laptop and choose **Add to Home Screen**. Or pair phone hardware when it exists.
-4. Knock on the people you want to call under **Connections (buddies)**.
-
-The hub has a generous fair-use allowance; for full control of your data and keys, run your own
-server instead (below) — it reaches everyone just the same.
-
-## 2. Run your own server
+## 1. Run your own server
 
 - **On your own Cloudflare account:** one command, free plan is enough for a household —
   [deploy guide](/how-to/deploy-cloudflare/).
@@ -45,11 +30,42 @@ Federation is **on by default**: people on your server can connect with (and cal
 hub and on every other server. It's also how you try everything on your own computer first — see
 below.
 
+## 2. Or try it on the public hub
+
+Just want to try it? The public hub, `hub.openloungephone.app`, is free and funded by donations
+([funding](/project/funding/)). It's live: [sign up at hub.openloungephone.app](https://hub.openloungephone.app).
+
+1. Open the hub and choose **Create an account**.
+2. Pick a **handle** — your address will be `handle@hub.openloungephone.app` — and create a
+   **passkey** on your device. No email, no phone number, no password.
+3. Use any device as a phone: open `hub.openloungephone.app/device/` on an old phone, tablet or
+   laptop and choose **Add to Home Screen**. Or pair phone hardware when it exists.
+4. Knock on the people you want to call under **Connections (buddies)**.
+
+The hub has a generous fair-use allowance. For full control of your data and keys, run your own
+server (above): it reaches everyone just the same, and you can move later
+([export](/reference/export/)).
+
 ## 3. Got an invite?
 
 A guardian sent you a link? Just open it: it adds you to their household (or signs you in there).
 If you already have an account on that server, open it while signed in and the household is added
 to your account.
+
+## Your keys, your server
+
+Nothing depends on this project. Every key belongs to whoever runs that part:
+
+| Key | Made and kept | Held by |
+|---|---|---|
+| Device key | on each phone, at first start | the phone |
+| Server key (for connecting servers) | on your server, when you deploy it | you |
+| Update key (optional, hardware) | on your computer, if you turn updates on | you |
+
+A hardware phone you build connects to **no server** until you choose one on its setup page
+(your own, or the hub to try it), and checks for **no updates** unless you set up your own. Only
+the project's official firmware downloads take the project's updates, and choosing one is up to
+you. Details: [security model](https://github.com/Open-Lounge-Phone/open-lounge-phone/blob/main/docs/security-model.md).
 
 ---
 
