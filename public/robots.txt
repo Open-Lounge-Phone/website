@@ -1,0 +1,6 @@
+# Open Lounge Phone project site. Open source: everyone, including AI agents and crawlers, is welcome.
+User-agent: *
+Content-Signal: search=yes, ai-input=yes, ai-train=yes
+Allow: /
+
+Sitemap: https://openloungephone.app/sitemap-index.xml

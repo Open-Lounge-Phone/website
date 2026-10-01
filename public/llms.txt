@@ -1,0 +1,25 @@
+# Open Lounge Phone
+
+> A screen-light, open-source phone for kids, homes and lounges. Real mechanical keys and a classic handset; it can only call (and be called by) people who accepted each other. Quiet hours send callers to voicemail with a transcript. Software AGPL-3.0-or-later, hardware CERN-OHL-S-2.0.
+
+Anyone can run their own server (Cloudflare Workers or Docker). Servers federate: people on different servers connect by address (`name@server`) with a knock-then-talk request, and calls go peer to peer over WebRTC. The free public hub (hub.openloungephone.app) is just one more server, for trying it. Nothing depends on the project. The hardware is an early dev board prototype (v0.1): an ESP32-S3, 12 hot-swap MX keys, a 2.9" e-paper module, a 3.5 mm handset jack and a piezo ringer.
+
+## Start here
+- [Introduction](https://openloungephone.app/intro/): what it is and how it works
+- [Getting started](https://openloungephone.app/getting-started/): run it on your computer
+- [About the project](https://openloungephone.app/project/about/): why it exists, principles, status
+
+## Run it
+- [Deploy to Cloudflare](https://openloungephone.app/how-to/deploy-cloudflare/)
+- [Self-host with Docker](https://openloungephone.app/how-to/self-host/)
+- [Pair a phone](https://openloungephone.app/how-to/pair-a-phone/)
+
+## Hardware
+- [Build the hardware](https://openloungephone.app/how-to/build-the-hardware/)
+- [Hardware v0.1 release (Gerbers, BOM, schematic, build guide)](https://github.com/Open-Lounge-Phone/open-lounge-phone/releases/tag/hw-v0.1)
+
+## Source and specs
+- [Source code](https://github.com/Open-Lounge-Phone/open-lounge-phone)
+- [Federation spec (/fed/v1)](https://github.com/Open-Lounge-Phone/open-lounge-phone/blob/main/docs/federation-spec.md)
+- [Device protocol](https://github.com/Open-Lounge-Phone/open-lounge-phone/blob/main/docs/protocol.md)
+- [Security model](https://github.com/Open-Lounge-Phone/open-lounge-phone/blob/main/docs/security-model.md)
