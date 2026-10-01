@@ -33,6 +33,9 @@ What happens:
    themselves. Calls in progress carry on.
 4. A server that doesn't hear from you for the whole week can't follow; its operator will see
    your key change as refused and can re-trust it (below). Tell them your new fingerprint.
+5. Servers that don't support following a rotation at all (they don't list `key-rotation`)
+   are named when you rotate, so you know whose operators to tell. The Operator view shows what
+   each server you know runs: its software, federation versions, and the extras it lacks.
 
 A second rotation during the 7 days is refused unless you force it (`--force`, or confirm in the
 app), because servers still on your first key would lose track.
