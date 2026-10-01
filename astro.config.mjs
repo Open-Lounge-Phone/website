@@ -13,8 +13,14 @@ export default defineConfig({
       logo: { src: "./src/logo.svg" },
       favicon: "/favicon.svg",
       customCss: ["./src/styles/theme.css"],
-      // The project credit and the (optional) Sponsor link under every page.
-      components: { Footer: "./src/components/Footer.astro" },
+      // Footer: the project credit and Sponsor link. Header: GitHub icon and a Donate button.
+      components: {
+        Footer: "./src/components/Footer.astro",
+        SocialIcons: "./src/components/SocialIcons.astro",
+      },
+      social: [
+        { icon: "github", label: "GitHub", href: "https://github.com/Open-Lounge-Phone/open-lounge-phone" },
+      ],
       lastUpdated: false,
       pagination: true,
       sidebar: [
