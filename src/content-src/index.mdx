@@ -10,9 +10,9 @@ hero:
     - text: Get started
       link: /getting-started/
       icon: right-arrow
-    - text: Run your own server
-      link: /how-to/deploy-cloudflare/
-      icon: rocket
+    - text: Build the hardware
+      link: /how-to/build-the-hardware/
+      icon: setting
       variant: secondary
     - text: GitHub
       link: https://github.com/Open-Lounge-Phone/open-lounge-phone
@@ -26,6 +26,7 @@ hero:
 
 import { Aside, Card, CardGrid, LinkCard } from "@astrojs/starlight/components";
 import Funding from "../../components/Funding.astro";
+import Architecture from "../../components/Architecture.astro";
 
 <Aside type="note" title="Where things stand">
   **The software works today, end to end.** Run your own server, pair a phone, make real calls,
@@ -34,6 +35,24 @@ import Funding from "../../components/Funding.astro";
   an early prototype:** the first dev boards ([hardware v0.1](https://github.com/Open-Lounge-Phone/open-lounge-phone/releases/tag/hw-v0.1)) were ordered on
   2026-09-30 and are about to be brought up. There is nothing to buy yet, but you can build one.
 </Aside>
+
+<CardGrid>
+  <Card title="I want a phone" icon="open-book">
+    [Try the phone in your browser](https://hub.openloungephone.app/device/) right now, [join the
+    free hub](https://hub.openloungephone.app) or [run your own server](/how-to/deploy-cloudflare/).
+    Parents and friends call from the companion app on any phone or computer.
+  </Card>
+  <Card title="I want to build one" icon="setting">
+    Open board, open box, off-the-shelf handset. Start with [Build the
+    hardware](/how-to/build-the-hardware/), grab the files from the [hardware v0.1
+    release](https://github.com/Open-Lounge-Phone/open-lounge-phone/releases/tag/hw-v0.1), or
+    [join the board v0.9 interest list](#board-v09-coming-soon).
+  </Card>
+</CardGrid>
+
+<p class="licence-line">
+  Software: AGPL-3.0-or-later. Hardware: CERN-OHL-S-2.0. No accounts with us, no tracking, no ads.
+</p>
 
 <CardGrid>
   <Card title="Kids phone" icon="heart">
@@ -59,6 +78,10 @@ import Funding from "../../components/Funding.astro";
   alt="The browser version of the phone: twelve keys, a handset and a small e-ink status strip showing the menu"
   width="520"
 />
+
+## How it fits together
+
+<Architecture />
 
 ## What works today
 
@@ -111,11 +134,70 @@ along in [Build the hardware](/how-to/build-the-hardware/). The first boards,
 [hardware v0.1](https://github.com/Open-Lounge-Phone/open-lounge-phone/releases/tag/hw-v0.1) (rev A), were ordered on 2026-09-30: that release has the exact Gerbers,
 parts lists, schematic and a build guide.
 
+<figure class="board-hero">
+  <img
+    src="/hardware/phone-assembled.png"
+    alt="The phone assembled: a printed box with twelve keycaps in two rows, the hook key at the left and an e-paper status strip between the rows"
+  />
+  <figcaption>The prototype box assembled, with keycaps and the e-paper module (CAD render; the handset plugs in separately).</figcaption>
+</figure>
+
+<div class="board-pics">
+  <figure>
+    <img
+      class="screenshot"
+      src="/hardware/render-top.png"
+      alt="Top of the board: twelve key positions in two rows, a hook switch, the 2x4 display socket, the handset and USB-C edge, and the Open Lounge Phone signature"
+    />
+    <figcaption>Top: 12 hot-swap MX keys, a hook switch, the socket for the e-paper module and the piezo ringer.</figcaption>
+  </figure>
+  <figure>
+    <img
+      class="screenshot"
+      src="/hardware/render-bottom.png"
+      alt="Bottom of the board with the ESP32-S3 module, audio codec, voltage regulator and USB-C port"
+    />
+    <figcaption>Bottom: the ESP32-S3 module, the ES8311 audio codec, the regulator and USB-C. JLCPCB assembles all of it.</figcaption>
+  </figure>
+</div>
+
+### Build it yourself
+
+<CardGrid>
+  <Card title="About $23 per board" icon="setting">
+    Assembled by JLCPCB, about $113 for 5 boards (estimate, 2026-09-30). You hand-solder only two
+    parts: the handset jack and the display socket.
+  </Card>
+  <Card title="About $140 all in" icon="rocket">
+    For one phone, with switches, keycaps, the 2.9" e-paper module, an antenna and a handset
+    bought at retail (estimate). Cheaper in bulk.
+  </Card>
+</CardGrid>
+
+Files: [hardware v0.1 release](https://github.com/Open-Lounge-Phone/open-lounge-phone/releases/tag/hw-v0.1)
+(Gerbers, parts list, build guide) · [hardware folder](https://github.com/Open-Lounge-Phone/open-lounge-phone/tree/main/hardware)
+(schematic, KiCad layout, box).
+
+### Board v0.9: coming soon
+
+<Aside type="tip" title="Pre-order, coming soon">
+  Board v0.9 will come two ways: **fully assembled**, or **just the PCB** to populate yourself.
+  No price or date yet; v0.9 follows what we learn from the first boards.
+  [Join the interest list](https://github.com/Open-Lounge-Phone/open-lounge-phone/discussions/1)
+  and tell us which you'd want.
+</Aside>
+
 <CardGrid>
   <Card title="Lounge phone" icon="rocket">
     A shared booth phone for hospitality spaces: take it over with your own contacts, see who's
     open to chat, and it forgets you the moment you walk away. Works today in the browser phone;
     Lounge hardware comes with the board.
+  </Card>
+  <Card title="Made for anything" icon="puzzle">
+    Kids' safety, calm screen-free calling and your own server are all part of the design, and
+    none of it is limited to kids. Each key can call a person or a room, so the same phone works
+    as a concierge line, a front desk, a shop hotline or a workshop intercom. It's all open, so
+    shape it into whatever phone you need.
   </Card>
   <Card title="Open" icon="github">
     Software under AGPL-3.0-or-later, hardware under CERN-OHL-S-2.0. No accounts with us, no

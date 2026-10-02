@@ -17,6 +17,7 @@ Anyone can run their own server (Cloudflare Workers or Docker). Servers federate
 ## Hardware
 - [Build the hardware](https://openloungephone.app/how-to/build-the-hardware/)
 - [Hardware v0.1 release (Gerbers, BOM, schematic, build guide)](https://github.com/Open-Lounge-Phone/open-lounge-phone/releases/tag/hw-v0.1)
+- [Board v0.9 pre-order interest list: assembled or PCB only (coming soon, no price or date yet)](https://github.com/Open-Lounge-Phone/open-lounge-phone/discussions/1)
 
 ## Source and specs
 - [Source code](https://github.com/Open-Lounge-Phone/open-lounge-phone)
