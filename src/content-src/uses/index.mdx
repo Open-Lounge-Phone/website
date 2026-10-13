@@ -1,0 +1,55 @@
+---
+title: "What it can be"
+description: "It's not just a phone. A kid's first phone, a desk phone you're reachable on by choice, a shared Lounge phone, a front desk, a house intercom, an elder's daily check-in, a macro pad."
+---
+
+import { CardGrid, LinkCard, Aside } from "@astrojs/starlight/components";
+
+Open Lounge Phone is a phone with real keys and a handset, and a small open platform behind it.
+Everything runs on **connections**: you sign in on a public hub you trust, or federate your own
+servers and services, and you choose the level of safety and security you want at every step.
+That includes how available and how visible you are:
+
+- **Who can reach you.** Nobody calls you until you've accepted their knock, and a kid's phone
+  has no address at all: only the people its guardians allow.
+- **When you're reachable.** One switch says whether you're taking calls; quiet hours send
+  callers to voicemail; a Lounge phone only rings for you while you're signed in on it.
+- **Who sees you're around.** Sharing your availability with your connections is off until you
+  turn it on, and "open to chat" on a Lounge phone is a key you press.
+- **Where your data lives.** The free public hub to try it, or your own server, on your own
+  Cloudflare account or your own computer. They all talk to each other.
+
+The same board and software fit very different places. Pick the one that sounds like you:
+
+<CardGrid>
+  <LinkCard title="Families with kids" href="/uses/families/" description="A first phone without the internet in it, that grows with your child." />
+  <LinkCard title="Grandparents and elders" href="/uses/grandparents/" description="Big keys, one-press calls to family, and a daily check-in." />
+  <LinkCard title="Shared houses and co-living" href="/uses/shared-houses/" description="A house phone in the kitchen, an intercom between rooms, a dinner bell." />
+  <LinkCard title="Offices and front desks" href="/uses/front-desks/" description="Extensions, ring groups and a lobby phone that rings whoever is on duty." />
+  <LinkCard title="Cafés, lounges and hotels" href="/uses/lounges-cafes-hotels/" description="A phone anyone can use as themselves, and that forgets them when they leave." />
+  <LinkCard title="Makers and tinkerers" href="/uses/makers/" description="Open board, open firmware, hot-swap keys: make it do something new." />
+</CardGrid>
+
+## Not just a phone
+
+The **labs firmware** (version 0.0.0) turns the same board into other useful things around a
+property, most of them without a server at all:
+
+| | What it does |
+|---|---|
+| House intercom | Lift, press a key, and the phone in the other room rings. "All" rings every room. Works on your Wi-Fi with no server and no internet |
+| Doorbell or front desk | A phone by the door whose key (or any key) rings the house phones with the door's name |
+| Dinner's ready | One key makes every phone in the house beep and show the words |
+| Daily check-in | An elder presses I'm OK each morning; if they don't by the time set, their family gets an alert in their voicemail |
+| Home panel | A key runs a Home Assistant scene, and the screen shows something like `GARAGE: OPEN` |
+| Dial-a-story | A key plays a recorded story in the handset |
+| Macro pad | The phone becomes a USB keyboard with mute, play and shortcut keys |
+| Games | Press MENU ten times: Snake and Memory on the e-paper screen |
+
+<Aside type="caution" title="Status">
+  The labs features are tested on a computer, and the firmware builds for the board, but they
+  haven't run on a real board yet. The everyday phone features run today in the browser phone,
+  on any old phone, tablet or laptop.
+</Aside>
+
+[More about the labs firmware](/extend/labs/) · [Getting started](/getting-started/)

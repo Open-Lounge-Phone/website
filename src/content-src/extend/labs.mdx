@@ -1,0 +1,84 @@
+---
+title: "Labs firmware (0.0.0)"
+description: "It's not just a phone. The labs build turns the board into a house intercom, a doorbell, a dinner bell, an elder's daily check-in, a Home Assistant panel, a dial-a-story line, a USB macro pad, and a little games console."
+---
+
+import { Aside, Card, CardGrid } from "@astrojs/starlight/components";
+
+The labs firmware is the phone firmware plus a set of experiments. It's built separately from
+the phone's own firmware (the 0.9 line), so the phone stays as it is, and you can switch between
+the two over USB at any time: your settings are kept.
+
+<Aside type="caution" title="Status: tested on a computer, not yet on a board">
+  The settings, the intercom's logic (room to room, all rooms, busy, doorbell, chime), the
+  check-in schedule and the server's check-in alert are tested on a computer, and the firmware
+  builds for the board. Nothing in labs has run on a real board yet: the intercom between two
+  boards, Home Assistant, the USB keyboard and stories need real hardware to prove.
+</Aside>
+
+## What it does
+
+<CardGrid>
+  <Card title="House intercom" icon="random">
+    A key rings another room: lift, press "Kid's room", talk. "All" rings every room and the
+    first to lift answers. Phones talk straight to each other on your Wi-Fi: no server, no
+    internet.
+  </Card>
+  <Card title="Doorbell or front desk" icon="approve-check-circle">
+    A phone by the door: its key (or, in doorbell mode, any key) rings the phones inside with the
+    door's name. Whoever lifts talks to whoever is at the door.
+  </Card>
+  <Card title="Dinner's ready" icon="star">
+    One key and every phone in the house beeps and shows the words.
+  </Card>
+  <Card title="Daily check-in" icon="heart">
+    For an elder living alone: press key 1, "I'm OK", each day. If it isn't pressed by the time
+    set, every guardian gets an alert in their voicemail inbox and their phones show it missed.
+    Reminders such as `08:30 PILLS` show until a key is pressed. Needs the phone's server.
+  </Card>
+  <Card title="Home panel" icon="setting">
+    A key calls a Home Assistant service (lights off, a scene), and the idle screen can show a
+    status such as `GARAGE: OPEN`, refreshed every minute.
+  </Card>
+  <Card title="Dial-a-story" icon="open-book">
+    A key plays a recorded story in the handset from any web server on your network. 1 plays it
+    again, 2 the next one, BACK stops.
+  </Card>
+  <Card title="Macro pad" icon="laptop">
+    The phone becomes a USB keyboard: keys send shortcuts, mute, play/pause or volume. Twelve
+    mechanical keys and a hook switch on your desk.
+  </Card>
+  <Card title="Games" icon="puzzle">
+    Press MENU ten times: 1 Snake on the e-paper screen (3, 8, 7 and 9 steer), 2 Memory (watch the
+    digits, key them back). BACK leaves.
+  </Card>
+</CardGrid>
+
+## Set it up
+
+Build and flash it from the repository (ESP-IDF 5.5, see the [firmware reference](/reference/firmware/)):
+
+```sh
+firmware/labs/labs.sh build     # build
+firmware/labs/labs.sh flash     # build and flash the board on USB
+```
+
+Then on the phone press **MENU**, then **5 LABS**: it shows the phone's address (for example
+`OLP-KITCHEN.LOCAL`) and a PIN. Open that address in a browser on the same Wi-Fi, enter the PIN,
+and set the room name, the mode, what each key does, Home Assistant, the check-in time and the
+doorbell. Keys you leave as "phone" stay the server's speed-dial keys.
+
+To go back to the regular phone firmware, flash it from `firmware/` the usual way.
+
+## Good to know
+
+- The intercom, doorbell and chime are for your own home network: anyone on that Wi-Fi can ring
+  a room, and their audio isn't encrypted. Calls through a server are.
+- The Home Assistant token is write-only: the settings page never shows it again.
+- In macro-pad mode the USB port is a keyboard, so the USB console is off and flashing may need
+  the BOOT button held.
+
+Every setting, the key actions and the intercom's messages on the wire are in the
+[labs firmware reference](/reference/labs-firmware/). Ideas for where these fit:
+[shared houses](/uses/shared-houses/), [grandparents](/uses/grandparents/),
+[front desks](/uses/front-desks/), [makers](/uses/makers/).
