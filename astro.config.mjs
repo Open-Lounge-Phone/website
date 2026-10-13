@@ -9,7 +9,8 @@ export default defineConfig({
   integrations: [
     starlight({
       title: "Open Lounge Phone",
-      description: "A screen-light phone for kids and lounges — open source, self-hosted, no spam.",
+      description:
+        "An open, screen-free phone for the people you choose: kids, family, friends, shared spaces and teams. Your own server or a free hub.",
       logo: { src: "./src/logo.svg" },
       favicon: "/favicon.svg",
       customCss: ["./src/styles/theme.css"],
@@ -30,13 +31,69 @@ export default defineConfig({
           label: "Start here",
           items: [
             { label: "Introduction", slug: "intro" },
+            { label: "What it can be", slug: "uses" },
             { label: "Getting started", slug: "getting-started" },
           ],
         },
-        { label: "How-to", items: [{ autogenerate: { directory: "how-to" } }] },
+        {
+          label: "Ideas for…",
+          items: [
+            { slug: "uses/families" },
+            { slug: "uses/grandparents" },
+            { slug: "uses/shared-houses" },
+            { slug: "uses/front-desks" },
+            { slug: "uses/lounges-cafes-hotels" },
+            { slug: "uses/makers" },
+          ],
+        },
+        {
+          label: "Use it",
+          items: [
+            { slug: "how-to/pair-a-phone" },
+            { slug: "how-to/family-and-quiet-hours" },
+            { slug: "how-to/voicemail" },
+            { slug: "how-to/rooms-and-3-way-calls" },
+            { slug: "how-to/lounge-phone" },
+            { slug: "how-to/workplace-phone-system" },
+            { slug: "how-to/call-recording" },
+          ],
+        },
+        {
+          label: "Run your own server",
+          items: [
+            { slug: "how-to/deploy-cloudflare" },
+            { slug: "how-to/self-host" },
+            { slug: "how-to/server-keys" },
+          ],
+        },
+        {
+          label: "Build the hardware",
+          items: [
+            { label: "Start here", slug: "how-to/build-the-hardware" },
+            { autogenerate: { directory: "hardware" } },
+          ],
+        },
+        {
+          label: "Extend it",
+          items: [
+            { slug: "extend/labs" },
+            { slug: "extend/make-it-yours" },
+          ],
+        },
         { label: "Reference", items: [{ autogenerate: { directory: "reference" } }] },
-        { label: "Hardware", items: [{ autogenerate: { directory: "hardware" } }] },
-        { label: "Project", items: [{ autogenerate: { directory: "project" } }] },
+        {
+          label: "Project",
+          items: [
+            { slug: "project/about" },
+            { slug: "project/versions" },
+            { slug: "project/changelog" },
+            { slug: "project/firmware-changelog" },
+            { slug: "project/hub" },
+            { slug: "project/funding" },
+            { slug: "project/privacy" },
+            { slug: "project/contributing" },
+          ],
+        },
       ],
     }),
   ],

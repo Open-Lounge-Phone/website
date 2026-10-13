@@ -83,7 +83,14 @@ const SOURCES: Source[] = [
     order: 7,
     title: "Team and org spaces",
   },
-  { from: "docs/hub.md", slug: "project/hub", order: 4, title: "The public hub" },
+  {
+    from: "docs/hub.md",
+    slug: "project/hub",
+    order: 4,
+    title: "The public hub",
+    description:
+      "Social media is dead, but being social isn't: a free, donation-funded server to reach your people, on purpose. Fair use, costs and how it's run.",
+  },
   { from: "docs/privacy.md", slug: "project/privacy", order: 5, title: "Privacy and retention" },
   { from: "docs/protocol.md", slug: "reference/protocol", order: 2, title: "Wire protocol" },
   { from: "firmware/README.md", slug: "reference/firmware", order: 3, title: "Firmware" },
@@ -105,6 +112,45 @@ const SOURCES: Source[] = [
   { from: "hardware/ASSEMBLY.md", slug: "hardware/assembly", order: 6, title: "Assembly" },
   { from: "hardware/BRINGUP.md", slug: "hardware/bring-up", order: 7, title: "Bring-up" },
   { from: "CONTRIBUTING.md", slug: "project/contributing", order: 2, title: "Contributing" },
+  {
+    from: "CHANGELOG.md",
+    slug: "project/changelog",
+    order: 7,
+    title: "Changelog: server and apps",
+    description: "What changed in each server release (server-vX.Y.Z): the server, companion app, browser phone, CLI and protocols.",
+  },
+  {
+    from: "firmware/CHANGELOG.md",
+    slug: "project/firmware-changelog",
+    order: 8,
+    title: "Changelog: firmware",
+    description: "What changed in each version of the phone's ESP32-S3 firmware.",
+  },
+  {
+    from: "firmware/labs/README.md",
+    slug: "reference/labs-firmware",
+    order: 8,
+    title: "Labs firmware (reference)",
+    description: "Building, flashing and configuring the 0.0.0 labs firmware: key actions, modes, settings and the LAN intercom on the wire.",
+  },
+  {
+    from: "docs/security-model.md",
+    slug: "reference/security-model",
+    order: 9,
+    title: "Security model and trust",
+  },
+  {
+    from: "docs/device-lifecycle.md",
+    slug: "reference/device-lifecycle",
+    order: 10,
+    title: "Phone modes and lifecycle",
+  },
+  {
+    from: "docs/phone-ux.md",
+    slug: "reference/phone-ux",
+    order: 11,
+    title: "The phone's screens, keys and sounds",
+  },
 ];
 
 /** Repo path -> site URL, for every page that will exist. */
