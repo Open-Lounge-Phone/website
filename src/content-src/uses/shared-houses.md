@@ -16,7 +16,8 @@ phones peppered through it make it easier to reach each other without a group ch
 - **Who's around.** Press MENU, then 5 to show you're open to chat; idle phones elsewhere in the
   house can show who's here (off until the house turns it on).
 - **House-line keys.** An idle Lounge phone can have keys that call as the house: one housemate,
-  someone's desk phone, or several housemates at once, where the first to answer takes it.
+  someone's desk phone, or a whole group (the whole house) at once, where the first to answer
+  takes it.
 - **A party line.** An always-open [room](/how-to/rooms-and-3-way-calls/) everyone in the house
   can drop into.
 

@@ -17,7 +17,8 @@ each other and a front desk that someone always answers, not a phone contract.
   "heard by" whoever plays it first.
 - **Business hours.** After hours a group goes to voicemail, or to a night line.
 - **A lobby phone.** An idle [Lounge phone](/how-to/lounge-phone/) in reception can have a
-  house-line key that rings the people on duty at once (first to answer takes it), so visitors
+  house-line key that rings a whole group, the people on duty, at once (first to answer takes
+  it), so visitors
   lift the handset and press one key.
 - **Desk phones and hot desks.** A personal desk phone is always its owner; a Lounge phone on a
   hot desk is whoever signed in, until the end of the day if you set sessions that way.

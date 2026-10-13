@@ -64,7 +64,8 @@ A free Lounge phone is dead by default: its keys do nothing until someone signs 
 turn on, under **Lounge settings → When nobody is signed in**:
 
 - **House-line keys** — keys that call *as the space*: a person here, someone's desk phone, or
-  **several people**, where the first to answer takes the call (a front desk, a staff group).
+  a whole **group** at once, where the first to answer takes the call (a front desk, a staff
+  group, the whole house).
 - **Who's here** — the phone shows people signed in at the space's other Lounge phones who are
   open to chat.
 
