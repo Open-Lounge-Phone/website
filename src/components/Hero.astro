@@ -1,7 +1,8 @@
 ---
 // The home page hero over a looping 3D background: an endless run of randomly built phones
 // (public/teaser/hero.js). It loads after the page, only on wide screens with motion allowed and
-// without Save-Data; otherwise a still picture stands in. Everything is served from this site.
+// without Save-Data; otherwise (and until it loads) stills of built phones cycle in a random order.
+// Everything is served from this site.
 import Default from "@astrojs/starlight/components/Hero.astro";
 
 const home = Astro.url.pathname === "/" || Astro.url.pathname === "/index.html";
@@ -11,12 +12,13 @@ const home = Astro.url.pathname === "/" || Astro.url.pathname === "/index.html";
 {home && (
 
 <div class="olp-hero">
+  <div class="olp-copy"><Default /></div>
   <div class="olp-stage" aria-hidden="true">
-    <img class="olp-poster" src="/teaser/poster.webp" alt="" width="1200" height="760" />
+    <img class="olp-poster olp-on" src="/teaser/stills/light-1.webp" alt="" width="1600" height="900" />
+    <img class="olp-poster" alt="" width="1600" height="900" />
     <canvas class="olp-canvas"></canvas>
     <p class="olp-caption"></p>
   </div>
-  <div class="olp-copy"><Default /></div>
 </div>
 )}
 
@@ -64,6 +66,33 @@ const home = Astro.url.pathname === "/" || Astro.url.pathname === "/index.html";
     }
   }
 
+  // Stills: built phones in a random order, crossfading every 5 s until the 3D takes over (and
+  // instead of it on phones, with reduced motion or Save-Data). Light / dark follow the site.
+  const STILLS = 8;
+  const imgs = [...document.querySelectorAll<HTMLImageElement>(".olp-poster")];
+  const theme = () => (document.documentElement.dataset.theme === "dark" ? "dark" : "light");
+  const order = [...Array(STILLS).keys()].sort(() => Math.random() - 0.5);
+  let shown = 0, front = 0;
+  const stillUrl = (i: number) => `/teaser/stills/${theme()}-${order[i % STILLS] + 1}.webp`;
+  function nextStill() {
+    if (!stage || stage.classList.contains("olp-live") || document.hidden) return;
+    const back = 1 - front;
+    const img = imgs[back];
+    if (!img) return;
+    img.onload = () => {
+      img.classList.add("olp-on");
+      imgs[front]?.classList.remove("olp-on");
+      front = back;
+    };
+    img.src = stillUrl(++shown);
+  }
+  if (imgs[0]) {
+    imgs[0].src = stillUrl(0);
+    setInterval(nextStill, 5000);
+    new MutationObserver(() => { if (imgs[front]) imgs[front].src = stillUrl(shown); })
+      .observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+  }
+
   if (wide && !still && !saveData) {
     const go = () => ("requestIdleCallback" in window ? requestIdleCallback(begin) : setTimeout(begin, 200));
     if (document.readyState === "complete") go();
@@ -76,12 +105,52 @@ const home = Astro.url.pathname === "/" || Astro.url.pathname === "/index.html";
     position: relative;
     isolation: isolate;
   }
-  .olp-stage {
-    display: none;
-  }
   .olp-copy {
     position: relative;
     z-index: 1;
+  }
+  .olp-stage {
+    position: relative;
+    overflow: hidden;
+    background: var(--sl-color-black);
+  }
+  .olp-canvas,
+  .olp-poster {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 70% 50%;
+  }
+  .olp-poster {
+    opacity: 0;
+    transition: opacity 1.4s ease;
+  }
+  .olp-poster.olp-on {
+    opacity: 1;
+  }
+  .olp-canvas {
+    opacity: 0;
+    transition: opacity 1.2s ease;
+  }
+  .olp-live .olp-canvas {
+    opacity: 1;
+  }
+  .olp-live .olp-poster {
+    opacity: 0;
+  }
+  .olp-caption {
+    margin: 0;
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--sl-color-gray-3);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .olp-poster {
+      transition: none;
+    }
   }
   @media (min-width: 860px) {
     .olp-hero {
@@ -91,15 +160,12 @@ const home = Astro.url.pathname === "/" || Astro.url.pathname === "/index.html";
     }
     /* Full bleed behind the hero; the headline keeps the left part. */
     .olp-stage {
-      display: block;
       position: absolute;
       z-index: 0;
       top: calc(-1 * var(--sl-content-pad-y, 2rem));
       bottom: 0;
       left: calc(50% - 50vw);
       width: 100vw;
-      overflow: hidden;
-      background: var(--sl-color-black);
     }
     .olp-stage::after {
       content: "";
@@ -110,36 +176,11 @@ const home = Astro.url.pathname === "/" || Astro.url.pathname === "/index.html";
         linear-gradient(90deg, var(--sl-color-black) 18%, color-mix(in srgb, var(--sl-color-black) 70%, transparent) 38%, transparent 58%),
         linear-gradient(0deg, var(--sl-color-black) 0%, transparent 18%);
     }
-    .olp-canvas,
-    .olp-poster {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: 70% 50%;
-    }
-    .olp-canvas {
-      opacity: 0;
-      transition: opacity 1.2s ease;
-    }
-    .olp-live .olp-canvas {
-      opacity: 1;
-    }
-    .olp-live .olp-poster {
-      opacity: 0;
-      transition: opacity 1.2s ease;
-    }
     .olp-caption {
       position: absolute;
       z-index: 1;
       right: max(1rem, calc(50vw - 38rem));
       bottom: 1.2rem;
-      margin: 0;
-      font-size: 0.72rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--sl-color-gray-3);
     }
     .olp-copy {
       max-width: 42rem;
@@ -148,15 +189,19 @@ const home = Astro.url.pathname === "/" || Astro.url.pathname === "/index.html";
       padding-block: 3rem;
     }
   }
-  /* Narrow screens and reduced motion: the still picture under the headline. */
+  /* Narrow screens: the stills cycle in a card under the headline (no 3D). */
   @media (max-width: 859px) {
-    .olp-hero::after {
-      content: "";
-      display: block;
+    .olp-stage {
       aspect-ratio: 16 / 10;
       margin-top: 1rem;
       border-radius: 12px;
-      background: var(--sl-color-gray-7) url("/teaser/poster.webp") 84% 55% / cover no-repeat;
+    }
+    .olp-canvas,
+    .olp-caption {
+      display: none;
+    }
+    .olp-poster {
+      object-position: 84% 55%;
     }
   }
 </style>
