@@ -27,9 +27,9 @@ it is published.
 
 ## Status
 
-The hardware is an early prototype: hardware v0.1 boards have been ordered and are not brought
-up yet, so expect a revision. The firmware runs in a simulator today; the labs features are
-tested on a computer and build for the board. Board v0.9 is coming, assembled or as a bare PCB.
+The hardware is an early prototype: hardware v0.1 boards are built and run the firmware, so
+expect a revision. The labs build runs on the board too; most of its features are so far tested
+on a computer. Board v0.9 is coming, assembled or as a bare PCB.
 
 ## Start
 

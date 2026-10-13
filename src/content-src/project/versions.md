@@ -14,7 +14,7 @@ are built so that different versions keep working together.
 
 | Part | Version | Released as | What changed |
 |---|---|---|---|
-| Server, companion app, browser phone, CLI | 0.2.0 (on `main`); last tag `server-v0.1.0` | git tags `server-vX.Y.Z` | [Changelog: server and apps](/project/changelog/) |
+| Server, companion app, browser phone, CLI | 0.2.0 (`server-v0.2.0`) | git tags `server-vX.Y.Z` | [Changelog: server and apps](/project/changelog/) |
 | Phone firmware | 0.9.1 | `fw-vX.Y.Z` releases (none published yet: build from source) | [Changelog: firmware](/project/firmware-changelog/) |
 | Labs firmware | 0.0.0 | built from source only (`firmware/labs/`) | [Labs firmware](/extend/labs/) |
 | Hardware | v0.1 (board rev A) | the [`hw-v0.1`](https://github.com/Open-Lounge-Phone/open-lounge-phone/releases/tag/hw-v0.1) release, with Gerbers, parts lists and a build guide | its release notes |
@@ -49,7 +49,8 @@ published yet.
 ## Hardware
 
 Hardware releases are tagged `hw-vX.Y` and hold the exact files the boards were made from.
-**v0.1** is an early dev board prototype: ordered, not yet brought up, so expect a revision.
+**v0.1** is an early dev board prototype: the boards are built and run the firmware, so expect a
+revision.
 **Board v0.9** is coming soon, fully assembled or as a bare PCB; there's no price or date yet
 ([interest list](https://github.com/Open-Lounge-Phone/open-lounge-phone/discussions/1)).
 

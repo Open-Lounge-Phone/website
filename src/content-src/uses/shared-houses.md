@@ -30,7 +30,7 @@ with no server and no internet:
   lifts talks to the door.
 - **Dinner's ready:** one key, every phone beeps and shows the words.
 
-The labs features are tested on a computer but haven't run on a real board yet. The intercom
+The labs build runs on the board; the intercom between two boards is so far tested on a computer. The intercom
 is meant for your own home network: its audio isn't encrypted (calls through a server are).
 
 ## Start

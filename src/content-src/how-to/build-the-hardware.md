@@ -9,7 +9,7 @@ The phone is a compact 3D-printed base with an off-the-shelf analog G-style hand
 into a 3.5 mm jack (for example the Opis 60s Micro). All electronics sit on **one small,
 deliberately minimal circuit board** (2 layers, 53 parts): an ESP32-S3 module, one USB-C port
 for power and flashing, one 3.3 V regulator, twelve hot-swap mechanical keys and a hook switch,
-a socket for a ready-made 2.9" e-paper display module, an audio codec for the handset, a piezo
+a socket for a ready-made 2.13" e-paper display module, an audio codec for the handset, a piezo
 ringer and one status light. There is **no** battery, NFC, speaker, per-key lights or hardware
 mute switch.
 
@@ -22,8 +22,7 @@ Hardware is licensed under CERN-OHL-S-2.0.
 
 :::caution[Status]
 **Hardware v0.1 is an early dev board prototype** (silkscreen rev A, 156 × 88 mm, 2 layers, 53
-parts): designed, routed and checked, with the first boards ordered from JLCPCB on 2026-09-30.
-It hasn't been brought up yet, so expect a revision. The exact manufacturing files (Gerbers,
+parts): the first boards, made by JLCPCB, are built and run the firmware. Expect a revision. The exact manufacturing files (Gerbers,
 BOM/CPL, schematic and layer PDFs, STEP) and the build and flash guide are in the
 [hw-v0.1 release](https://github.com/Open-Lounge-Phone/open-lounge-phone/releases/tag/hw-v0.1).
 :::

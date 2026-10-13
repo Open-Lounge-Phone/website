@@ -54,7 +54,7 @@ affiliated with or endorsed by Tin Can, and "Tin Can" is their trademark.
 | One-command CLI, interop tests between servers and versions | done |
 | Phone firmware (ESP32-S3), 0.9.x | runs in a simulator; not yet tried on a board |
 | Labs firmware, 0.0.0 | tested on a computer; not yet tried on a board |
-| Circuit board, hardware v0.1 | early prototype: designed, routed and ordered; bring-up next |
+| Circuit board, hardware v0.1 | early prototype: boards built and running the firmware |
 | Board v0.9, assembled or bare PCB | coming soon; no price or date |
 
 What changed and when: [versions and releases](/project/versions/). See the
