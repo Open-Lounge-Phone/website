@@ -12,7 +12,7 @@ permissions, and forgets them when they're done.
 
 ## Set one up
 
-1. Open `<your server>/device/` on an old phone or tablet (or use Lounge hardware later), choose
+1. Open `<your server>/device/` on an old phone or tablet (or a hardware phone), choose
    **Add to Home Screen**, open it and pick **Lounge phone**.
 2. A guardian pairs it like any phone ([Pair a phone](/how-to/pair-a-phone/)) and picks
    **Lounge phone** as how it will be used.
@@ -43,7 +43,7 @@ and guardians see the guest's address in the history.
 
 ## Open to chat
 
-Press **MENU**, then **5 Chat on**. Everyone in the household sees that you're at the Lounge
+Press **MENU**, then **5** (open to chat). Everyone in the household sees that you're at the Lounge
 phone and open to chat, and can call you there. Press it again to turn it off. Whether people can
 call you still follows **Available for calls** in your app.
 
@@ -51,7 +51,7 @@ call you still follows **Available for calls** in your app.
 
 Your session ends — and the phone forgets you completely (name, speed-dial, calls) — when:
 
-- you press **MENU**, then **9 Log out** on the phone, or **Leave** in the app;
+- you press **MENU**, then **8 Log out** on the phone, or **Leave** in the app;
 - the space's **session length** runs out. Guardians choose it under **Lounge settings** on the
   Home screen: after the phone sits hung up and unused for some minutes (10 by default — a venue),
   at the **end of the day** (hot desks), or only when the person **logs out** (an office desk);

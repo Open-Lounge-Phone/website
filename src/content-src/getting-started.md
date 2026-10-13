@@ -95,8 +95,8 @@ offers to add a passkey so you can sign in again later without a password.
 
 Open `http://localhost:8787/device/` in another tab. The first time, it asks what the phone will
 be — choose **Kids phone** — then one tap starts it (that tap lets it make sound and use the
-microphone). That's the phone: twelve keys (`1 2 3 4 5 MENU` / `6 7 8 9 0 BACK`), a handset, key
-lights and a small status display.
+microphone). That's the phone: twelve keys (`1 2 3 4 5 MENU` / `6 7 8 9 0 BACK`), a handset, a
+status light and a small status display.
 
 | Keyboard | Phone |
 |---|---|
@@ -128,9 +128,14 @@ the companion app. Or press **Call** in the app and lift the phone's handset to 
 
 ## Next
 
-- [Add family and quiet hours](/how-to/family-and-quiet-hours/)
-- [Lounge phones](/how-to/lounge-phone/)
-- [How it works](/reference/architecture/) and [how servers connect](/reference/federation/)
-  (the exact protocol, for anyone writing their own server:
-  [federation spec](/reference/federation-spec/))
-- [Privacy and retention](/project/privacy/)
+- **Use it:** [add family and quiet hours](/how-to/family-and-quiet-hours/),
+  [voicemail](/how-to/voicemail/), [Lounge phones](/how-to/lounge-phone/),
+  [rooms and 3-way calls](/how-to/rooms-and-3-way-calls/).
+- **Ideas:** [what it can be](/uses/), from a kid's first phone to a house intercom.
+- **Run your own server:** [on Cloudflare](/how-to/deploy-cloudflare/) or
+  [with Docker](/how-to/self-host/).
+- **Build the hardware:** [start here](/how-to/build-the-hardware/).
+- **Extend it:** [the labs firmware](/extend/labs/) and [make it yours](/extend/make-it-yours/).
+- **How it works:** [architecture](/reference/architecture/), [how servers
+  connect](/reference/federation/) and the [federation spec](/reference/federation-spec/);
+  [privacy and retention](/project/privacy/).

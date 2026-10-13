@@ -1,11 +1,12 @@
 # Open Lounge Phone
 
-> A screen-light, open-source phone for kids, homes and lounges. Real mechanical keys and a classic handset; it can only call (and be called by) people who accepted each other. Quiet hours send callers to voicemail with a transcript. Software AGPL-3.0-or-later, hardware CERN-OHL-S-2.0.
+> A screen-free, open-source phone for the people you choose: kids, family, friends, shared spaces and teams. Real mechanical keys and a classic handset; it can only call (and be called by) people who accepted each other. Quiet hours send callers to voicemail with a transcript. Software AGPL-3.0-or-later, hardware CERN-OHL-S-2.0.
 
-Anyone can run their own server (Cloudflare Workers or Docker). Servers federate: people on different servers connect by address (`name@server`) with a knock-then-talk request, and calls go peer to peer over WebRTC. The free public hub (hub.openloungephone.app) is just one more server, for trying it. Nothing depends on the project. The hardware is an early dev board prototype (v0.1): an ESP32-S3, 12 hot-swap MX keys, a 2.9" e-paper module, a 3.5 mm handset jack and a piezo ringer.
+Anyone can run their own server (Cloudflare Workers or Docker). Servers federate: people on different servers connect by address (`name@server`) with a knock-then-talk request, and calls go peer to peer over WebRTC. The free public hub (hub.openloungephone.app) is just one more server, for trying it. Nothing depends on the project. The hardware is an early dev board prototype (v0.1): an ESP32-S3, 12 hot-swap MX keys, an e-paper module, a 3.5 mm handset jack and a piezo ringer.
 
 ## Start here
 - [Introduction](https://openloungephone.app/intro/): what it is and how it works
+- [What it can be](https://openloungephone.app/uses/): families, elders, shared houses, front desks, venues, makers
 - [Getting started](https://openloungephone.app/getting-started/): run it on your computer
 - [About the project](https://openloungephone.app/project/about/): why it exists, principles, status
 
@@ -18,6 +19,10 @@ Anyone can run their own server (Cloudflare Workers or Docker). Servers federate
 - [Build the hardware](https://openloungephone.app/how-to/build-the-hardware/)
 - [Hardware v0.1 release (Gerbers, BOM, schematic, build guide)](https://github.com/Open-Lounge-Phone/open-lounge-phone/releases/tag/hw-v0.1)
 - [Board v0.9 pre-order interest list: assembled or PCB only (coming soon, no price or date yet)](https://github.com/Open-Lounge-Phone/open-lounge-phone/discussions/1)
+
+## Extend it
+- [Labs firmware (0.0.0)](https://openloungephone.app/extend/labs/): intercom, doorbell, check-in, Home Assistant, dial-a-story, macro pad, games (not yet run on a board)
+- [Versions and releases](https://openloungephone.app/project/versions/)
 
 ## Source and specs
 - [Source code](https://github.com/Open-Lounge-Phone/open-lounge-phone)

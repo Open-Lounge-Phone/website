@@ -60,7 +60,15 @@ Details: "Your keys, your server" in the [firmware reference](/reference/firmwar
 
 ## Until the boards arrive
 
-Until then, the [browser emulator](/getting-started/) behaves exactly like the phone. The
-firmware (calls with two-way audio, Wi-Fi setup from your phone, updates, and the rest of the
-phone) builds with ESP-IDF and runs in a simulator; see the [firmware reference](/reference/firmware/).
-When a board arrives, [Bring-up](/hardware/bring-up/) is the checklist for trying it.
+Until then, the [browser phone](/getting-started/#try-it-on-your-computer) behaves like the
+hardware phone: same keys, same screens. The phone firmware (0.9.x: Wi-Fi setup from your phone,
+pairing, calls with two-way audio, voicemail, Lounge phones, updates) builds with ESP-IDF and
+runs in a simulator; see the [firmware reference](/reference/firmware/) and its
+[changelog](/project/firmware-changelog/). When a board arrives, [Bring-up](/hardware/bring-up/)
+is the checklist for trying it.
+
+## Then make it do more
+
+The same board runs the [labs firmware](/extend/labs/): a house intercom, a doorbell, a daily
+check-in, a Home Assistant panel, a macro pad and a few games. See also
+[make it yours](/extend/make-it-yours/) and [versions and releases](/project/versions/).

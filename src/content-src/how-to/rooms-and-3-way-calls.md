@@ -51,6 +51,9 @@ During a call:
 On a phone it's all on **MENU**: during a call, **MENU → 1 Add caller**, press a speed-dial key,
 then when they answer **MENU → 1 Merge** (or **2 Transfer** to connect them and leave). The phone
 says what's happening ("Choose who to add, then press menu to merge", "You're all together now").
+That's the browser phone. A hardware phone carries one call's audio at a time, so its call
+screen has **1 Hold** / **Resume**, **2 Transfer** (then press the key of who gets the call) and
+**9 Volume**; adding a caller and merging are done from the app.
 
 Kid-safety still holds: a kid's phone is never merged or transferred to someone who isn't on its
 list, and a transfer only rings people the transferred person could call themselves.

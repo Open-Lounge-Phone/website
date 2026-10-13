@@ -7,14 +7,23 @@ sidebar:
 
 ## Why
 
+**Being social without social media.** You still need a way to reach your family, your group
+and your friends. Open Lounge Phone is a phone you're called on when you choose, by the people
+you choose: intentional phone time, not a phone that follows you everywhere.
+
 **A first phone without the internet in it.** Kids want to call grandma and their friends; parents
 don't want to hand them a smartphone. Open Lounge Phone is a real phone with real keys and a
-handset — and nothing else. No browser, no games, no strangers: it can only reach the people a
-guardian approves, and it goes quiet at bedtime.
+handset — and nothing else. No browser, no feeds, no strangers: it can only reach the people a
+guardian approves, and it goes quiet at bedtime. And unlike closed kids' phones, it's open: a
+child can learn how it works and tinker with it as they grow, while the rules stay with their
+guardians.
 
 **A phone that belongs to the room, not the person.** In lounges, clubs and phone booths, the same
 hardware becomes a shared phone: take it over with your own contacts, see who's around to chat,
 and it forgets you when you leave.
+
+**Not just a phone.** The same board can be a house intercom, a doorbell, a dinner bell or an
+elder's daily check-in. See [what it can be](/uses/).
 
 **Inspired by the Tin Can phone.** The idea of a simple, kid-safe landline that only calls
 approved people comes from the [Tin Can](https://tincan.kids/) phone. Open Lounge Phone is an
@@ -38,23 +47,16 @@ affiliated with or endorsed by Tin Can, and "Tin Can" is their trademark.
 
 | Part | State |
 |---|---|
-| Wire protocol, access control, quiet hours | done |
-| Self-hosted server, browser phone (any device, `/device/`), companion app | done |
-| Cloudflare backend (Workers, Durable Objects, D1, TURN) | done |
-| Invites, passkeys, voicemail with transcripts | done |
-| Grown-up calls between companion apps, availability | done |
-| Lounge phones: QR takeover with a key proof, open to chat | done (software) |
-| Accounts and addresses (`name@server`), households, teams and organizations | done |
-| Connections across servers ("knock, then talk"), calls, voicemail, presence, Lounge guests | done |
-| The free public hub (fair use, operator tools, export and account deletion) | live at hub.openloungephone.app |
-| Voicemail for every unanswered call, greetings (standard, your name, your own), ring time | done (software) |
-| Per-buddy call timeline, retention per connection | done (software) |
-| Rooms (party lines, phone rooms with addresses), hold, 3-way calls, transfer | done (software) |
-| Interop tests; professional features | planned |
-| One-command deploy (done), desktop app | desktop app next |
-| Circuit board (one ESP32-S3 board, one BOM) | in design: parts placed, routing next |
-| 3D-printable base | prototype box designed; product enclosure not designed yet |
-| ESP32-S3 firmware | 0.5 runs in a simulator: calls with two-way audio, Wi-Fi setup from a phone, signed updates, encrypted storage; next: trying it on the first boards |
+| Server (self-hosted or Cloudflare), companion app, browser phone on any device | works today |
+| Calls, voicemail with transcripts, quiet hours, passkeys and invites | works today |
+| Connections across servers, the free public hub | works today; the hub is live at hub.openloungephone.app |
+| Lounge phones, rooms and 3-way calls, team and organization phone systems, call recording | works today in the apps and the browser phone |
+| One-command CLI, interop tests between servers and versions | done |
+| Phone firmware (ESP32-S3), 0.9.x | runs in a simulator; not yet tried on a board |
+| Labs firmware, 0.0.0 | tested on a computer; not yet tried on a board |
+| Circuit board, hardware v0.1 | early prototype: designed, routed and ordered; bring-up next |
+| Board v0.9, assembled or bare PCB | coming soon; no price or date |
 
-See the [introduction](/intro/) for the full picture and [contributing](/project/contributing/)
-to get involved.
+What changed and when: [versions and releases](/project/versions/). See the
+[introduction](/intro/) for the full picture and [contributing](/project/contributing/) to get
+involved.

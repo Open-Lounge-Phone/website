@@ -1,13 +1,17 @@
 ---
 title: Open Lounge Phone
-description: A screen-light phone for kids and lounges — open source, self-hosted, no spam.
+description: An open, screen-free phone for the people you choose — kids, family, friends, shared spaces and teams. Your own server or a free hub, and it's not just a phone.
 template: splash
 hero:
-  tagline: A screen-light phone for kids and lounges — open source, self-hosted, no spam.
+  tagline: A screen-free phone for the people you choose. Open source, on your own server or a free hub — and not just a phone.
   actions:
     - text: Get started
       link: /getting-started/
       icon: right-arrow
+    - text: What it can be
+      link: /uses/
+      icon: puzzle
+      variant: secondary
     - text: Build the hardware
       link: /how-to/build-the-hardware/
       icon: setting
@@ -30,8 +34,9 @@ import Architecture from "../../components/Architecture.astro";
   **The software works today, end to end.** Run your own server, pair a phone, make real calls,
   set quiet hours, get voicemail with transcripts. Until the hardware ships, the phone runs in a
   browser: an old tablet or laptop left on a shelf makes a fine first phone. **The hardware is
-  an early prototype:** the first dev boards ([hardware v0.1](https://github.com/Open-Lounge-Phone/open-lounge-phone/releases/tag/hw-v0.1)) were ordered on
-  2026-09-30 and are about to be brought up. There is nothing to buy yet, but you can build one.
+  an early prototype:** the first dev boards ([hardware v0.1](https://github.com/Open-Lounge-Phone/open-lounge-phone/releases/tag/hw-v0.1)) have been ordered
+  and are about to be brought up, and the firmware runs in a simulator. There is nothing to buy
+  yet, but you can build one.
 </Aside>
 
 <CardGrid>
@@ -47,6 +52,18 @@ import Architecture from "../../components/Architecture.astro";
     [join the board v0.9 interest list](#board-v09-coming-soon).
   </Card>
 </CardGrid>
+
+## Your people, your rules
+
+There's so much more it can do, and all of it runs on **connections**. Sign in on a public hub
+you trust, or federate your own servers and services, and choose the level of safety and
+security you want at every step: who can reach you, when you're taking calls, and whether your
+connections can see that you're around. Nobody reaches you until you've accepted them, and
+there's no phone number to spam.
+
+Kids' phones on the market are closed boxes with a fixed feature list. This one is open: as a
+child grows they can learn how it works and tinker with it, while every rule stays with their
+guardians until they say otherwise.
 
 <p class="licence-line">
   Software: AGPL-3.0-or-later. Hardware: CERN-OHL-S-2.0. No accounts with us, no tracking, no ads.
@@ -76,6 +93,25 @@ import Architecture from "../../components/Architecture.astro";
   alt="The browser version of the phone: twelve keys, a handset and a small e-ink status strip showing the menu"
   width="520"
 />
+
+## Not just a phone
+
+The same board and software fit all over a home, an office or a venue. Each idea has its own
+page:
+
+<CardGrid>
+  <LinkCard title="Families with kids" href="/uses/families/" description="A first phone that only reaches the people you approve." />
+  <LinkCard title="Grandparents and elders" href="/uses/grandparents/" description="One press to call family, and a daily check-in." />
+  <LinkCard title="Shared houses" href="/uses/shared-houses/" description="A house phone, an intercom between rooms, a dinner bell." />
+  <LinkCard title="Offices and front desks" href="/uses/front-desks/" description="Extensions, ring groups and a lobby phone." />
+  <LinkCard title="Cafés, lounges and hotels" href="/uses/lounges-cafes-hotels/" description="A booth phone anyone uses as themselves, then it forgets them." />
+  <LinkCard title="Makers and tinkerers" href="/uses/makers/" description="Open board, open firmware, hot-swap keys." />
+</CardGrid>
+
+The **[labs firmware](/extend/labs/)** (0.0.0) shows how far it goes: a house intercom with no
+server, a doorbell, a dinner's-ready chime, a daily check-in that alerts the family, a Home
+Assistant panel, dial-a-story, a USB macro pad, and Snake and Memory if you press MENU ten
+times. It's tested on a computer and hasn't run on a real board yet.
 
 ## How it fits together
 
@@ -108,6 +144,11 @@ import Architecture from "../../components/Architecture.astro";
 
 ## A free public hub
 
+Social media is dead, but being social isn't. The hub gives you an address your group and
+friends can reach you on, with you deciding who gets through and when. You don't need the
+hardware; it just makes a great always-on desk phone: intentional phone time, rather than a
+phone that goes everywhere with you.
+
 For people who don't want to run a server, the public hub is **free, funded by donations** —
 most calls go straight between the two people, so it costs little to run. It's live: [sign up at hub.openloungephone.app](https://hub.openloungephone.app).
 
@@ -129,7 +170,7 @@ The phone is mains/USB-powered like a landline — no battery by design, not a m
 It sits in a simple 3D-printable base, and you pick the colour, keycaps and cord. Schematic,
 board layout and a prototype box are all code in the repository, so anyone can build or modify one. Follow
 along in [Build the hardware](/how-to/build-the-hardware/). The first boards,
-[hardware v0.1](https://github.com/Open-Lounge-Phone/open-lounge-phone/releases/tag/hw-v0.1) (rev A), were ordered on 2026-09-30: that release has the exact Gerbers,
+[hardware v0.1](https://github.com/Open-Lounge-Phone/open-lounge-phone/releases/tag/hw-v0.1) (rev A), have been ordered: that release has the exact Gerbers,
 parts lists, schematic and a build guide.
 
 <figure class="board-hero">
@@ -196,7 +237,7 @@ Files: [hardware v0.1 release](https://github.com/Open-Lounge-Phone/open-lounge-
     Kids' safety, calm screen-free calling and your own server are all part of the design, and
     none of it is limited to kids. Each key can call a person or a room, so the same phone works
     as a concierge line, a front desk, a shop hotline or a workshop intercom. It's all open, so
-    shape it into whatever phone you need.
+    shape it into whatever you need: [what it can be](/uses/).
   </Card>
   <Card title="Open" icon="github">
     Software under AGPL-3.0-or-later, hardware under CERN-OHL-S-2.0. No accounts with us, no
@@ -208,5 +249,6 @@ Files: [hardware v0.1 release](https://github.com/Open-Lounge-Phone/open-lounge-
   <LinkCard title="Get started" href="/getting-started/" description="Join the hub, run your own server, or open an invite — or try it all on your computer." />
   <LinkCard title="Deploy your own" href="/how-to/deploy-cloudflare/" description="Your own server on your own Cloudflare account, federated with everyone." />
   <LinkCard title="Build the hardware" href="/how-to/build-the-hardware/" description="Open hardware: schematic, board layout, prototype box — in progress." />
+  <LinkCard title="Labs firmware" href="/extend/labs/" description="Intercom, doorbell, check-in, macro pad, games: the board as more than a phone." />
   <LinkCard title="About the project" href="/project/about/" description="Why it exists, principles, and status." />
 </CardGrid>
