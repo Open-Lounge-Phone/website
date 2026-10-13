@@ -14,8 +14,10 @@ export default defineConfig({
       favicon: "/favicon.svg",
       customCss: ["./src/styles/theme.css"],
       // Footer: the project credit and Sponsor link. Header: GitHub icon and a Donate button.
+      // Hero: the home page's looping 3D background (public/teaser/).
       components: {
         Footer: "./src/components/Footer.astro",
+        Hero: "./src/components/Hero.astro",
         SocialIcons: "./src/components/SocialIcons.astro",
       },
       social: [

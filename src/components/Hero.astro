@@ -1,0 +1,162 @@
+---
+// The home page hero over a looping 3D background: an endless run of randomly built phones
+// (public/teaser/hero.js). It loads after the page, only on wide screens with motion allowed and
+// without Save-Data; otherwise a still picture stands in. Everything is served from this site.
+import Default from "@astrojs/starlight/components/Hero.astro";
+
+const home = Astro.url.pathname === "/" || Astro.url.pathname === "/index.html";
+---
+
+{!home && <Default />}
+{home && (
+
+<div class="olp-hero">
+  <div class="olp-stage" aria-hidden="true">
+    <img class="olp-poster" src="/teaser/poster.webp" alt="" width="1200" height="760" />
+    <canvas class="olp-canvas"></canvas>
+    <p class="olp-caption"></p>
+  </div>
+  <div class="olp-copy"><Default /></div>
+</div>
+)}
+
+<script>
+  const stage = document.querySelector<HTMLElement>(".olp-stage");
+  const canvas = document.querySelector<HTMLCanvasElement>(".olp-canvas");
+  const caption = document.querySelector<HTMLElement>(".olp-caption");
+  const wide = matchMedia("(min-width: 860px)").matches;
+  const still = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const saveData = (navigator as { connection?: { saveData?: boolean } }).connection?.saveData;
+  const room = () =>
+    getComputedStyle(document.documentElement).getPropertyValue("--sl-color-black").trim() || "#fbfaf7";
+
+  function load(src: string): Promise<void> {
+    return new Promise((ok, fail) => {
+      const s = document.createElement("script");
+      s.src = src;
+      s.onload = () => ok();
+      s.onerror = fail;
+      document.head.append(s);
+    });
+  }
+
+  async function begin() {
+    if (!stage || !canvas) return;
+    try {
+      await load("/teaser/vendor/three.min.js");
+      await load("/teaser/vendor/GLTFLoader.js");
+      await load("/teaser/vendor/DRACOLoader.js");
+      await load("/teaser/hero.js");
+      const meta = await (await fetch("/teaser/scene.json")).json();
+      const hero = (window as any).OLPHero.start({
+        canvas, meta, glb: "/teaser/scene.glb", decoder: "/teaser/draco/", caption, room,
+        onReady: () => stage.classList.add("olp-live"),
+        onError: () => stage.classList.remove("olp-live"),
+      });
+      // Follow the site's light / dark switch.
+      new MutationObserver(() => hero.setRoom(room())).observe(document.documentElement, {
+        attributes: true,
+        attributeFilter: ["data-theme"],
+      });
+      hero.setRoom(room());
+    } catch {
+      stage.classList.remove("olp-live");
+    }
+  }
+
+  if (wide && !still && !saveData) {
+    const go = () => ("requestIdleCallback" in window ? requestIdleCallback(begin) : setTimeout(begin, 200));
+    if (document.readyState === "complete") go();
+    else addEventListener("load", go, { once: true });
+  }
+</script>
+
+<style>
+  .olp-hero {
+    position: relative;
+    isolation: isolate;
+  }
+  .olp-stage {
+    display: none;
+  }
+  .olp-copy {
+    position: relative;
+    z-index: 1;
+  }
+  @media (min-width: 860px) {
+    .olp-hero {
+      min-height: min(78vh, 760px);
+      display: flex;
+      align-items: center;
+    }
+    /* Full bleed behind the hero; the headline keeps the left part. */
+    .olp-stage {
+      display: block;
+      position: absolute;
+      z-index: 0;
+      top: calc(-1 * var(--sl-content-pad-y, 2rem));
+      bottom: 0;
+      left: calc(50% - 50vw);
+      width: 100vw;
+      overflow: hidden;
+      background: var(--sl-color-black);
+    }
+    .olp-stage::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background:
+        linear-gradient(90deg, var(--sl-color-black) 18%, color-mix(in srgb, var(--sl-color-black) 70%, transparent) 38%, transparent 58%),
+        linear-gradient(0deg, var(--sl-color-black) 0%, transparent 18%);
+    }
+    .olp-canvas,
+    .olp-poster {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: 70% 50%;
+    }
+    .olp-canvas {
+      opacity: 0;
+      transition: opacity 1.2s ease;
+    }
+    .olp-live .olp-canvas {
+      opacity: 1;
+    }
+    .olp-live .olp-poster {
+      opacity: 0;
+      transition: opacity 1.2s ease;
+    }
+    .olp-caption {
+      position: absolute;
+      z-index: 1;
+      right: max(1rem, calc(50vw - 38rem));
+      bottom: 1.2rem;
+      margin: 0;
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--sl-color-gray-3);
+    }
+    .olp-copy {
+      max-width: 42rem;
+    }
+    .olp-copy :global(.hero) {
+      padding-block: 3rem;
+    }
+  }
+  /* Narrow screens and reduced motion: the still picture under the headline. */
+  @media (max-width: 859px) {
+    .olp-hero::after {
+      content: "";
+      display: block;
+      aspect-ratio: 16 / 10;
+      margin-top: 1rem;
+      border-radius: 12px;
+      background: var(--sl-color-gray-7) url("/teaser/poster.webp") 84% 55% / cover no-repeat;
+    }
+  }
+</style>

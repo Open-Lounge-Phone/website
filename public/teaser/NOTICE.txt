@@ -1,0 +1,6 @@
+The home page's 3D background (hero.js) uses:
+- three.js r128 (vendor/three.min.js, GLTFLoader.js, DRACOLoader.js): MIT, see vendor/LICENSE-three.txt
+- Google's Draco decoder (draco/): Apache-2.0, https://github.com/google/draco
+scene.glb is built from the Open Lounge Phone hardware sources by hardware/enclosure/teaser.py
+(OLP_TEASER_WEB=1) in the main repository; the handset is "Red Table Phone" by digitaldaydream
+(OpenGameArt, CC0).
