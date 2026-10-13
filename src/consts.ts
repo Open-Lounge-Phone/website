@@ -27,6 +27,17 @@ export const FUNDING: FundingConfig = {
   ),
 };
 
+/**
+ * The hub's monthly goal and what came in. Donations come in through GitHub Sponsors; the owner
+ * sets this month's total (FUNDING_RAISED_USD) and adds each finished month to `history`.
+ */
+export const MONTHLY = {
+  goalUsd: num("FUNDING_GOAL_USD", 150),
+  month: env("FUNDING_MONTH") ?? "2026-10",
+  raisedUsd: num("FUNDING_RAISED_USD", 0),
+  history: [{ month: "2026-09", raisedUsd: 150 }],
+};
+
 export const CREDIT = {
   text: "Proudly supported by unsubscribe.llc",
   url: "https://www.unsubscribe.llc/",

@@ -1,32 +1,47 @@
 ---
-// How far the public hub's donations go. Every number comes from fundingSummary() and the
-// build's configuration (src/consts.ts), never from hand-written text.
-import { formatCount, fundingSummary } from "../../main/packages/core/src/funding.ts";
-import { FUNDING, SPONSOR_URL } from "../consts.ts";
+// The public hub's monthly goal: what came in this month, what it pays for, past months. Every
+// number comes from the build's configuration (src/consts.ts) and peopleFor(), never hand-written.
+import { formatCount, peopleFor } from "../../main/packages/core/src/funding.ts";
+import { FUNDING, MONTHLY, SPONSOR_URL } from "../consts.ts";
 
 interface Props {
   /** `card`: a short box for the home page; `full`: the funding page's figures. */
   variant?: "card" | "full";
 }
 const { variant = "full" } = Astro.props;
-const s = fundingSummary(FUNDING);
 const usd = (n: number) => `$${formatCount(n)}`;
+const monthName = (ym: string) =>
+  new Date(`${ym}-15T12:00:00Z`).toLocaleString("en-US", { month: "long", year: "numeric", timeZone: "UTC" });
+const goal = MONTHLY.goalUsd;
+const raised = MONTHLY.raisedUsd;
+const pct = goal > 0 ? Math.min(100, Math.round((raised / goal) * 100)) : 0;
+const people = peopleFor({ ...FUNDING, balanceUsd: goal }, 1);
+const history = [...MONTHLY.history].sort((a, b) => b.month.localeCompare(a.month));
+const shown = variant === "full" ? history : history.slice(0, 1);
 ---
 
 <div class={`olp-funding olp-funding-${variant}`}>
-  <p class="olp-funding-lead"><strong>{usd(s.balanceUsd)}</strong> in funding</p>
+  <p class="olp-funding-lead">
+    <strong>{usd(raised)}</strong> of the <strong>{usd(goal)}</strong> monthly goal for {monthName(MONTHLY.month)}
+  </p>
+  <div class="olp-funding-bar" role="progressbar" aria-valuemin="0" aria-valuemax={goal} aria-valuenow={raised}
+    aria-label={`${usd(raised)} of ${usd(goal)} this month`}>
+    <span style={`width: ${pct}%`}></span>
+  </div>
   <ul>
-    <li>Every $1/month covers about <strong>{formatCount(s.peoplePerDollarPerMonth)} people</strong>.</li>
-    <li>
-      {usd(s.balanceUsd)} keeps the hub running for <strong>~{formatCount(s.peopleForAYear)} people for a
-      year</strong> (or ~{formatCount(s.peopleForSixMonths)} people for 6 months).
-    </li>
+    <li>{usd(goal)} a month keeps the hub running for <strong>~{formatCount(people)} people</strong>.</li>
+    {shown.map((h) => (
+      <li>
+        {monthName(h.month)}: {usd(h.raisedUsd)} raised{h.raisedUsd >= goal ? ", goal met" : ""}.
+      </li>
+    ))}
   </ul>
   {
     variant === "full" && (
       <p class="olp-funding-basis">
         Based on ${FUNDING.baseCostUsdPerMonth}/month for Cloudflare Workers Paid plus about $
-        {FUNDING.costPerActiveUserUsdPerMonth} per active person per month.
+        {FUNDING.costPerActiveUserUsdPerMonth} per active person per month. The count starts
+        again each month.
       </p>
     )
   }
@@ -49,6 +64,19 @@ const usd = (n: number) => `$${formatCount(n)}`;
   .olp-funding-lead {
     font-size: 1.25rem;
     margin: 0;
+  }
+  .olp-funding-bar {
+    height: 0.6rem;
+    margin: 0.6rem 0 0.2rem;
+    border-radius: 999px;
+    background: var(--sl-color-gray-6);
+    overflow: hidden;
+  }
+  .olp-funding-bar span {
+    display: block;
+    height: 100%;
+    border-radius: 999px;
+    background: var(--sl-color-accent);
   }
   .olp-funding-basis {
     font-size: var(--sl-text-sm);
