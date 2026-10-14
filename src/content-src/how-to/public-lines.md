@@ -42,6 +42,8 @@ Homes don't have public lines, and **kids' phones can never call one**.
 | **For at most … minutes, then** | The longest wait (30 seconds to an hour, 10 minutes by default), then **offer voicemail**, **forward** to another ring group or to one person, or **end the call**. |
 | **Show callers their place in line** | Off: callers hear "waiting in line" without a number. |
 | **Offer "Leave a voicemail instead"** | Callers may stop waiting and leave a message. |
+| **Offer "Call me back"** | Callers may hang up and keep their place; the line calls them back (on by default). |
+| **If they miss the call back** | **Try once more later, then offer voicemail**, or **offer voicemail** at once. |
 | **Callers can leave a message** | Off: no voicemail at all; an unanswered call simply ends. Messages go to the group's **shared voicemail box**. |
 | **Greeting** | The standard one, or **Record a greeting (30 s)** of your own. |
 | **Limits (calls per hour)** | **Each caller** and **Each other server**. Empty = the server's limits (10 and 300); a line can only be stricter. |
@@ -75,10 +77,25 @@ come, first served:
 As soon as a member is free, the line rings for the caller at the front. If nobody answers, they
 go back to their place. The longest wait and the longest line do what the line's settings say.
 
+## Call me back
+
+Nobody likes holding. While waiting, a caller can choose **Call me back** in the app (key **2**
+on a phone, which shows `1 VM 2 CALL BACK`). They hang up and keep their place in line for up to
+two hours (`PLACE KEPT` / `WE'LL CALL BACK`).
+
+When it's their turn and someone at the line is free, their app and their own phones ring:
+"Acme support is calling you back" (`ACME SUPPORT` / `CALLS YOU BACK` on a phone). Answering
+puts them through to the line in their place. If they decline or don't answer, the line tries
+once more when their turn comes again, then offers voicemail, or offers voicemail at once,
+whichever you chose. A line only ever rings someone who asked it to call back, and kids' phones
+can't call lines at all. It works for callers on other servers too, when their server knows how
+(servers that don't simply aren't offered it).
+
 ## Blocking and recent callers
 
 Under the line, **Recent callers** lists the last 100 calls: who (verified address), when, and
-how it went (answered, voicemail, missed, hung up, closed, line full, nobody free, refused). Next
+how it went (answered, voicemail, missed, hung up, call back, missed call back, call back
+expired, closed, line full, nobody free, refused). Next
 to each, **Block person** blocks that address and **Block server** blocks everyone on their
 server. Blocks cover all of the space's public lines and are listed under **Blocked from your
 public lines**, where **Unblock** lifts them. The server operator's own blocklist applies before
@@ -91,7 +108,8 @@ phone) answers exactly like a line that doesn't exist, so nobody can probe for l
 
 - Calls per hour from one address (10 by default) and from one other server's people (300 by
   default); members of the space aren't counted.
-- The queue: at most 50 callers, waiting at most an hour.
+- The queue: at most 50 callers, waiting at most an hour; a place kept for a call back lasts up
+  to two hours.
 - Recent callers follow the space's history setting (**Privacy**).
 - There's no connection to the regular phone network: callers need an Open Lounge Phone account
   (on any server, or the free hub).
