@@ -55,6 +55,7 @@ export default defineConfig({
             { slug: "how-to/rooms-and-3-way-calls" },
             { slug: "how-to/lounge-phone" },
             { slug: "how-to/workplace-phone-system" },
+            { slug: "how-to/public-lines" },
             { slug: "how-to/call-recording" },
           ],
         },
