@@ -14,8 +14,8 @@ are built so that different versions keep working together.
 
 | Part | Version | Released as | What changed |
 |---|---|---|---|
-| Server, companion app, browser phone, CLI | 0.3.0 (`server-v0.3.0`) | git tags `server-vX.Y.Z` | [Changelog: server and apps](/project/changelog/) |
-| Phone firmware | 0.9.1 | `fw-vX.Y.Z` releases (none published yet: build from source) | [Changelog: firmware](/project/firmware-changelog/) |
+| Server, companion app, browser phone, CLI | 0.4.0 (`server-v0.4.0`) | git tags `server-vX.Y.Z` | [Changelog: server and apps](/project/changelog/) |
+| Phone firmware | 0.9.2 | `fw-vX.Y.Z` releases (none published yet: build from source) | [Changelog: firmware](/project/firmware-changelog/) |
 | Labs firmware | 0.0.0 | built from source only (`firmware/labs/`) | [Labs firmware](/extend/labs/) |
 | Hardware | v0.1 (board rev A) | the [`hw-v0.1`](https://github.com/Open-Lounge-Phone/open-lounge-phone/releases/tag/hw-v0.1) release, with Gerbers, parts lists and a build guide | its release notes |
 | Device protocol | 1 | part of the server | [Wire protocol](/reference/protocol/) |
