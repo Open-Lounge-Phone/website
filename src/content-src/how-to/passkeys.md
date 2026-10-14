@@ -36,6 +36,22 @@ Passkeys remove that weakness:
 It also means the server needs no email address or phone number from you: no password resets, so
 nothing to reset them with.
 
+## Security keys (YubiKey and others)
+
+A security key is a passkey you can hold: a small USB, USB-C or NFC key such as a YubiKey. It's
+the strongest choice, and it's welcome everywhere you can use a passkey here:
+
+- **It can't be copied.** The passkey is made inside the key and never leaves it, so nothing on
+  your computer (not even malware) can take it.
+- **It needs you.** It only signs you in when you touch it, and when you've set a PIN on it,
+  only with that PIN.
+- **It works on any computer.** Plug it in or tap it on your phone; no fingerprint reader or
+  account with Apple, Google or Microsoft needed. Good for shared or older computers.
+
+Use a key that can store passkeys (look for **FIDO2**, such as the YubiKey 5 or Security Key
+series). Older keys that only do "U2F" can't, because accounts here have no username to type.
+Register two keys, or a key and your phone, and keep one somewhere safe.
+
 ## Making a passkey on any device
 
 When you create an account or add a passkey, your browser opens a window that offers the ways
