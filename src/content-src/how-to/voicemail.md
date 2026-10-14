@@ -49,11 +49,12 @@ server asks yours for it, and yours checks the connection first.
 
 ## A kid's phone's greeting
 
-Guardians find the same card on the phone's **Manage** page. The child can also record it on the
-phone itself: **MENU → Voicemail**, then **1** to record their name, **2** for a whole greeting
-(press **BACK** when done), or **3** for the standard greeting. The phone speaks the steps. To keep
-it in grown-up hands, turn off **Let the child record the greeting on the phone** — the phone then
-says "Ask a grown-up to change the greeting."
+Guardians find the same card on the phone's **Manage** page. On the browser phone the child can
+also record it on the phone itself: **MENU → Voicemail → 4 Greeting**, then **1** to record their
+name, **2** for a whole greeting (press **BACK** when done), or **3** for the standard greeting.
+The phone speaks the steps. (Recording the greeting on the hardware phone is planned.) To keep it in
+grown-up hands, turn off **Let the child record the greeting on the phone**: the phone then doesn't
+offer it.
 
 ## How long it's kept, and transcripts
 
