@@ -55,8 +55,8 @@ action applies.
 ## How people call a line
 
 - **The companion app:** **Connections → Call a public line**, type the address, **Call**.
-- **A personal (desk) phone:** on the phone's page in the app, under **Public lines**, add the
-  line's address with a label (**Add line**), then put it on a key. Lift the handset and press
+- **A personal (desk) phone:** on the phone's page in the app, under **Public lines and
+  add-ons**, add the line's address with a label (**Add**), then put it on a key. Lift the handset and press
   the key.
 - **A Lounge phone:** someone signed in at a [Lounge phone](/how-to/lounge-phone/) gets the
   lines that are on their own desk phone's keys. A line is always called as a person, so a

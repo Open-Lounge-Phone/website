@@ -14,6 +14,7 @@ where each kind of change lives in the
 | Make a key do something new | `firmware/labs/` | [Labs firmware](/extend/labs/), [its reference](/reference/labs-firmware/) |
 | Change how the phone behaves | `firmware/main/` and the browser phone in `apps/device-web/` | [The phone's screens, keys and sounds](/reference/phone-ux/), [Firmware](/reference/firmware/) |
 | Change the server or the apps | `packages/` and `apps/` | [Architecture](/reference/architecture/) |
+| Put a service on the line (an AI, a notes taker) | the add-on bridge, `sdk/python/` (Apache-2.0) | [Add-ons](/how-to/add-ons/), [reference](/reference/add-ons/) |
 | Write your own phone or app | — | [Wire protocol](/reference/protocol/) |
 | Write your own server that federates | — | [Federation spec](/reference/federation-spec/) |
 

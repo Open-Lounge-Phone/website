@@ -151,6 +151,14 @@ const SOURCES: Source[] = [
     order: 11,
     title: "The phone's screens, keys and sounds",
   },
+  {
+    from: "docs/add-ons.md",
+    slug: "reference/add-ons",
+    order: 12,
+    title: "Add-ons (reference)",
+    description:
+      "Add-ons as built: linking, who may talk to one, labels, the bridge's API, and the device messages and federation fields underneath.",
+  },
 ];
 
 /** Repo path -> site URL, for every page that will exist. */

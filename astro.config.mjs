@@ -81,6 +81,7 @@ export default defineConfig({
         {
           label: "Extend it",
           items: [
+            { slug: "how-to/add-ons" },
             { slug: "extend/labs" },
             { slug: "extend/make-it-yours" },
           ],
