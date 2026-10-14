@@ -22,13 +22,15 @@ Hardware is licensed under CERN-OHL-S-2.0.
 
 :::caution[Status]
 **Hardware v0.1 is an early dev board prototype** (silkscreen rev A, 156 × 88 mm, 2 layers, 53
-parts): the first boards, made by JLCPCB, are built and run the firmware. Expect a revision. The exact manufacturing files (Gerbers,
+parts): four phones on the first boards, made by JLCPCB, are built and working, running
+the experimental labs build (0.0.0), lightly tested so far. Expect a revision: we recommend trying a virtual phone first
+and waiting for board v1.0 before building your own. The exact manufacturing files (Gerbers,
 BOM/CPL, schematic and layer PDFs, STEP) and the build and flash guide are in the
 [hw-v0.1 release](https://github.com/Open-Lounge-Phone/open-lounge-phone/releases/tag/hw-v0.1).
 :::
 
 :::tip[Board v0.9: coming soon]
-Board v0.9 will be offered **fully assembled** or as a **bare PCB** to populate yourself. No price
+For tinkerers: board v0.9 will be offered **fully assembled** or as a **bare PCB** to populate yourself. No price
 or date yet. [Join the interest list](https://github.com/Open-Lounge-Phone/open-lounge-phone/discussions/1) and say which you'd want.
 :::
 

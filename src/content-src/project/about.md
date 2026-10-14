@@ -52,10 +52,11 @@ affiliated with or endorsed by Tin Can, and "Tin Can" is their trademark.
 | Connections across servers, the free public hub | works today; the hub is live at hub.openloungephone.app |
 | Lounge phones, rooms and 3-way calls, team and organization phone systems, call recording | works today in the apps and the browser phone |
 | One-command CLI, interop tests between servers and versions | done |
-| Phone firmware (ESP32-S3), 0.9.x | runs in a simulator; not yet tried on a board |
-| Labs firmware, 0.0.0 | tested on a computer; not yet tried on a board |
-| Circuit board, hardware v0.1 | early prototype: boards built and running the firmware |
-| Board v0.9, assembled or bare PCB | coming soon; no price or date |
+| Phone firmware (ESP32-S3), 0.9.x | end-to-end tests in a simulator; on the dev boards next |
+| Labs firmware, 0.0.0 | the experimental build on the v0.1 dev boards for now; lightly tested |
+| Circuit board, hardware v0.1 | early prototype: four phones built and working |
+| Board v0.9, assembled or bare PCB | coming soon for tinkerers; no price or date |
+| Board v1.0 | the one we'll recommend building |
 
 What changed and when: [versions and releases](/project/versions/). See the
 [introduction](/intro/) for the full picture and [contributing](/project/contributing/) to get

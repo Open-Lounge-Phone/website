@@ -49,9 +49,9 @@ published yet.
 ## Hardware
 
 Hardware releases are tagged `hw-vX.Y` and hold the exact files the boards were made from.
-**v0.1** is an early dev board prototype: the boards are built and run the firmware, so expect a
-revision.
-**Board v0.9** is coming soon, fully assembled or as a bare PCB; there's no price or date yet
+**v0.1** is an early dev board prototype: four phones are built and working on the experimental labs build
+(0.0.0), lightly tested so far. Expect a revision; we recommend waiting for board v1.0 before building.
+**Board v0.9** is coming soon for tinkerers, fully assembled or as a bare PCB; there's no price or date yet
 ([interest list](https://github.com/Open-Lounge-Phone/open-lounge-phone/discussions/1)).
 
 ## Which versions work together

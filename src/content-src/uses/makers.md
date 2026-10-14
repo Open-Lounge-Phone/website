@@ -27,9 +27,10 @@ it is published.
 
 ## Status
 
-The hardware is an early prototype: hardware v0.1 boards are built and run the firmware, so
-expect a revision. The labs build runs on the board too; most of its features are so far tested
-on a computer. Board v0.9 is coming, assembled or as a bare PCB.
+The hardware is an early prototype: four phones on hardware v0.1 dev boards are built and
+working, running the experimental labs build (0.0.0), lightly tested so far (full testing waits on
+the Wi-Fi antennas). Expect a revision. We recommend a virtual phone to start and board v1.0
+before building your own; board v0.9 is coming for tinkerers, assembled or as a bare PCB.
 
 ## Start
 
