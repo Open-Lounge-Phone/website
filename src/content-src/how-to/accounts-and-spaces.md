@@ -1,6 +1,6 @@
 ---
 title: Your account & spaces
-description: Creating an account with a passkey, your handle, households, teams and organizations, inviting people, and taking your data with you.
+description: Creating an account with a passkey, your recovery code, your handle, households, teams and organizations, owners, inviting people, leaving, and taking your data with you.
 sidebar:
   order: 2
 ---
@@ -22,12 +22,25 @@ face sign-in on your device? Use your phone, a security key or a password manage
 second passkey under **Account → Your passkeys → Add a passkey**, so losing one device doesn't
 lock you out.
 
+Right after your account is made, the app shows your **recovery code** once. Print it or keep it
+in a password manager, then type its last four characters to show you saved it. If you ever lose
+every passkey, **Lost your passkey?** on the sign-in screen takes your handle and this code. See
+[Your recovery code](/how-to/passkeys/#your-recovery-code).
+
+## Where you're signed in
+
+**Account → Where you're signed in** lists each browser and app signed in to your account. Sign
+one out, or choose **Sign out everywhere else** (for a lost phone, say). Signing out closes that
+app at once. Sessions you keep using stay signed in until 90 days after you last used them.
+
 ## Your handle and address
 
 When you sign up you pick a **handle**, which becomes your address: `ana@hub.openloungephone.app`.
 It's how people [connect with you](/how-to/connections/). You can change it once a day; your old
 handle stays reserved for you for 90 days so nobody can take it over while your connections
-catch up. Your **display name** is separate: it's what appears on phones' keys and screens.
+catch up. Your **name** (Account → Change name) is what your connections see; each household or
+team shows its own name for you on its phones' keys, which its guardians or admins can change on
+their **People** page (**Rename**).
 
 ## Spaces: households, teams and organizations
 
@@ -49,15 +62,31 @@ household** or a team or organization from the same place.
 ## Inviting people
 
 Use **Invite someone** (or **Invite a co-guardian**) to create an invite link. It works once and
-expires after 7 days. The person opens it, signs in or creates an account, and joins.
+expires after 7 days. The person opens it and joins: as someone new, or, if they already have an
+account on the server, as themselves (the link offers to sign in first). Already in the space?
+The link says so. Guardians and admins see the links not used yet under **People → Links not used
+yet**, and can cancel them.
+
+A **sign-in link** (People → Sign-in link) signs an existing person in on a new device without a
+passkey: for someone who lost theirs and has no recovery code. It works only for someone whose
+only household or team on the server is yours, and a new one cancels the old.
 
 Who can do what depends on the space:
 
 - **In a household**, a **guardian** manages phones, people, quiet hours and privacy; a
   **contact** can call the phones they're allowed on (grandparents, a babysitter).
-- **In a team or organization**, the person who created it is the **owner**; **admins** manage
-  phones, groups, hours and lines; **members** call and are called. Only the owner makes or
-  removes admins (**Make admin**, **Make member**).
+- **In a team or organization**, **admins** manage phones, groups, hours and lines; **members**
+  call and are called.
+
+## Owners
+
+Every household, team and organization has one **owner**: whoever made it, until they hand it on.
+Only the owner changes roles (**Make guardian** / **Make contact** in a household, **Make admin**
+/ **Make member** in a team), and nobody else can remove the owner or send them a sign-in link.
+
+To hand it on, the owner opens **People** and chooses **Make owner** next to another guardian
+(an admin in a team), then confirms. Someone who's a contact must be made a guardian first. The
+old owner stays a guardian or admin. Changes like this show in the space's **Changes**.
 
 People who are already connected with you on other servers don't need to join your space at
 all: you can put them on a phone's list directly (see
@@ -86,12 +115,19 @@ It never holds what anyone said or wrote: not a notice's text, not voicemail, no
 
 ## Leaving and taking your data
 
-- **Leave** a space from its page; you keep your account and your other spaces.
+- **Leave** a household or team from **Account → Leave**; you keep your account and your other
+  spaces. The owner hands it to someone else first; an owner who's alone in it can leave, and that
+  deletes it with its phones. If it's your only space on the server, delete your account instead.
+- **Removed by a guardian or admin?** If it was your only space there, removing you deletes your
+  account (your connections are told, and you'd need a new invite to come back); otherwise you
+  keep your other spaces. The app says which before they confirm.
 - **Your data → Download my data** gives you everything the server holds about you: your account, your
   connections, your call history and your voicemail, as files you can read
   ([what's in it](/reference/export/)).
-- **Your data → Delete my account** removes your account and its data from this server. Your
-  connections are told you've left, and your handle stays reserved for 90 days.
+- **Your data → Delete my account** removes your account and its data from this server. Households
+  and teams where you're the only person are deleted with it (their phones are wiped). One you own
+  that other people are in must be handed on first; the app lists them. Your connections are told
+  you've left, you're signed out everywhere, and your handle stays reserved for 90 days.
 
 ## On the public hub
 

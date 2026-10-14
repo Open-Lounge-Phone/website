@@ -1,6 +1,6 @@
 ---
 title: Passkeys
-description: Why accounts use passkeys instead of passwords, how to make one on any device (your phone, a security key or a password manager), and how not to get locked out.
+description: Why accounts use passkeys instead of passwords, how to make one on any device (your phone, a security key or a password manager), your recovery code, and signing out lost devices.
 sidebar:
   order: 3
 ---
@@ -66,17 +66,63 @@ your device supports. If yours has no fingerprint or face sign-in, any of these 
 
 Passkeys need a recent browser (Safari, Chrome, Edge or Firefox) and a server address that starts
 with `https`. If the app says "This browser can't use passkeys here", open the page in another
-browser or on your phone.
+browser or on your phone. If it says "this server's address doesn't match", you opened the server
+at a different address than the one its passkeys belong to: use the address it names.
+
+Signed in on a computer with your phone's passkey (by QR code)? The app then offers to add a
+passkey on the computer too, so it can sign you in by itself next time. Skipping is fine.
+
+If you join with an invite on a device that can't make a passkey, the app says so with a lasting
+note: that device stays signed in for 90 days and then signs you out. Add a passkey before then
+(on any device) or keep your recovery code.
 
 ## Don't get locked out
 
 - **Add a second passkey.** In the app, open **Account → Your passkeys → Add a passkey** on
   another device, or with a security key. Passkeys kept in iCloud Keychain, Google Password Manager
   or another password manager also follow you to your other devices.
-- **Lost all of them?** Someone who manages your household or team can send you a new **sign-in
-  link** from the **People** page. Open it and add a new passkey.
-- **On your own, with no second passkey?** Then there's no way back in. That's the trade for
-  having no password that could be stolen or reset by someone else, so add a second passkey now.
+- **Keep your recovery code.** You get one when your account is made, shown once. Print it, or
+  keep it in a password manager. If you have none (older accounts), the app reminds you: make one
+  under **Account → Recovery code**. Making a new one stops the old one working.
 
-You can see and remove your passkeys under **Account → Your passkeys**. Remove one when you lose
-the device it was on.
+## Your recovery code
+
+The recovery code is 28 letters and digits in groups of four, like
+`ABCD-EFGH-JKLM-NPQR-STUV-WXYZ-2345`. With your handle, it gets you back in when every passkey
+is lost:
+
+1. On the sign-in screen choose **Lost your passkey?** (or open your server's address with
+   `/#recover` at the end).
+2. Enter your handle and the code.
+3. Make a new passkey on this device. The old code is now used up.
+4. You get a **new** recovery code: save it the same way.
+5. Leave **Sign out everywhere else** on (the default) if a device was lost or someone else might
+   have your passkey.
+
+Keep it private: **anyone with your handle and this code can get into your account.** The server
+keeps only a scrambled version of it, so it can't show it to you again, and it's never in any log
+or download. A recovery is noted in the change history of each of your households and teams, and
+your other open apps are told, so you'd notice one that wasn't you. Wrong tries are limited, so
+nobody can guess it. There's no email or "contact us" recovery: the code is the way back.
+
+**No code either?** If your account is only in one household or team, someone who manages it can
+send you a **sign-in link** from the **People** page; open it and add a new passkey. A sign-in
+link can't be made for someone who's also in other households or teams (it would open those too),
+nor by others for the space's owner.
+
+## Removing a passkey, and signing out a lost device
+
+You can see and remove your passkeys under **Account → Your passkeys**. Removing one is
+confirmed first. Your last passkey can go only if you have a recovery code, and then you'll need
+the code to sign in again.
+
+**Removing a passkey doesn't sign a lost device out.** A phone or computer that is already signed
+in stays signed in until you end its session. After removing a passkey the app offers **Sign out
+everywhere else**; you can also do it any time:
+
+- **Account → Where you're signed in** lists every browser and app signed in to your account,
+  when and how it signed in (a passkey, an invite, a sign-in link, the recovery code) and when it
+  was last used. **Sign out** ends one; **Sign out everywhere else** ends all but this one. Their
+  open app closes at once.
+- A session you keep using lasts until 90 days after you last used it. One that no passkey backs
+  ends 90 days after it started, and the app shows the date.
