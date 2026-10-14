@@ -16,9 +16,11 @@ server prints when it starts; after that, people join with invite links (or sign
 server's owner turned that on).
 
 There are **no passwords**. You sign in with a **passkey**: the fingerprint, face or PIN unlock
-your phone or computer already uses. Nothing to remember, nothing to phish. Add a passkey on
-every device you use under **Your passkeys** (**Add a passkey on this device**), so losing one
-device doesn't lock you out.
+your phone or computer already uses. Nothing to remember, nothing to phish. No fingerprint or
+face sign-in on your device? Use your phone, a security key or a password manager instead:
+[Passkeys](/how-to/passkeys/) explains how, and why passkeys are safer than passwords. Add a
+second passkey under **Account → Your passkeys → Add a passkey**, so losing one device doesn't
+lock you out.
 
 ## Your handle and address
 
