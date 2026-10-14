@@ -26,7 +26,7 @@ Homes don't have public lines, and **kids' phones can never call one**.
    > every call, and you can block people and whole servers.
 
    Press **Make it public** to turn it on. Turning a line on or off, changing it and blocking
-   callers all show up in the space's **Audit trail**.
+   callers all show up in the space's list of changes (**Settings → Changes**).
 
 **Remove the line** frees its address; the ring group itself stays.
 
@@ -58,10 +58,9 @@ action applies.
 - **A personal (desk) phone:** on the phone's page in the app, under **Public lines**, add the
   line's address with a label (**Add line**), then put it on a key. Lift the handset and press
   the key.
-- **A Lounge phone:** a [house-line key](/how-to/lounge-phone/) can call a public line while
-  nobody is signed in. The line sees the phone's name with the space owner's address, and the
-  phone can wait in line but can't leave a voicemail. Someone signed in at a Lounge phone gets
-  the lines that are on their own desk phone's keys.
+- **A Lounge phone:** someone signed in at a [Lounge phone](/how-to/lounge-phone/) gets the
+  lines that are on their own desk phone's keys. A line is always called as a person, so a
+  Lounge phone with nobody signed in can't call one (it shows `SIGN IN TO CALL`).
 
 The members the line rings see the caller's **verified address** (`ann@far.example`, vouched for
 by their server) along with the name, and which line was called.
@@ -87,8 +86,10 @@ When it's their turn and someone at the line is free, their app and their own ph
 "Acme support is calling you back" (`ACME SUPPORT` / `CALLS YOU BACK` on a phone). Answering
 puts them through to the line in their place. If they decline or don't answer, the line tries
 once more when their turn comes again, then offers voicemail, or offers voicemail at once,
-whichever you chose. A line only ever rings someone who asked it to call back, and kids' phones
-can't call lines at all. It works for callers on other servers too, when their server knows how
+whichever you chose. A call back nobody answered shows on the caller's own phones as a missed
+call, `MISSED CALL BACK` / the line's name, until they clear it (MENU 2, then 3), call the line,
+or answer its next call back. A line only ever rings someone who asked it to call back, and
+kids' phones can't call lines at all. It works for callers on other servers too, when their server knows how
 (servers that don't simply aren't offered it).
 
 ## Blocking and recent callers

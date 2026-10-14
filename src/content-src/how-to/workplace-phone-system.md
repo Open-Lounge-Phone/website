@@ -67,7 +67,9 @@ over. (A kids' phone is never transferred: its own server ends the call instead.
 ## Call log and audit trail
 
 Admins find **Admin → Call log** (every call in the space, with **Export CSV**) and **Admin →
-Audit trail** (who changed what: extensions, groups, hours, roles, invites, phones, privacy).
-Both are kept as long as the space's history setting (**Privacy**).
+Audit trail**, also under **Settings → Changes** (who changed what: extensions, groups, hours,
+roles, invites, phones, privacy, the space's name and time zone; never what anyone said or
+wrote). Both are kept as long as the space's history setting (**Privacy**). The owner and admins
+can rename the space and change its time zone under **Settings**; business hours follow.
 
 More detail: [Team and org spaces](/reference/workplace/).

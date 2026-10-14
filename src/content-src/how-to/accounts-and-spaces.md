@@ -61,12 +61,26 @@ People who are already connected with you on other servers don't need to join yo
 all: you can put them on a phone's list directly (see
 [Connections](/how-to/connections/#putting-a-connection-on-a-kids-phone)).
 
-## Privacy in your space
+## Your space's settings
 
-Guardians and admins set, under **Privacy in this space**, how long call history is kept and
-whether voicemail is transcribed. Each person can also choose, per connection, how long your
-shared history is kept (**Keep our history**). See [Privacy](/project/privacy/) for what the
-server stores and for how long.
+Open **Settings** to see the space's name and time zone. In a household any guardian can change
+them; in a team or organization the owner and admins can. Everyone else sees them.
+
+- **Name** — shown at the top of the app and on the phones.
+- **Time zone** — everything that follows a clock uses it: quiet hours, business hours and the
+  hours of public lines and party lines, the end of the day for Lounge phones, and the clock on
+  the phones' screens. After a change the phones get the new time straight away.
+
+**Privacy in this space**, on the same page, sets how long call history is kept and whether
+voicemail is transcribed. Each person can also choose, per connection, how long your shared
+history is kept (**Keep our history**). See [Privacy](/project/privacy/) for what the server
+stores and for how long.
+
+**Changes** lists who changed what in the space, and when: phones added or removed, who a kid's
+phone can call and its keys, quiet hours, invites, privacy, notices, the name and time zone, and
+more. Only a household's guardians, or a team's owner and admins, can see it. Nobody can edit or
+delete it; entries are removed only when they're older than the space keeps its call history.
+It never holds what anyone said or wrote: not a notice's text, not voicemail, not recordings.
 
 ## Leaving and taking your data
 

@@ -21,8 +21,9 @@ data.
   when; nothing about the calls.
 - **Open to chat.** Guests can show they're up for a chat, and idle phones can show who's here.
 - **House-line keys.** While nobody is signed in, keys can ring the bar, reception or a staff
-  group, first to answer takes it, or a [public line](/how-to/public-lines/) such as a taxi
-  company's. Or leave it dead until someone signs in (the default).
+  group, first to answer takes it. Or leave it dead until someone signs in (the default).
+  Guests who sign in can call [public lines](/how-to/public-lines/) such as a taxi company's
+  from their own keys.
 - **Be reachable.** The venue can publish its own public line (`bar@your.server`) that guests
   call from anywhere, with a queue and voicemail.
 

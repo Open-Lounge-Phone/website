@@ -39,7 +39,8 @@ itself never has an address, so nobody can knock on it.
 ## Quiet hours
 
 Open **Quiet hours** and add windows, for example school nights 20:30–07:00 or school hours.
-Windows can run past midnight. During quiet hours:
+Windows can run past midnight, and the times are in your household's time zone (change it under
+**Settings** if you move; the phones follow straight away). During quiet hours:
 
 - the phone doesn't ring — approved callers go straight to its greeting and can **leave a
   voicemail**, which guardians get with a transcript (see [Voicemail & greetings](/how-to/voicemail/));

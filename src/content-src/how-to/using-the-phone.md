@@ -40,7 +40,8 @@ Lift the handset to answer. If you don't, the caller may be offered your voicema
 
 **If a call doesn't go through,** the screen says why, so nobody has to guess: `BUSY`,
 `NO ANSWER`, `DECLINED`, `UNAVAILABLE`, `NOT ALLOWED` (that person isn't on this phone's list) or
-`CALL FAILED`. Press another key to try someone else.
+`CALL FAILED`. Press another key to try someone else. On a Lounge phone nobody is signed in to,
+a public line says `SIGN IN TO CALL`: only someone signed in can call one.
 
 **Leaving a message:** when someone doesn't answer and voicemail is on, you'll see
 `LEAVE A MESSAGE`, then hear a beep. Speak after it and hang up to send it (up to 2 minutes).
@@ -67,6 +68,7 @@ you'll see often:
 | `READY 14:05` / `ANA'S PHONE` | Ready, with the time and whose phone it is (`KIDS: SMITHS`, `LOUNGE: STUDIO`) |
 | `MISSED MOM` / `PLAY IN APP` | A missed call with a message waiting. On a kids' phone: `ASK A GROWN-UP` |
 | `3 MISSED CALLS` | Several missed calls; the names take turns |
+| `MISSED CALL BACK` / `ACME SUPPORT` | A [public line](/how-to/public-lines/#call-me-back) called you back and nobody answered |
 | `QUIET TIL 07:00` | Quiet hours: it won't ring until then |
 | `IN CALL 01:23` / name | In a call (`REC 01:23` if the call is being recorded) |
 | `OFFLINE` / `RECONNECTING` | Wi-Fi or the server dropped out; it keeps trying by itself |
