@@ -49,6 +49,9 @@ export default defineConfig({
         {
           label: "Use it",
           items: [
+            { slug: "how-to/using-the-phone" },
+            { slug: "how-to/accounts-and-spaces" },
+            { slug: "how-to/connections" },
             { slug: "how-to/pair-a-phone" },
             { slug: "how-to/family-and-quiet-hours" },
             { slug: "how-to/voicemail" },
