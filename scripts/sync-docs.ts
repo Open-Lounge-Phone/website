@@ -159,6 +159,14 @@ const SOURCES: Source[] = [
     description:
       "Add-ons as built: linking, who may talk to one, labels, the bridge's API, and the device messages and federation fields underneath.",
   },
+  {
+    from: "docs/notices.md",
+    slug: "reference/notices",
+    order: 13,
+    title: "Notices",
+    description:
+      "Short messages from a space to its phones: who posts them, how phones show and play them, and how they stay inside the space.",
+  },
 ];
 
 /** Repo path -> site URL, for every page that will exist. */
