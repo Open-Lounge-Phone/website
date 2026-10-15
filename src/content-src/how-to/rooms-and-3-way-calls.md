@@ -47,13 +47,24 @@ During a call:
   just called, and you step out.
 - **Transfer** hands your call to someone else right away: they ring the new person as
   themselves.
+- **Mute** (or the **M** key) stops your microphone until you unmute. A small meter shows your
+  microphone's level; if it stays silent for a few seconds while you're not muted, the app says
+  so, so you can check the microphone isn't muted or blocked. **Audio** picks the microphone and,
+  in browsers that allow it, the speaker (the app remembers them), and sets how loud the other
+  person is.
+- If the connection drops, the call says **Reconnecting…** while it's restored, and **Poor
+  connection** while the audio is choppy. A call that can't be restored within about 20 seconds
+  ends with "The connection was lost".
+- A second call while you're in one shows a banner: **Answer & hold this call** puts this call on hold and
+  answers, **Decline** sends the caller to voicemail.
 
 On a phone it's all on **MENU**: during a call, **MENU → 1 Add caller**, press a speed-dial key,
 then when they answer **MENU → 1 Merge** (or **2 Transfer** to connect them and leave). The phone
 says what's happening ("Choose who to add, then press menu to merge", "You're all together now").
-That's the browser phone. A hardware phone carries one call's audio at a time, so its call
-screen has **1 Hold** / **Resume**, **2 Transfer** (then press the key of who gets the call) and
-**9 Volume**; adding a caller and merging are done from the app.
+**MENU → 3** mutes and unmutes, **9** is the volume. That's the browser phone. A hardware phone
+carries one call's audio at a time, so its call screen has **1 Hold** / **Resume**,
+**2 Transfer** (then press the key of who gets the call), **3 Mute** and **9 Volume**; adding a
+caller and merging are done from the app.
 
 Kid-safety still holds: a kid's phone is never merged or transferred to someone who isn't on its
 list, and a transfer only rings people the transferred person could call themselves.
