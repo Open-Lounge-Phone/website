@@ -255,8 +255,14 @@ magnetics, and an isolated 802.3af PoE module kept 3 mm from the rest of the boa
 one board with no I/O expander: the Ethernet chip shares the display's wires.
 
 It's designed and checked (schematic checks, power budget, full layout with zero design-rule
-errors, case fit), but **not built or tested yet**, and the phone firmware doesn't drive the
-Ethernet chip yet. Parts come to about $18 a board.
+errors, case fit), but **not built or tested yet**. Phone firmware 0.9.5 (build it from source)
+drives the Ethernet chip: with a cable it uses the cable and turns Wi-Fi off, and without one it
+uses Wi-Fi; tested in the simulator so far, not on a board. Parts come to about $18 a board.
+
+**Power:** one Ethernet cable from a PoE switch port or a PoE injector (IEEE 802.3af or 802.3at)
+runs the whole phone, network and power together, up to 100 m. Or use a USB-C charger. A
+computer's USB port is for flashing and the console only, with the PoE cable plugged in too.
+"Passive" 24 V PoE injectors won't power it.
 
 <figure class="board-hero">
   <a href="/hardware/v0901/schematic-ethernet.png">
