@@ -87,7 +87,7 @@ When it's their turn and someone at the line is free, their app and their own ph
 puts them through to the line in their place. If they decline or don't answer, the line tries
 once more when their turn comes again, then offers voicemail, or offers voicemail at once,
 whichever you chose. A call back nobody answered shows on the caller's own phones as a missed
-call, `MISSED CALL BACK` / the line's name, until they clear it (MENU 2, then 3), call the line,
+call, `MISSED CALL BACK` / the line's name, until they clear it (MENU 5, then 3), call the line,
 or answer its next call back. A line only ever rings someone who asked it to call back, and
 kids' phones can't call lines at all. It works for callers on other servers too, when their server knows how
 (servers that don't simply aren't offered it).

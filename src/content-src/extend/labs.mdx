@@ -9,11 +9,15 @@ The labs firmware is the phone firmware plus a set of experiments. It's built se
 the phone's own firmware (the 0.9 line), so the phone stays as it is, and you can switch between
 the two over USB at any time: your settings are kept.
 
+The experiments that proved themselves are in the phone firmware now: the
+[house intercom, the chime and the daily check-in](/how-to/using-the-phone/#home-features),
+turned on per phone in the app. Labs builds on them.
+
 <Aside type="caution" title="Status: tested on a computer, not yet on a board">
-  The settings, the intercom's logic (room to room, all rooms, busy, doorbell, chime), the
-  check-in schedule and the server's check-in alert are tested on a computer, and the firmware
-  runs on the board (its screens and settings page). The intercom between two boards, Home
-  Assistant, the USB keyboard and stories still need trying on hardware.
+  The settings, the intercom's logic (room to room, all rooms, busy, doorbell, chime) and the
+  check-in are tested on a computer, and the firmware runs on the board (its screens and settings
+  page). The intercom between two boards, Home Assistant, the USB keyboard and stories still need
+  trying on hardware.
 </Aside>
 
 ## What it does
@@ -22,19 +26,18 @@ the two over USB at any time: your settings are kept.
   <Card title="House intercom" icon="random">
     A key rings another room: lift, press "Kid's room", talk. "All" rings every room and the
     first to lift answers. Phones talk straight to each other on your Wi-Fi: no server, no
-    internet.
+    internet. Uses the phone's own intercom, so turn it on for the phone in the app.
   </Card>
   <Card title="Doorbell or front desk" icon="approve-check-circle">
     A phone by the door: its key (or, in doorbell mode, any key) rings the phones inside with the
     door's name. Whoever lifts talks to whoever is at the door.
   </Card>
   <Card title="Dinner's ready" icon="star">
-    One key and every phone in the house beeps and shows the words.
+    One key and every phone on the intercom beeps and shows the words.
   </Card>
   <Card title="Daily check-in" icon="heart">
-    For an elder living alone: press key 1, "I'm OK", each day. If it isn't pressed by the time
-    set, every guardian gets an alert in their voicemail inbox and their phones show it missed.
-    Reminders such as `08:30 PILLS` show until a key is pressed. Needs the phone's server.
+    Reminders such as `08:30 PILLS` show until a key is pressed, and a key can be "I'm OK" for
+    the phone's daily check-in (its time is set in the app).
   </Card>
   <Card title="Home panel" icon="setting">
     A key calls a Home Assistant service (lights off, a scene), and the idle screen can show a
@@ -63,17 +66,19 @@ firmware/labs/labs.sh build     # build
 firmware/labs/labs.sh flash     # build and flash the board on USB
 ```
 
-Then on the phone press **MENU**, then **5 LABS**: it shows the phone's address (for example
+Then on the phone press **MENU**, then **4 LABS** (or **3**, then **2**, when 4 is the phone's
+intercom or chime): it shows the phone's address (for example
 `OLP-KITCHEN.LOCAL`) and a PIN. Open that address in a browser on the same Wi-Fi, enter the PIN,
-and set the room name, the mode, what each key does, Home Assistant, the check-in time and the
+and set the room name, the mode, what each key does, Home Assistant, the reminders and the
 doorbell. Keys you leave as "phone" stay the server's speed-dial keys.
 
 To go back to the regular phone firmware, flash it from `firmware/` the usual way.
 
 ## Good to know
 
-- The intercom, doorbell and chime are for your own home network: anyone on that Wi-Fi can ring
-  a room, and their audio isn't encrypted. Calls through a server are.
+- The intercom, doorbell and chime work on your own home network, among phones of the same
+  household with the intercom on: their messages are signed and their audio is encrypted with
+  the household's intercom key, which the phones get from their server once.
 - The Home Assistant token is write-only: the settings page never shows it again.
 - In macro-pad mode the USB port is a keyboard, so the USB console is off and flashing may need
   the BOOT button held.
