@@ -246,6 +246,58 @@ Files: [hardware v0.1 release](https://github.com/Open-Lounge-Phone/open-lounge-
 (Gerbers, parts list, build guide) · [hardware folder](https://github.com/Open-Lounge-Phone/open-lounge-phone/tree/main/hardware)
 (schematic, KiCad layout, box).
 
+### Board v0.901: wired network and PoE (in design)
+
+The next board revision adds an **RJ45 jack**, so the phone can run on a network cable instead of
+Wi-Fi, and **PoE**: one cable for network and power, like a desk phone. USB-C still works, and
+either one powers the phone. It adds a WIZnet W5500 Ethernet chip, a jack with built-in
+magnetics, and an isolated 802.3af PoE module kept 3 mm from the rest of the board. It's still
+one board with no I/O expander: the Ethernet chip shares the display's wires.
+
+It's designed and checked (schematic checks, power budget, full layout with zero design-rule
+errors, case fit), but **not built or tested yet**, and the phone firmware doesn't drive the
+Ethernet chip yet. Parts come to about $18 a board.
+
+<figure class="board-hero">
+  <a href="/hardware/v0901/schematic-ethernet.png">
+    <img
+      class="screenshot"
+      src="/hardware/v0901/schematic-ethernet.png"
+      alt="Schematic page: the W5500 Ethernet chip with its pins and nets, the HR871150C RJ45 jack with PoE taps and LEDs, the 3.3 V regulator, the 25 MHz crystal and the list of resistors and capacitors"
+      loading="lazy"
+    />
+  </a>
+  <figcaption>Ethernet: the W5500 on the display's SPI wires, its own 3.3 V regulator, and the RJ45 jack's magnetics, centre tap and LEDs.</figcaption>
+</figure>
+
+<div class="board-pics">
+  <figure>
+    <a href="/hardware/v0901/schematic-poe.png">
+      <img
+        class="screenshot"
+        src="/hardware/v0901/schematic-poe.png"
+        alt="Schematic page: two bridge rectifiers from the RJ45's PoE pairs, a 58 V TVS diode, the DP9900LP-5V isolated PoE module and the Schottky diode into the 5 V rail"
+        loading="lazy"
+      />
+    </a>
+    <figcaption>PoE: both cable pair options through bridges and a surge diode into the isolated 5 V module, then a diode into the shared 5 V rail.</figcaption>
+  </figure>
+  <figure>
+    <a href="/hardware/v0901/schematic-overview.png">
+      <img
+        class="screenshot"
+        src="/hardware/v0901/schematic-overview.png"
+        alt="Schematic overview page: the board's blocks, the power tree from USB-C and PoE, and the ESP32-S3 GPIO map"
+        loading="lazy"
+      />
+    </a>
+    <figcaption>Overview: the blocks, the power tree (USB-C or PoE, each through a diode, into one 5 V rail) and the GPIO map.</figcaption>
+  </figure>
+</div>
+
+Generated from the schematic code; the full review is [one PDF](/hardware/v0901/schematic-v0901.pdf)
+with a page for every block.
+
 ### Board v0.9: coming soon
 
 <Aside type="tip" title="Pre-order, coming soon">
