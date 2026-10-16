@@ -79,7 +79,8 @@ jobs:
 
       - name: No deploy token
         if: steps.go.outputs.run == 'true' && env.CLOUDFLARE_API_TOKEN == ''
-        run: echo "::warning::Built and checked, not deployed: add the CLOUDFLARE_API_TOKEN and CLOUDFLARE_ACCOUNT_ID secrets."
+        run: |
+          echo "::warning::Built and checked, not deployed. Add the CLOUDFLARE_API_TOKEN and CLOUDFLARE_ACCOUNT_ID secrets."
 
       - name: Remember what was published
         if: steps.go.outputs.run == 'true' && env.CLOUDFLARE_API_TOKEN != ''
