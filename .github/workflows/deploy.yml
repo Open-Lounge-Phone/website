@@ -1,0 +1,92 @@
+# The site follows the main repository's `main` branch (docs, guides, versions) and shows the
+# public hub's live version. It rebuilds and deploys when this repository changes, when asked, and
+# every hour, deploying only when something changed: this repository, the main repository's
+# `main`, or the hub's version.
+#
+# Needs two repository secrets: CLOUDFLARE_API_TOKEN (a token that may edit Workers scripts on the
+# account that has openloungephone-site) and CLOUDFLARE_ACCOUNT_ID. Without them it still builds
+# and checks the links, and says it skipped the deploy.
+name: Deploy
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+  schedule:
+    - cron: "23 * * * *"
+
+concurrency:
+  group: deploy
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    env:
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: true
+
+      - name: The main repository's latest main
+        run: git -C main fetch --quiet --tags origin main && git -C main checkout --quiet --detach FETCH_HEAD
+
+      - name: What this build would publish
+        id: what
+        run: |
+          hub=$(curl -s --max-time 8 https://hub.openloungephone.app/api/health \
+            | sed -n 's/.*"software":"[^"/]*\/\([^"]*\)".*/\1/p')
+          echo "key=site-${GITHUB_SHA}-$(git -C main rev-parse HEAD)-hub-${hub:-unknown}" >> "$GITHUB_OUTPUT"
+
+      - name: Already published?
+        id: done
+        uses: actions/cache/restore@v4
+        with:
+          path: .deployed
+          key: ${{ steps.what.outputs.key }}
+          lookup-only: true
+
+      - name: Decide
+        id: go
+        run: |
+          if [ "${{ steps.done.outputs.cache-hit }}" = "true" ] && [ "${{ github.event_name }}" = "schedule" ]; then
+            echo "run=false" >> "$GITHUB_OUTPUT"; echo "Nothing changed since the last deploy."
+          else
+            echo "run=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - if: steps.go.outputs.run == 'true'
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - if: steps.go.outputs.run == 'true'
+        run: npm ci
+
+      - name: Build (sync from main, Astro, link check)
+        if: steps.go.outputs.run == 'true'
+        run: npm run build
+
+      - name: Deploy
+        if: steps.go.outputs.run == 'true' && env.CLOUDFLARE_API_TOKEN != ''
+        run: npx wrangler deploy
+
+      - name: No deploy token
+        if: steps.go.outputs.run == 'true' && env.CLOUDFLARE_API_TOKEN == ''
+        run: echo "::warning::Built and checked, not deployed: add the CLOUDFLARE_API_TOKEN and CLOUDFLARE_ACCOUNT_ID secrets."
+
+      - name: Remember what was published
+        if: steps.go.outputs.run == 'true' && env.CLOUDFLARE_API_TOKEN != ''
+        run: mkdir -p .deployed && echo "${{ steps.what.outputs.key }}" > .deployed/key
+
+      - if: steps.go.outputs.run == 'true' && env.CLOUDFLARE_API_TOKEN != ''
+        uses: actions/cache/save@v4
+        with:
+          path: .deployed
+          key: ${{ steps.what.outputs.key }}

@@ -5,8 +5,15 @@
 // - Repository docs get Starlight frontmatter (title from their first "# " heading, which is
 //   removed so it isn't shown twice) and have relative links rewritten to site URLs; links to
 //   repository files that aren't published on the site point at the repository on GitHub.
-// - Hand-written pages live in src/content-src/ and are copied as-is (links rewritten the same way).
+// - Hand-written pages are copied as-is (links rewritten the same way) from two places: the
+//   product's guides in the repository's docs/site/ (how-tos, getting started: they change with the
+//   code they describe), and the website's own pages in src/content-src/ (home, uses, funding).
 // - Images referenced by the docs are copied to public/images/.
+// - The site follows the main repository's `main` branch: each build fetches it first (set
+//   OLP_DOCS_PINNED=1 to build from the submodule's recorded commit instead).
+// - Hand-written pages can use {{facts}} worked out at build time (see FACTS): versions from the
+//   repository and the public hub's live version, so no page carries a hand-typed number.
+import { execFileSync } from "node:child_process";
 import {
   cpSync,
   existsSync,
@@ -35,6 +42,8 @@ const SITE_URL = "https://openloungephone.app";
 const OUT = join(SITE, "src/content/docs");
 const IMAGES_OUT = join(SITE, "public/images");
 const HANDWRITTEN = join(SITE, "src/content-src");
+/** The product's guides, in the repository, with Starlight frontmatter of their own. */
+const REPO_PAGES = join(REPO, "docs/site");
 
 interface Source {
   /** Path relative to the repository root. */
@@ -271,7 +280,62 @@ function walk(dir: string): string[] {
   });
 }
 
-export function sync(): { pages: number; images: number; skipped: string[] } {
+/** Moves main/ to the latest `main` of the repository (with its tags). Offline: keeps what's there. */
+export function followMain(): string {
+  if (process.env.OLP_DOCS_PINNED === "1") return "pinned";
+  try {
+    execFileSync("git", ["-C", REPO, "fetch", "--quiet", "--tags", "origin", "main"], { stdio: "pipe" });
+    execFileSync("git", ["-C", REPO, "checkout", "--quiet", "--detach", "FETCH_HEAD"], { stdio: "pipe" });
+    return "latest main";
+  } catch (e) {
+    console.warn(`couldn't fetch the repository's main (${(e as Error).message.split("\n")[0]}); using main/ as it is`);
+    return "offline";
+  }
+}
+
+const git = (...args: string[]) =>
+  execFileSync("git", ["-C", REPO, ...args], { encoding: "utf8", stdio: ["ignore", "pipe", "pipe"] }).trim();
+
+function projectVer(cmake: string): string {
+  const m = /set\(PROJECT_VER "([^"]+)"\)/.exec(readFileSync(join(REPO, cmake), "utf8"));
+  if (!m) throw new Error(`no PROJECT_VER in ${cmake}`);
+  return m[1];
+}
+
+/** The public hub's version right now, or undefined if it can't be reached. */
+async function hubVersion(): Promise<string | undefined> {
+  try {
+    const r = await fetch("https://hub.openloungephone.app/api/health", { signal: AbortSignal.timeout(8000) });
+    const body = (await r.json()) as { software?: string };
+    return body.software?.split("/")[1];
+  } catch {
+    return undefined;
+  }
+}
+
+/** Facts hand-written pages use as {{name}}; a page naming one that doesn't exist fails the build. */
+export async function facts(): Promise<Record<string, string>> {
+  const tags = git("tag", "--list", "server-v*", "--sort=-v:refname").split("\n").filter(Boolean);
+  const hub = await hubVersion();
+  return {
+    "server.main": JSON.parse(readFileSync(join(REPO, "package.json"), "utf8")).version,
+    "server.release": tags[0]?.replace(/^server-v/, "") ?? "none yet",
+    firmware: projectVer("firmware/CMakeLists.txt"),
+    labs: projectVer("firmware/labs/CMakeLists.txt"),
+    hub: hub ?? "unknown (it couldn't be reached when this page was built)",
+    "docs.commit": git("rev-parse", "--short", "HEAD"),
+    "docs.date": git("log", "-1", "--format=%cs"),
+  };
+}
+
+function fillFacts(content: string, file: string, f: Record<string, string>): string {
+  return content.replace(/\{\{([a-z.]+)\}\}/g, (_, name: string) => {
+    if (!(name in f)) throw new Error(`${file}: unknown fact {{${name}}} (known: ${Object.keys(f).join(", ")})`);
+    return f[name];
+  });
+}
+
+export function sync(f: Record<string, string> = {}): { pages: number; images: number; skipped: string[] } {
   if (!existsSync(join(REPO, "README.md")))
     throw new Error(
       "main/ is empty: run `git submodule update --init` (or clone with --recursive) first",
@@ -282,14 +346,22 @@ export function sync(): { pages: number; images: number; skipped: string[] } {
 
   const present = SOURCES.filter((s) => existsSync(join(REPO, s.from)));
   const skipped = SOURCES.filter((s) => !present.includes(s)).map((s) => s.from);
-  const handwritten = walk(HANDWRITTEN).filter((p) => /\.mdx?$/.test(p));
+  // Hand-written pages: [file, path inside its root, the path links resolve against]
+  const handwritten: [string, string, string][] = [
+    ...walk(REPO_PAGES).map((p): [string, string, string] => [p, relative(REPO_PAGES, p), `docs/site/${relative(REPO_PAGES, p)}`]),
+    ...walk(HANDWRITTEN).map((p): [string, string, string] => [p, relative(HANDWRITTEN, p), `content-src/${relative(HANDWRITTEN, p)}`]),
+  ].filter(([p]) => /\.mdx?$/.test(p));
+  const seen = new Map<string, string>();
+  for (const [, rel, repoPath] of handwritten) {
+    const key = rel.replace(/\.mdx?$/, "");
+    if (seen.has(key)) throw new Error(`${repoPath} and ${seen.get(key)} would be the same page`);
+    seen.set(key, repoPath);
+  }
   const pages = siteMap(present);
-  // Hand-written pages can be linked from repo docs by their content-src path.
-  for (const p of handwritten) {
-    const slug = relative(HANDWRITTEN, p)
-      .replace(/\.mdx?$/, "")
-      .replace(/(^|\/)index$/, "");
-    pages.set(`content-src/${relative(HANDWRITTEN, p)}`, slug ? `/${slug}/` : "/");
+  // Hand-written pages can be linked from repo docs by their path (docs/site/… or content-src/…).
+  for (const [, rel, repoPath] of handwritten) {
+    const slug = rel.replace(/\.mdx?$/, "").replace(/(^|\/)index$/, "");
+    pages.set(repoPath, slug ? `/${slug}/` : "/");
   }
   const images = new Set<string>();
 
@@ -316,10 +388,8 @@ export function sync(): { pages: number; images: number; skipped: string[] } {
 
   // Pages whose source document doesn't exist yet: links to them become plain text.
   const missing = SOURCES.filter((m) => skipped.includes(m.from)).map((m) => `/${m.slug}/`);
-  for (const p of handwritten) {
-    const rel = relative(HANDWRITTEN, p);
-    const repoPath = `content-src/${rel}`;
-    let content = rewriteLinks(readFileSync(p, "utf8"), repoPath, pages, images);
+  for (const [p, rel, repoPath] of handwritten) {
+    let content = rewriteLinks(fillFacts(readFileSync(p, "utf8"), rel, f), repoPath, pages, images);
     for (const url of missing) {
       content = content.replaceAll(
         new RegExp(`\\[([^\\]]+)\\]\\(${url.replace(/[/-]/g, "\\$&")}\\)`, "g"),
@@ -344,9 +414,12 @@ export function sync(): { pages: number; images: number; skipped: string[] } {
 }
 
 if (import.meta.url === `file://${process.argv[1]}`) {
-  const r = sync();
+  const from = followMain();
+  const f = await facts();
+  const r = sync(f);
   console.log(
-    `synced ${r.pages} pages, ${r.images} referenced images` +
+    `synced ${r.pages} pages from ${from} (${f["docs.commit"]}, ${f["docs.date"]}; server ${f["server.main"]}, ` +
+      `released ${f["server.release"]}, firmware ${f.firmware}, hub ${f.hub}), ${r.images} referenced images` +
       (r.skipped.length ? `; skipped missing: ${r.skipped.join(", ")}` : ""),
   );
 }
