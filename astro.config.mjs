@@ -40,6 +40,9 @@ export default defineConfig({
           items: [
             { slug: "uses/families" },
             { slug: "uses/grandparents" },
+            { slug: "uses/care-homes" },
+            { slug: "uses/schools" },
+            { slug: "uses/hospitals" },
             { slug: "uses/shared-houses" },
             { slug: "uses/front-desks" },
             { slug: "uses/lounges-cafes-hotels" },

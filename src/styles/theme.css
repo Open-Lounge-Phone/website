@@ -91,3 +91,37 @@
   aspect-ratio: 4 / 3;
   object-fit: cover;
 }
+
+/* "One board, many phones": a gallery of the cases and boards, white renders on a soft card. */
+.builds {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+  margin-block: 1.5rem;
+}
+
+.builds figure {
+  margin: 0;
+  padding: 0.75rem;
+  border-radius: 0.75rem;
+  background: #ffffff;
+  border: 1px solid var(--sl-color-gray-5);
+}
+
+.builds img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 3;
+  object-fit: contain;
+}
+
+.builds figcaption {
+  color: #4a4a4a;
+  font-size: var(--sl-text-sm);
+  margin-top: 0.5rem;
+}
+
+.why {
+  font-size: var(--sl-text-lg);
+  max-width: 42rem;
+}
