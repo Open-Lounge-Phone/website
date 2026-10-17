@@ -28,8 +28,8 @@ small status screen and nothing else. No browser, no feeds, no strangers.
 Kids' phones on the market are closed boxes with a fixed feature list. This one is open: the
 board, the firmware and the server are all published, so a curious kid can learn how a phone
 works, swap keycaps, print a new case and, later, change the code. Through all of it the phone's
-rules stay with the guardians: who it calls, when it rings, whether the child can change its
-greeting. Changing what a phone is for means removing it, which wipes it, and pairing it again.
+rules stay with the guardians: who it calls and when it rings. The rules live on the server, not
+in the phone, so changed firmware on the phone still reaches only the people you approved there. Changing what a phone is for means removing it, which wipes it, and pairing it again.
 
 ## Start
 
