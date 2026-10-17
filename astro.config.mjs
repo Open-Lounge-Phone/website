@@ -40,6 +40,9 @@ export default defineConfig({
           items: [
             { slug: "uses/families" },
             { slug: "uses/grandparents" },
+            { slug: "uses/care-homes" },
+            { slug: "uses/schools" },
+            { slug: "uses/hospitals" },
             { slug: "uses/shared-houses" },
             { slug: "uses/front-desks" },
             { slug: "uses/lounges-cafes-hotels" },
@@ -68,6 +71,7 @@ export default defineConfig({
           items: [
             { slug: "how-to/deploy-cloudflare" },
             { slug: "how-to/self-host" },
+            { slug: "how-to/run-it-offline" },
             { slug: "how-to/server-keys" },
           ],
         },

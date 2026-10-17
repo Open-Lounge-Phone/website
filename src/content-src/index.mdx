@@ -1,19 +1,19 @@
 ---
 title: Open Lounge Phone
-description: An open, screen-free phone for the people you choose — kids, family, friends, shared spaces and teams. Your own server or a free hub, and it's not just a phone.
+description: A real phone for the people you choose. Real keys, a handset that stays put, and it rings only for people you've said yes to. Open source down to the circuit board, on your own server or a free hub.
 template: splash
 hero:
-  tagline: A screen-free phone for the people you choose. Open source, on your own server or a free hub — and not just a phone.
+  tagline: "Pick up. Press a key. Someone you chose answers. A real phone with keys and a handset, for the people you choose: open source down to the circuit board."
   actions:
-    - text: Get started
+    - text: Try it now
       link: /getting-started/
       icon: right-arrow
     - text: What it can be
       link: /uses/
       icon: puzzle
       variant: secondary
-    - text: Build the hardware
-      link: /how-to/build-the-hardware/
+    - text: Boards and cases
+      link: /hardware/boards-and-cases/
       icon: setting
       variant: secondary
     - text: GitHub
@@ -30,311 +30,145 @@ import { Aside, Card, CardGrid, LinkCard } from "@astrojs/starlight/components";
 import Funding from "../../components/Funding.astro";
 import Architecture from "../../components/Architecture.astro";
 
-<Aside type="note" title="Where things stand">
-  **The software works today, end to end.** Run your own server, pair a phone, make real calls,
-  set quiet hours, get voicemail with transcripts. Until the hardware ships, the phone runs in a
-  browser: an old tablet or laptop left on a shelf makes a fine first phone. **The hardware is
-  an early prototype:** four phones on the first dev boards ([hardware
-  v0.1](https://github.com/Open-Lounge-Phone/open-lounge-phone/releases/tag/hw-v0.1)) are built
-  and working on an experimental build, lightly tested. We recommend starting with a virtual phone and
-  waiting for board v1.0 before building your own.
-</Aside>
+## Why it exists
+
+<div class="why">
+
+There was a time when calling someone meant a landline or a payphone. Then phones moved into our
+pockets and the landline faded: who wants to pay for one more phone to check?
+
+Something went with it. A phone that lives in one place. Calling a home, not a pocket. Knowing
+that whoever picks up is there because they want to talk, not because a buzz interrupted them.
+
+Open Lounge Phone brings that back on purpose: real keys, a handset that stays put, and it rings
+only for the people you've said yes to, answered at your leisure.
+
+**Your calls, on your terms.** We live in an age where you can run your own communications. It
+works over any internet connection: your own server, a friend's, or the free public hub, all
+talking to each other as equals. It even runs with no internet at all, on a server inside your
+home, school or building, so calls never leave the premises ([run it
+offline](/how-to/run-it-offline/)). Nobody owns the network but the people on it.
+
+</div>
+
+## The first phone: for kids now, for hacking later
 
 <CardGrid>
-  <Card title="I want a phone" icon="open-book">
-    [Try the phone in your browser](https://hub.openloungephone.app/device/) right now, [join the
-    free hub](https://hub.openloungephone.app) or [run your own server](/how-to/deploy-cloudflare/).
-    Parents and friends call from the companion app on any phone or computer.
+  <Card title="Locked down while they're young" icon="heart">
+    It calls, and is called by, only the people you approve. It has no number and no address,
+    so nobody can find it. Quiet hours send callers to voicemail, it never records your child,
+    and you see every call it made or missed.
   </Card>
-  <Card title="I want to build one" icon="setting">
-    Open board, open box, off-the-shelf handset. Start with [Build the
-    hardware](/how-to/build-the-hardware/), grab the files from the [hardware v0.1
-    release](https://github.com/Open-Lounge-Phone/open-lounge-phone/releases/tag/hw-v0.1), or
-    [join the board v0.9 interest list](#board-v09-coming-soon) (for tinkerers; v1.0 is the one
-    we'll recommend).
+  <Card title="Friends on the line" icon="open-book">
+    Kids call grandma, and their friends once both families' grown-ups say yes, even when the
+    other family is on a different server. One key per person, names on the screen.
+  </Card>
+  <Card title="Theirs to hack when they're ready" icon="setting">
+    Swap the keycaps, print a new case, read the firmware, change it. The rules live on your
+    server, not in the phone, so changed firmware still reaches only the people you approved
+    there.
   </Card>
 </CardGrid>
 
-## Your people, your rules
+Kids' phones on the market are closed boxes with a fixed feature list. This one is a first phone
+and a first electronics project in one, and it isn't only for kids: [what it can
+be](/uses/).
 
-There's so much more it can do, and all of it runs on **connections**. Sign in on a public hub
-you trust, or federate your own servers and services, and choose the level of safety and
-security you want at every step: who can reach you, when you're taking calls, and whether your
-connections can see that you're around. Nobody reaches you until you've accepted them, and
-there's no phone number to spam.
+## One board, many phones
 
-Kids' phones on the market are closed boxes with a fixed feature list. This one is open: as a
-child grows they can learn how it works and tinker with it, while every rule stays with their
-guardians until they say otherwise.
+The same small open ESP32 board, in whatever body suits the room. Board v0.1 runs on Wi-Fi.
+Board v0.901 adds Ethernet and PoE, so one network cable runs it (designed, not built yet).
+
+<div class="builds">
+  <figure>
+    <img src="/hardware/builds/box.webp" alt="The printed prototype box with twelve keycaps, the hook key at the left and the e-paper display between the rows" />
+    <figcaption><strong>Desk box</strong> · 3D printed</figcaption>
+  </figure>
+  <figure>
+    <img src="/hardware/builds/flat.webp" alt="A laser-cut acrylic desk phone with a handset lying in a hinged cradle" />
+    <figcaption><strong>Flat-cut</strong> · one sheet of laser-cut acrylic</figcaption>
+  </figure>
+  <figure>
+    <img src="/hardware/builds/wall.webp" alt="A wall phone faceplate with a forked switchhook on a pivot over the hook key" />
+    <figcaption><strong>Wall phone</strong> · a real switchhook</figcaption>
+  </figure>
+  <figure>
+    <img src="/hardware/builds/plush.webp" alt="A rounded cushion-like printed case with a bed for the handset beside the keys" />
+    <figcaption><strong>Cushion</strong> · a bed for the handset</figcaption>
+  </figure>
+  <figure>
+    <img src="/hardware/devboard-handset.jpg" alt="A green v0.1 dev board with twelve clear keycaps, an e-paper display and a white handset plugged in" />
+    <figcaption><strong>Board v0.1</strong> · Wi-Fi · built and working</figcaption>
+  </figure>
+  <figure>
+    <img src="/hardware/builds/board-v0901.webp" alt="Board v0.901 with the RJ45 jack at its right edge" />
+    <figcaption><strong>Board v0.901</strong> · Ethernet + PoE · in design</figcaption>
+  </figure>
+</div>
+
+Twelve hot-swap mechanical keys, a small e-paper screen, a jack for any classic handset, a ringer
+and one light. No microphone on the board: the only one is in the handset. [Boards and
+cases](/hardware/boards-and-cases/) has the details, files and costs (about $23 in parts per
+phone).
+
+## Where it fits
+
+<CardGrid>
+  <LinkCard title="Families with kids" href="/uses/families/" description="A first phone that only reaches the people you approve." />
+  <LinkCard title="Grandparents and elders" href="/uses/grandparents/" description="One press to call family, and a daily check-in." />
+  <LinkCard title="Care homes" href="/uses/care-homes/" description="Family on the keys in every room, and a daily check-in." />
+  <LinkCard title="Schools and classrooms" href="/uses/schools/" description="A phone in every classroom, and calls to a partner class anywhere." />
+  <LinkCard title="Hospitals and clinics" href="/uses/hospitals/" description="A bedside phone patients use as themselves, then it forgets them." />
+  <LinkCard title="Cafés, lounges and hotels" href="/uses/lounges-cafes-hotels/" description="A booth phone anyone uses as themselves." />
+  <LinkCard title="Offices and front desks" href="/uses/front-desks/" description="Extensions, ring groups and a lobby phone." />
+  <LinkCard title="Shared houses" href="/uses/shared-houses/" description="A house phone, an intercom between rooms, a dinner bell." />
+  <LinkCard title="Makers and tinkerers" href="/uses/makers/" description="Open board, open firmware, hot-swap keys." />
+</CardGrid>
+
+## How it works
+
+Everything runs on **connections**. Nobody reaches you until you've accepted their knock, and
+there's no phone number to spam and no bridge to the phone network, ever. You choose who can
+reach you, when you're taking calls, and whether your connections see that you're around.
+
+<Architecture />
+
+- **Calls go straight between the two people**: the audio never passes through the server.
+- **Voicemail everywhere**, with a greeting and a transcript.
+- **Rooms and party lines**, 3-way calls, hold and transfer.
+- **Lounge phones** anyone takes over as themselves, and that forget them afterwards.
+- **Passkeys**, no passwords or email; your own address, `name@server`.
+- **Any old phone or tablet** can be the phone: open `/device/` and add it to the home screen.
+- **Your server or ours:** your own Cloudflare account, a Node server with SQLite, or the free hub.
 
 <p class="licence-line">
   Software: AGPL-3.0-or-later. Hardware: CERN-OHL-S-2.0. No accounts with us, no tracking, no ads.
 </p>
 
-<CardGrid>
-  <Card title="Kids phone" icon="heart">
-    Mechanical keys, a handset, and nothing else. It can only call — and be called by — the
-    people a guardian approves. Quiet hours send callers to voicemail with a transcript instead of
-    waking anyone up.
-  </Card>
-  <Card title="Grown-ups too" icon="open-book">
-    Parents, grandparents and friends use the companion app on their own phone or computer. They
-    can call the kids' phone and each other, and they only ring when they've said they're
-    available.
-  </Card>
-  <Card title="Your own server — or the free hub" icon="setting">
-    Deploy to your own Cloudflare account or self-host with Docker, or join the free public hub.
-    Servers connect to each other, so everyone can reach everyone — and nobody sits in the middle
-    of your calls.
-  </Card>
-</CardGrid>
-
-<img
-  class="screenshot"
-  src="/images/phone-menu.png"
-  alt="The browser version of the phone: a handset on top, twelve keys in two rows and the e-paper display between them showing the menu: 1 Volume, 2 Voicemail, 0 About"
-  width="520"
-/>
-
-## Not just a phone
-
-The same board and software fit all over a home, an office or a venue. Each idea has its own
-page:
-
-<CardGrid>
-  <LinkCard title="Families with kids" href="/uses/families/" description="A first phone that only reaches the people you approve." />
-  <LinkCard title="Grandparents and elders" href="/uses/grandparents/" description="One press to call family, and a daily check-in." />
-  <LinkCard title="Shared houses" href="/uses/shared-houses/" description="A house phone, an intercom between rooms, a dinner bell." />
-  <LinkCard title="Offices and front desks" href="/uses/front-desks/" description="Extensions, ring groups and a lobby phone." />
-  <LinkCard title="Cafés, lounges and hotels" href="/uses/lounges-cafes-hotels/" description="A booth phone anyone uses as themselves, then it forgets them." />
-  <LinkCard title="Makers and tinkerers" href="/uses/makers/" description="Open board, open firmware, hot-swap keys." />
-</CardGrid>
-
-The **[labs firmware](/extend/labs/)** (0.0.0) shows how far it goes: a house intercom with no
-server, a doorbell, a dinner's-ready chime, a daily check-in that alerts the family, a Home
-Assistant panel, dial-a-story, a USB macro pad, and Snake and Memory if you press MENU ten
-times. The labs build runs on the board; most of its features are so far tested on a computer.
-
-## How it fits together
-
-<Architecture />
-
-## What works today
-
-- **Calls** between phones and the grown-ups' companion app, peer to peer (audio never passes
-  through the server).
-- **Default-deny contacts:** a guardian decides exactly who can call the phone and who it can call.
-- **Quiet hours** per household, with a clear "quiet until 7:00" on the phone.
-- **Voicemail everywhere:** a call that isn't answered — no answer, declined, busy, quiet hours —
-  goes to a greeting (the standard one, your recorded name, or your own), and the message lands
-  in the right inbox, with a transcript.
-- **Accounts, passkeys and invites:** your own address (`name@server`), households, teams and
-  organizations; add family by link; sign in with a passkey, no passwords or email.
-- **Connections across servers ("knock, then talk"):** knock on someone's address on any Open
-  Lounge Phone server; once they accept you can call, and a guardian can let them call a kid's
-  phone. Blocking, limits and signed server-to-server requests keep it spam-free. No phone
-  numbers and no bridge to the phone network, ever.
-- **Rooms and 3-way calls:** family party lines and phone rooms with their own address
-  (`standup@your.server`) that anyone allowed can drop into — from the app or a phone's key; hold a
-  call, add a caller and merge; transfer a call.
-- **Lounge phones:** a shared phone anyone takes over as themselves — scan its code, press the key
-  it flashes — even people from other servers, and it forgets them afterwards.
-- **Any device as a phone:** open `/device/` on an old phone or tablet and add it to the home
-  screen.
-- **Two ways to run it:** your own Cloudflare account (Workers, Durable Objects, D1, R2) or a
-  self-hosted Node server with SQLite.
+<Aside type="note" title="Where things stand">
+  **The software works today, end to end:** run your own server or join the hub, pair a phone,
+  make real calls, set quiet hours, get voicemail with transcripts. Until the hardware ships, the
+  phone runs in a browser: an old tablet or laptop on a shelf makes a fine first phone. **The
+  hardware is an early prototype:** four phones on board v0.1 are built and working, lightly
+  tested. Start with the phone in a browser; we'll recommend building your own at board v1.0.
+</Aside>
 
 ## A free public hub
 
-Social media is dead, but being social isn't. The hub gives you an address your group and
-friends can reach you on, with you deciding who gets through and when. You don't need the
-hardware; it just makes a great always-on desk phone: intentional phone time, rather than a
-phone that goes everywhere with you.
+Social media is dead, but being social isn't. The hub gives you an address your friends and
+family can reach you on, with you deciding who gets through and when. You don't need the
+hardware: the phone runs in any browser too.
 
-For people who don't want to run a server, the public hub is **free, funded by donations** —
-most calls go straight between the two people, so it costs little to run. It's live: [sign up at hub.openloungephone.app](https://hub.openloungephone.app).
+The hub is **free and funded by donations**. Most calls go straight between the two people, so it
+costs little to run. [Sign up at hub.openloungephone.app](https://hub.openloungephone.app).
 
 <Funding variant="card" />
 
 [How the hub is funded](/project/funding/) · [Privacy](/project/privacy/)
 
-## The hardware (v0.1 early dev board prototype)
-
-One small, deliberately minimal open circuit board built around an ESP32-S3:
-- 12 swappable mechanical keys and a hook switch, and a small e-paper status display
-- a 3.5 mm jack for an off-the-shelf classic G-style handset
-- a piezo ringer, one status light, and USB-C for power and updates (no battery)
-
-**No microphone on the board.** The only microphone is in the handset: unplug the handset and
-there is no microphone connected at all, and while it is hung up the software keeps it muted.
-The phone is mains/USB-powered like a landline — no battery by design, not a mobile device.
-
-Four phones on the first dev boards, [hardware
-v0.1](https://github.com/Open-Lounge-Phone/open-lounge-phone/releases/tag/hw-v0.1) (rev A), are
-built and working, here running the experimental [labs build](/extend/labs/) (0.0.0) and signed
-in to the public hub. It's lightly tested so far, and full testing waits on the Wi-Fi antennas;
-the newest phone firmware is tested in a simulator, and labs features come to it later. The release
-has the exact Gerbers, parts lists, schematic and a build guide.
-
-<div class="board-pics">
-  <figure>
-    <img
-      class="photo"
-      src="/hardware/devboard-handset.jpg"
-      alt="A green v0.1 dev board with twelve clear keycaps in two rows, an e-paper display between them, and a white handset on a coiled cord plugged into its jack"
-      loading="lazy"
-    />
-    <figcaption>A v0.1 dev board with a classic handset plugged into its 3.5 mm jack.</figcaption>
-  </figure>
-  <figure>
-    <img
-      class="photo"
-      src="/hardware/devboard-closeup.jpg"
-      alt="Close-up of the dev board's e-paper display showing Open Lounge Phone, firmware 0.0.0, board minimal-revA, server public hub, and the four words of its key"
-      loading="lazy"
-    />
-    <figcaption>Its About screen on the labs build: version 0.0.0, board minimal-revA, the public hub, and the four words that match the app.</figcaption>
-  </figure>
-</div>
-
-<div class="board-pics">
-  <figure>
-    <img
-      class="screenshot"
-      src="/hardware/render-top.png"
-      alt="Top of the board: twelve key positions in two rows, a hook switch, the 2x4 display socket, the handset and USB-C edge, and the Open Lounge Phone signature"
-    />
-    <figcaption>Top: 12 hot-swap MX keys, a hook switch, the socket for the e-paper module and the piezo ringer.</figcaption>
-  </figure>
-  <figure>
-    <img
-      class="screenshot"
-      src="/hardware/render-bottom.png"
-      alt="Bottom of the board with the ESP32-S3 module, audio codec, voltage regulator and USB-C port"
-    />
-    <figcaption>Bottom: the ESP32-S3 module, the ES8311 audio codec, the regulator and USB-C. JLCPCB assembles all of it.</figcaption>
-  </figure>
-</div>
-
-The board fits 3D-printable cases, and you pick the colour, keycaps and cord. Schematic, board
-layout and the cases are all code in the repository, so anyone can build or modify one. Follow
-along in [Build the hardware](/how-to/build-the-hardware/).
-
-<figure class="board-hero">
-  <img
-    src="/hardware/phone-assembled.png"
-    alt="The prototype box assembled: a printed box with twelve keycaps in two rows, the hook key at the left, the e-paper display between the rows and the handset rest"
-  />
-  <figcaption>The prototype box assembled, with keycaps and the 2.13" e-paper module (CAD render; the handset plugs in separately).</figcaption>
-</figure>
-
-### Build it yourself
-
 <CardGrid>
-  <Card title="About $8 in parts per board" icon="setting">
-    The chips, connectors and passives on the board come to about $8.50 (about $6 in volume). You
-    hand-solder only two parts: the handset jack and the display socket.
-  </Card>
-  <Card title="About $23 in parts per phone" icon="rocket">
-    Board parts plus switches, keycaps, a 2.13" e-paper module and an antenna, with a budget
-    handset (estimates, 2026-09-30). Board fabrication, assembly and shipping are extra and
-    depend on your order.
-  </Card>
-</CardGrid>
-
-Files: [hardware v0.1 release](https://github.com/Open-Lounge-Phone/open-lounge-phone/releases/tag/hw-v0.1)
-(Gerbers, parts list, build guide) · [hardware folder](https://github.com/Open-Lounge-Phone/open-lounge-phone/tree/main/hardware)
-(schematic, KiCad layout, box).
-
-### Board v0.901: wired network and PoE (in design)
-
-The next board revision adds an **RJ45 jack**, so the phone can run on a network cable instead of
-Wi-Fi, and **PoE**: one cable for network and power, like a desk phone. USB-C still works, and
-either one powers the phone. It adds a WIZnet W5500 Ethernet chip, a jack with built-in
-magnetics, and an isolated 802.3af PoE module kept 3 mm from the rest of the board. It's still
-one board with no I/O expander: the Ethernet chip shares the display's wires.
-
-It's designed and checked (schematic checks, power budget, full layout with zero design-rule
-errors, case fit), but **not built or tested yet**. The phone firmware (since 0.9.5; build it from
-source) drives the Ethernet chip: with a cable it uses the cable and turns Wi-Fi off, and without one it
-uses Wi-Fi; tested in the simulator so far, not on a board. Parts come to about $18 a board.
-
-**Power:** one Ethernet cable from a PoE switch port or a PoE injector (IEEE 802.3af or 802.3at)
-runs the whole phone, network and power together, up to 100 m. Or use a USB-C charger. A
-computer's USB port is for flashing and the console only, with the PoE cable plugged in too.
-"Passive" 24 V PoE injectors won't power it.
-
-<figure class="board-hero">
-  <a href="/hardware/v0901/schematic-ethernet.png">
-    <img
-      class="screenshot"
-      src="/hardware/v0901/schematic-ethernet.png"
-      alt="Schematic page: the W5500 Ethernet chip with its pins and nets, the HR871150C RJ45 jack with PoE taps and LEDs, the 3.3 V regulator, the 25 MHz crystal and the list of resistors and capacitors"
-      loading="lazy"
-    />
-  </a>
-  <figcaption>Ethernet: the W5500 on the display's SPI wires, its own 3.3 V regulator, and the RJ45 jack's magnetics, centre tap and LEDs.</figcaption>
-</figure>
-
-<div class="board-pics">
-  <figure>
-    <a href="/hardware/v0901/schematic-poe.png">
-      <img
-        class="screenshot"
-        src="/hardware/v0901/schematic-poe.png"
-        alt="Schematic page: two bridge rectifiers from the RJ45's PoE pairs, a 58 V TVS diode, the DP9900LP-5V isolated PoE module and the Schottky diode into the 5 V rail"
-        loading="lazy"
-      />
-    </a>
-    <figcaption>PoE: both cable pair options through bridges and a surge diode into the isolated 5 V module, then a diode into the shared 5 V rail.</figcaption>
-  </figure>
-  <figure>
-    <a href="/hardware/v0901/schematic-overview.png">
-      <img
-        class="screenshot"
-        src="/hardware/v0901/schematic-overview.png"
-        alt="Schematic overview page: the board's blocks, the power tree from USB-C and PoE, and the ESP32-S3 GPIO map"
-        loading="lazy"
-      />
-    </a>
-    <figcaption>Overview: the blocks, the power tree (USB-C or PoE, each through a diode, into one 5 V rail) and the GPIO map.</figcaption>
-  </figure>
-</div>
-
-Generated from the schematic code; the full review is [one PDF](/hardware/v0901/schematic-v0901.pdf)
-with a page for every block.
-
-### Board v0.9: coming soon
-
-<Aside type="tip" title="Pre-order, coming soon">
-  Board v0.9 will come two ways: **fully assembled**, or **just the PCB** to populate yourself.
-  No price or date yet; v0.9 follows what we learn from the first boards.
-  [Join the interest list](https://github.com/Open-Lounge-Phone/open-lounge-phone/discussions/1)
-  and tell us which you'd want.
-</Aside>
-
-<CardGrid>
-  <Card title="Lounge phone" icon="rocket">
-    A shared booth phone for hospitality spaces: take it over with your own contacts, see who's
-    open to chat, and it forgets you the moment you walk away. Works today in the browser phone;
-    Lounge hardware comes with the board.
-  </Card>
-  <Card title="Made for anything" icon="puzzle">
-    Kids' safety, calm screen-free calling and your own server are all part of the design, and
-    none of it is limited to kids. Each key can call a person or a room, so the same phone works
-    as a concierge line, a front desk, a shop hotline or a workshop intercom. It's all open, so
-    shape it into whatever you need: [what it can be](/uses/).
-  </Card>
-  <Card title="Open" icon="github">
-    Software under AGPL-3.0-or-later, hardware under CERN-OHL-S-2.0. No accounts with us, no
-    tracking, no ads.
-  </Card>
-</CardGrid>
-
-<CardGrid>
-  <LinkCard title="Get started" href="/getting-started/" description="Join the hub, run your own server, or open an invite — or try it all on your computer." />
-  <LinkCard title="Deploy your own" href="/how-to/deploy-cloudflare/" description="Your own server on your own Cloudflare account, federated with everyone." />
-  <LinkCard title="Build the hardware" href="/how-to/build-the-hardware/" description="Open hardware: schematic, board layout, prototype box — in progress." />
-  <LinkCard title="Labs firmware" href="/extend/labs/" description="Intercom, doorbell, check-in, macro pad, games: the board as more than a phone." />
+  <LinkCard title="Try it now" href="/getting-started/" description="Join the hub, run your own server, or open an invite: all of it works on your computer." />
+  <LinkCard title="Boards and cases" href="/hardware/boards-and-cases/" description="The open board, its next revision with PoE, and the cases." />
+  <LinkCard title="Labs firmware" href="/extend/labs/" description="Intercom, doorbell, check-in, macro pad: the board as more than a phone." />
   <LinkCard title="About the project" href="/project/about/" description="Why it exists, principles, and status." />
 </CardGrid>
