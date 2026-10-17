@@ -71,6 +71,7 @@ export default defineConfig({
           items: [
             { slug: "how-to/deploy-cloudflare" },
             { slug: "how-to/self-host" },
+            { slug: "how-to/run-it-offline" },
             { slug: "how-to/server-keys" },
           ],
         },
