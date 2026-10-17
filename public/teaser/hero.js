@@ -140,6 +140,18 @@ diffuseColor.rgb *= 1.0 - uSpeck * step(0.93, vn(vWP * 1.3)) - 0.035 * (vn(vWP *
       groups[grp].add(c);
       if (grp === 'cradle') cradles[n.slice(7)] = c;
     });
+    if (META.board_top) {
+      // the board's face (copper, mask, silkscreen) as one picture on its top, a hair above it so
+      // it never fights the board body for the same depth
+      const [bx0, by0, bx1, by1, bz] = META.board_top;
+      const tl = new THREE.TextureLoader().load(opts.boardTop || '/teaser/board-top.webp');
+      tl.encoding = THREE.sRGBEncoding; tl.anisotropy = 8;
+      const face = new THREE.Mesh(new THREE.PlaneGeometry(bx1 - bx0, by1 - by0),
+        new THREE.MeshStandardMaterial({map: tl, roughness: 0.5, metalness: 0.05, alphaTest: 0.5,
+          polygonOffset: true, polygonOffsetFactor: -2, polygonOffsetUnits: -2}));
+      face.position.set((bx0 + bx1) / 2, (by0 + by1) / 2, bz + 0.12); face.receiveShadow = true;
+      groups.board.add(face);
+    }
     const [px, py, pz, pw, ph] = META.panel;
     panelMat = new THREE.MeshStandardMaterial({roughness: 0.95});
     const scr = new THREE.Mesh(new THREE.PlaneGeometry(pw - 4, ph - 3), panelMat);
