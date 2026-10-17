@@ -52,6 +52,8 @@ const home = Astro.url.pathname === "/" || Astro.url.pathname === "/index.html";
       const meta = await (await fetch("/teaser/scene.json")).json();
       const hero = (window as any).OLPHero.start({
         canvas, meta, glb: "/teaser/scene.glb", decoder: "/teaser/draco/", caption, room,
+        // the phone stays clear of the headline, tagline, buttons and caption
+        avoid: () => document.querySelectorAll(".olp-copy h1, .olp-copy .tagline, .olp-copy .actions, .olp-caption"),
         onReady: () => stage.classList.add("olp-live"),
         onError: () => stage.classList.remove("olp-live"),
       });

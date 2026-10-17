@@ -1,5 +1,8 @@
 // The home page's hero background: an endless run of randomly built Open Lounge Phones.
-// Started by OLPHero.start({canvas, meta, glb, decoder, caption, room, onReady, onError}).
+// Started by OLPHero.start({canvas, meta, glb, decoder, caption, room, avoid, onReady, onError}).
+// Four cases take turns around the same board, switches, display and handsets: the printed box,
+// the flat-cut acrylic desk phone, the wall phone and the cushion (META.layouts, from the main
+// repo's hardware/enclosure/teaser.py). `avoid()` lists the page's text: shots keep clear of it.
 window.OLPHero = {start(opts) {
   const META = opts.meta;
   const rnd = Math.random;
@@ -38,17 +41,29 @@ window.OLPHero = {start(opts) {
   const key = new THREE.DirectionalLight(0xffffff, 0.8);
   key.position.set(-160, -260, 520); key.castShadow = true;
   key.shadow.mapSize.set(2048, 2048); key.shadow.radius = 10; key.shadow.bias = -0.0002; key.shadow.normalBias = 0.35;
-  Object.assign(key.shadow.camera, {left: -280, right: 280, top: 280, bottom: -280, near: 50, far: 1400});
+  Object.assign(key.shadow.camera, {left: -340, right: 340, top: 340, bottom: -340, near: 50, far: 1600});
   scene.add(key); scene.add(key.target);
   const floor = new THREE.Mesh(new THREE.PlaneGeometry(4000, 4000), new THREE.ShadowMaterial({opacity: 0.05}));
   floor.receiveShadow = true; scene.add(floor);
 
   const [CX, CY] = META.center, W = CX * 2, H = CY * 2;
   key.target.position.set(CX, CY, 0);
-  const phone = new THREE.Group(); scene.add(phone);           // tilts / rises with the base
-  const base = new THREE.Group(); scene.add(base);             // additions under the phone
+  const LAYOUTS = META.layouts;
+  const posed = new THREE.Group(); posed.matrixAutoUpdate = false; scene.add(posed);   // the case's pose
+  const phone = new THREE.Group(); posed.add(phone);           // tilts / rises with the base
+  const base = new THREE.Group(); posed.add(base);             // additions under the phone
   const groups = {};
-  ['tray','board','switch','spring','swtop','stem','lid','module','keycap','bezel','cradle','handset'].forEach(n => { groups[n] = new THREE.Group(); phone.add(groups[n]); });
+  const names = new Set(['tray','board','switch','spring','swtop','stem','lid','module','keycap','bezel','cradle','handset','caps']);
+  for (const l in LAYOUTS) for (const g in LAYOUTS[l].explode) names.add(g);
+  names.forEach(n => { groups[n] = new THREE.Group(); phone.add(groups[n]); });
+  const OWN = {proto: ['tray', 'lid', 'bezel', 'cradle']};     // each case's own parts
+  for (const n of names) { const m = /^(flat|wall|cushion)_/.exec(n); if (m) (OWN[m[1]] = OWN[m[1]] || []).push(n); }
+  const capSets = {wall: new THREE.Group(), cushion: new THREE.Group()};
+  groups.caps.add(capSets.wall, capSets.cushion);
+  // the wall phone's wall: it only catches shadows
+  const wall = new THREE.Mesh(new THREE.PlaneGeometry(1400, 1400), new THREE.ShadowMaterial({opacity: 0.08}));
+  wall.receiveShadow = true; wall.visible = false; wall.userData.noFit = true; posed.add(wall);
+  const nets = [];                                             // the wired board's RJ45 + PoE module
 
   function grain(mat, amp, speck) {
     mat.onBeforeCompile = sh => {
@@ -83,6 +98,12 @@ diffuseColor.rgb *= 1.0 - uSpeck * step(0.93, vn(vWP * 1.3)) - 0.035 * (vn(vWP *
     pins: new THREE.MeshStandardMaterial({color: '#c98b4a', roughness: 0.3, metalness: 1}),
     clearCap: new THREE.MeshPhysicalMaterial({color: '#ffffff', roughness: 0.08, transparent: true, opacity: 0.38, clearcoat: 1, depthWrite: false}),
     solidCap: new THREE.MeshPhysicalMaterial({color: '#e9e4d8', roughness: 0.45, clearcoat: 0.3}),
+    // the flat-cut case: one sheet (acrylic or plywood) for plates, ears and arm; standoffs; feet
+    sheet: new THREE.MeshPhysicalMaterial({color: '#ffffff', roughness: 0.06, clearcoat: 1, transparent: true, opacity: 0.4, depthWrite: false}),
+    hw: new THREE.MeshStandardMaterial({color: '#c8a96b', roughness: 0.3, metalness: 1}),
+    rubber: new THREE.MeshStandardMaterial({color: '#1d1f1e', roughness: 0.9}),
+    bracket: new THREE.MeshStandardMaterial({color: '#8e9399', roughness: 0.7}),
+    bottom: finish(),
   };
   // set a material to a finish: glaze (speckled ceramic), metal (anodised / bare aluminium), matte
   function setFinish(mat, kind, color) {
@@ -104,7 +125,8 @@ diffuseColor.rgb *= 1.0 - uSpeck * step(0.93, vn(vWP * 1.3)) - 0.035 * (vn(vWP *
     const t = new THREE.CanvasTexture(c); t.encoding = THREE.sRGBEncoding; t.anisotropy = 4; return t;
   }
   const caps = [];
-  const SW = {};
+  const SW = {}, CAPGEO = {};
+  const holders = {};                       // per handset: where the case holds it
   const draco = new THREE.DRACOLoader(); draco.setDecoderPath(opts.decoder);
   const loader = new THREE.GLTFLoader(); loader.setDRACOLoader(draco);
   loader.load(opts.glb, gltf => {
@@ -121,21 +143,34 @@ diffuseColor.rgb *= 1.0 - uSpeck * step(0.93, vn(vWP * 1.3)) - 0.035 * (vn(vWP *
       else if (n.startsWith('module_')) { mat = new THREE.MeshStandardMaterial({color: '#' + n.slice(7), roughness: 0.5}); grp = 'module'; }
       else if (n.startsWith('cradle-')) { mat = M.cradle; grp = 'cradle'; }
       else if (n.startsWith('board_')) {
-        const metal = n === 'board_metal' || n === 'board_c4c7ca';
-        mat = new THREE.MeshStandardMaterial({color: metal ? '#b9bcbf' : '#' + n.slice(6), roughness: metal ? 0.35 : 0.55, metalness: metal ? 0.85 : 0.05});
+        const c = n.replace('board_net_', 'board_');
+        const metal = c === 'board_metal' || c === 'board_c4c7ca' || c === 'board_858585';
+        mat = new THREE.MeshStandardMaterial({color: metal ? '#b9bcbf' : '#' + c.slice(6), roughness: metal ? 0.35 : 0.55, metalness: metal ? 0.85 : 0.05});
         grp = 'board';
       }
       else if (n.startsWith('switch_')) { SW[n.slice(7)] = o.geometry; return; }
       else if (n === 'keycap') { M.capGeo = o.geometry; return; }
-      if (!grp) return;
+      else if (n === 'wall_cap' || n === 'cushion_cap' || n === 'captive_hook') { CAPGEO[n] = o.geometry; return; }
+      else if (/^flat_(back|front|ears|arm)$/.test(n)) { mat = M.sheet; grp = n; }
+      else if (n === 'flat_feet') { mat = M.rubber; grp = n; }
+      else if (n.startsWith('flat_')) { mat = M.hw; grp = n; }
+      else if (n === 'wall_housing' || n === 'cushion_case') { mat = M.shell; grp = n; }
+      else if (n === 'wall_rocker') { mat = M.cradle; grp = n; }
+      else if (n === 'wall_bracket') { mat = M.bracket; grp = n; }
+      else if (n === 'cushion_bottom') { mat = M.bottom; grp = n; }
+      if (!grp || !groups[grp]) return;
       const c = new THREE.Mesh(o.geometry, mat); c.castShadow = true; c.receiveShadow = true;
       c.position.copy(o.position); c.quaternion.copy(o.quaternion); c.scale.copy(o.scale);
+      if (n.startsWith('board_net_')) nets.push(c);
+      if (mat === M.sheet) c.renderOrder = 1;
       if (grp === 'handset') {
-        // a pivot at the handle's resting point, so slim / chunky variants stay seated
+        // a pivot at the handle's resting point, so slim / chunky variants stay seated; a holder
+        // round it that each case moves to where it holds the handset
         o.geometry.computeBoundingBox(); const b = o.geometry.boundingBox;
         const p = new THREE.Vector3((b.min.x + b.max.x) / 2, (b.min.y + b.max.y) / 2, b.min.z).applyMatrix4(o.matrixWorld);
         const pivot = new THREE.Group(); pivot.position.copy(p); c.position.sub(p); pivot.add(c);
-        groups.handset.add(pivot); handsets[n] = pivot; return;
+        const holder = new THREE.Group(); holder.add(pivot);
+        groups.handset.add(holder); handsets[n] = pivot; holders[n] = holder; return;
       }
       groups[grp].add(c);
       if (grp === 'cradle') cradles[n.slice(7)] = c;
@@ -152,9 +187,11 @@ diffuseColor.rgb *= 1.0 - uSpeck * step(0.93, vn(vWP * 1.3)) - 0.035 * (vn(vWP *
       face.position.set((bx0 + bx1) / 2, (by0 + by1) / 2, bz + 0.12); face.receiveShadow = true;
       groups.board.add(face);
     }
+    // The e-paper: a picture exactly the size and shape of the panel's active area (and as many
+    // pixels across as it has, x4), lying on the glass the right way up for the board.
     const [px, py, pz, pw, ph] = META.panel;
-    panelMat = new THREE.MeshStandardMaterial({roughness: 0.95});
-    const scr = new THREE.Mesh(new THREE.PlaneGeometry(pw - 4, ph - 3), panelMat);
+    panelMat = new THREE.MeshStandardMaterial({roughness: 0.95, polygonOffset: true, polygonOffsetFactor: -1, polygonOffsetUnits: -1});
+    const scr = new THREE.Mesh(new THREE.PlaneGeometry(pw, ph), panelMat);
     scr.position.set(px, py, pz + 0.05); groups.module.add(scr);
     META.keys.forEach(k => {
       // the switch in its parts (each explodes on its own: bottom, spring, top housing, stem)
@@ -168,7 +205,36 @@ diffuseColor.rgb *= 1.0 - uSpeck * step(0.93, vn(vWP * 1.3)) - 0.035 * (vn(vWP *
       cap.userData.solid = M.solidCap.clone();
       const lab = new THREE.Mesh(new THREE.PlaneGeometry(13.5, 13.5), new THREE.MeshStandardMaterial({roughness: 0.9, transparent: true}));
       lab.position.set(k.x, k.y, META.cap_z + 7.6); groups.keycap.add(lab);
-      caps.push({k, cap, lab});
+      const entry = {k, cap, lab, captive: {}};
+      // the captive caps of the wall phone and the cushion: the legend printed on the button
+      const C = META.captive;
+      for (const set of ['wall', 'cushion']) {
+        const hook = k.label === 'HOOK';
+        const geo = CAPGEO[hook ? 'captive_hook' : set + '_cap'];
+        if (!geo) continue;
+        const m = new THREE.Mesh(geo, new THREE.MeshPhysicalMaterial({color: '#e9e4d8', roughness: 0.5, clearcoat: 0.2}));
+        m.position.set(k.x, k.y, 0); m.castShadow = m.receiveShadow = true; capSets[set].add(m);
+        let l = null;
+        if (!hook) {
+          let g;
+          if (set === 'wall') {                    // follows the dish: a cylinder across x
+            const [r, dish] = C.dish, w = C.button - 2.6;
+            g = new THREE.PlaneGeometry(w, w, 24, 1);
+            const a = g.attributes.position;
+            for (let i = 0; i < a.count; i++) { const x = a.getX(i); a.setZ(i, r - dish - Math.sqrt(r * r - x * x) + 0.06); }
+            g.computeVertexNormals();
+            l = new THREE.Mesh(g, new THREE.MeshStandardMaterial({roughness: 0.9, transparent: true, polygonOffset: true, polygonOffsetFactor: -1}));
+            l.position.set(k.x, k.y, C.top);
+          } else {                                 // on the puffy button's flat top
+            g = new THREE.PlaneGeometry(C.puffy_flat, C.puffy_flat);
+            l = new THREE.Mesh(g, new THREE.MeshStandardMaterial({roughness: 0.9, transparent: true, polygonOffset: true, polygonOffsetFactor: -1}));
+            l.position.set(k.x, k.y, C.top + 0.06);
+          }
+          capSets[set].add(l);
+        }
+        entry.captive[set] = {cap: m, lab: l};
+      }
+      caps.push(entry);
     });
     start();
   }, undefined, e => opts.onError && opts.onError(e));
@@ -300,16 +366,33 @@ diffuseColor.rgb *= 1.0 - uSpeck * step(0.93, vn(vWP * 1.3)) - 0.035 * (vn(vWP *
     return pick(opts).map(s => s.slice(0, 18));
   }
   const CRADLE_NAMES = {v: 'V rest', claw: 'claw', balls: 'ball rest', fork: 'fork', lobster: 'lobster claw', raptor: 'raptor claw',
-    allosaurus: 'allosaurus claw', antlers: 'antlers', healinghands: 'open hands', cyberhand: 'robot hand', tentacles: 'tentacles'};
+    allosaurus: 'allosaurus claw', antlers: 'antlers', healinghands: 'open hands', cyberhand: 'robot hand', tentacles: 'tentacles', lowpolyhand: 'low-poly hand'};
   const FINISH = {glaze: 'glaze', metal: 'anodised', matte: 'matte'};
   const BASES = ['none', 'none', 'none', 'plinth', 'feet', 'wedge', 'frame'];
   const MOODS = [
     {name: 'morning', key: '#fff3e2', k: 0.85, hemi: 0.45}, {name: 'studio', key: '#ffffff', k: 0.8, hemi: 0.45},
     {name: 'cool', key: '#eef4ff', k: 0.8, hemi: 0.5}, {name: 'golden', key: '#ffe2bd', k: 0.95, hemi: 0.38},
   ];
+  // Cases: the printed box most often, every other one in each round of five.
+  let bag = [];
+  const FORCE = (new URLSearchParams(location.search).get('hero') || '').split(',');
+  function nextLayout() {
+    if (LAYOUTS[FORCE[0]]) return FORCE[0];
+    if (!bag.length) bag = shuffle(['proto', 'proto', 'flat', 'wall', 'cushion'].filter(l => LAYOUTS[l]));
+    return bag.pop();
+  }
+  const SHEETS = [   // the flat-cut case's sheet: name, colour, opacity, roughness
+    () => ['clear acrylic', '#f4f8f8', 0.32, 0.05], () => ['smoke acrylic', '#4a4d52', 0.55, 0.06],
+    () => ['frosted acrylic', '#f2f4f4', 0.62, 0.5],
+    () => { const c = hsl(rnd(), between(0.45, 0.8), between(0.45, 0.62)); return [colourName(c) + ' tinted acrylic', c, 0.5, 0.06]; },
+    () => { const c = shellColour('glaze'); return [colourName(c) + ' acrylic', c, 1, 0.12]; },
+    () => { const c = pick(['#d9b98c', '#caa477', '#e2c9a1']); return ['birch plywood', c, 1, 0.8]; },
+  ];
+  const METALS = [['aluminium', '#c9ccd0'], ['stainless', '#a7abb0'], ['bronze', '#b08d57'], ['brass', '#c8a96b'], ['black', '#2d2f32']];
   function makeBuild() {
+    const layout = nextLayout();
     const finishKind = pick(['glaze', 'glaze', 'glaze', 'metal', 'matte', 'matte']);
-    const shell = shellColour(finishKind);
+    const shell = shellColour(layout === 'cushion' ? pick(['glaze', 'matte']) : finishKind);
     const scn = pick(SCENARIOS);
     const labels = keyLabels(scn);
     const person = up(pick(NAMES));
@@ -318,16 +401,17 @@ diffuseColor.rgb *= 1.0 - uSpeck * step(0.93, vn(vWP * 1.3)) - 0.035 * (vn(vWP *
     const capWay = pick(CAPWAYS);
     const accentKind = finishKind === 'metal' || chance(0.3) ? 'metal' : pick(['glaze', 'matte']);
     return {
-      finishKind, shell, scn, labels, owner, person,
+      layout, finishKind: layout === 'cushion' && finishKind === 'metal' ? 'matte' : finishKind, shell, scn, labels, owner, person,
       accentKind, accent: accentFor(shell),
       cradle: pick(Object.keys(cradles)),
       handset: pick(Object.keys(handsets)),
-      handsetShape: pick([[1, 1], [1, 1], [0.86, 0.88], [1.12, 1.1], [0.95, 1.05]]),
+      handsetShape: layout === 'proto' ? pick([[1, 1], [1, 1], [0.86, 0.88], [1.12, 1.1], [0.95, 1.05]]) : [1, 1],
       handsetColor: handsetColour(shell),
       capWay, capColour: capColours(capWay, shell),
-      base: pick(BASES), baseKind: pick(['wood', 'metal', 'glaze']), baseColor: pick(['#8b5e3c', '#c49a6c', '#3b2b20', '#6b4a35', '#a7abb0', '#3a3d42']),
+      base: layout === 'proto' ? pick(BASES) : 'none', baseKind: pick(['wood', 'metal', 'glaze']), baseColor: pick(['#8b5e3c', '#c49a6c', '#3b2b20', '#6b4a35', '#a7abb0', '#3a3d42']),
       screen: screenFor(scn, labels, owner),
       stem: pick(['#c8322b', '#7a4b2a', '#2f5fb3', '#1d1f1e', '#e2b93b', '#3f8f5a', '#e9e4d8', '#e48aa5']),
+      sheet: pick(SHEETS)(), hw: pick(METALS), rocker: pick(METALS.slice(0, 4)),
       mood: pick(MOODS),
       serial: 1 + Math.floor(rnd() * 99999),
     };
@@ -372,70 +456,211 @@ diffuseColor.rgb *= 1.0 - uSpeck * step(0.93, vn(vWP * 1.3)) - 0.035 * (vn(vWP *
   }
 
   let current = null;
+  // The e-paper's picture: dark text on the panel's white, sized to fit the part of the active
+  // area the case's window shows (L.screen), with a margin; the canvas has the panel's own shape.
+  const [SPW, SPH] = META.pixels || [250, 122];
+  function screenTex(lines, L) {
+    const [, , , aw] = META.panel;
+    const [scx, scy, vw, vh] = L.screen;
+    const W = SPW * 4, Hh = SPH * 4, k = W / aw;                // px per mm
+    const c = document.createElement('canvas'); c.width = W; c.height = Hh;
+    const g = c.getContext('2d');
+    g.fillStyle = '#e8e6de'; g.fillRect(0, 0, W, Hh);
+    const margin = 2.0 * k;                                     // 2 mm inside what shows
+    const bw = vw * k - 2 * margin, bh = vh * k - 2 * margin;
+    const ox = W / 2 + (scx - META.panel[0]) * k, oy = Hh / 2 - (scy - META.panel[1]) * k;
+    const n = lines.length, lineH = bh / n;
+    let size = Math.floor(lineH * 0.78);
+    const font = px => `600 ${px}px "Courier New", monospace`;
+    g.font = font(size);
+    const widest = Math.max(...lines.map(t => g.measureText(t).width));
+    if (widest > bw) size = Math.floor(size * bw / widest);
+    g.font = font(size); g.fillStyle = '#1b1b1b'; g.textAlign = 'center'; g.textBaseline = 'middle';
+    lines.forEach((t, i) => g.fillText(t, ox, oy - bh / 2 + lineH * (i + 0.5)));
+    const t = new THREE.CanvasTexture(c); t.encoding = THREE.sRGBEncoding; t.anisotropy = 4; return t;
+  }
   function dress(b) {
+    const L = LAYOUTS[b.layout];
+    posed.matrix.fromArray(L.pose); posed.matrixWorldNeedsUpdate = true;
+    for (const l in OWN) for (const g of OWN[l]) groups[g].visible = l === b.layout;
+    groups.keycap.visible = L.caps === 'xda';
+    groups.caps.visible = L.caps !== 'xda';
+    for (const s in capSets) capSets[s].visible = s === L.caps;
+    nets.forEach(m => { m.visible = !(L.hide || []).includes('board_net'); });
+    wall.visible = L.wall != null;
+    if (L.wall != null) { wall.position.set(CX, CY + 40, L.wall - 0.5); }
     setFinish(M.shell, b.finishKind, b.shell);
     setFinish(M.bezel, b.accentKind, b.accent);
     setFinish(M.cradle, b.accentKind, b.accent);
+    if (b.layout === 'wall') { setFinish(M.cradle, 'metal', b.rocker[1]); M.bracket.color.set(lum(b.shell) > 0.45 ? '#6f7378' : '#c9c9c4'); }
+    if (b.layout === 'cushion') { setFinish(M.bottom, 'matte', new THREE.Color(b.shell).multiplyScalar(0.72).getStyle()); }
+    if (b.layout === 'flat') {
+      const [, col, op, rough] = b.sheet;
+      Object.assign(M.sheet, {opacity: op, transparent: op < 1, depthWrite: op >= 1, roughness: rough, clearcoat: rough < 0.5 ? 1 : 0});
+      M.sheet.color.set(col); M.sheet.needsUpdate = true;
+      M.hw.color.set(b.hw[1]);
+    }
     let hc = b.handsetColor;
     M.handset.color.set(hc);
     for (const k in cradles) cradles[k].visible = k === b.cradle;
-    for (const k in handsets) { handsets[k].visible = k === b.handset; handsets[k].scale.set(b.handsetShape[0], 1, b.handsetShape[1]); }
+    for (const k in handsets) {
+      handsets[k].visible = k === b.handset; handsets[k].scale.set(b.handsetShape[0], 1, b.handsetShape[1]);
+      holders[k].position.fromArray(L.handsets[k] || [0, 0, 0]);
+    }
     const keyIdx = META.keys.filter(k => k.label !== 'MENU' && k.label !== 'BACK' && k.label !== 'HOOK');
-    caps.forEach(({k, cap, lab}, i) => {
+    caps.forEach(({k, cap, lab, captive}, i) => {
       const fill = b.capColour(k, i);
-      const solid = fill !== null;
-      if (solid) cap.userData.solid.color.set(fill);
-      cap.material = solid ? cap.userData.solid : M.clearCap;
-      cap.renderOrder = solid ? 0 : 2;
-      if (k.label === 'HOOK') { lab.visible = false; return; }
       const fn = k.label === 'MENU' || k.label === 'BACK';
       const text = fn ? [k.label] : words(b.labels[keyIdx.indexOf(k)] || k.label);
-      const ink = solid ? (lum(fill) > 0.45 ? '#1d1f1e' : '#f4f1ea') : '#1d1f1e';
       const long = Math.max(...text.map(w => w.length));
       const size = text.length > 1 || long > 4 ? (long > 5 ? 48 : 60) : (long > 1 ? 70 : 150);
-      lab.material.map && lab.material.map.dispose();
-      lab.material.map = tex(text, 256, 256, solid ? null : '#fbfaf6', ink, `600 ${size}px Barlow, system-ui, sans-serif`);
-      lab.material.needsUpdate = true;
-      lab.position.z = META.cap_z + (solid ? 9.05 : 7.6);
-      lab.scale.setScalar(solid ? 0.95 : 1);
-      lab.visible = true;
+      if (L.caps === 'xda') {
+        const solid = fill !== null;
+        if (solid) cap.userData.solid.color.set(fill);
+        cap.material = solid ? cap.userData.solid : M.clearCap;
+        cap.renderOrder = solid ? 0 : 2;
+        if (k.label === 'HOOK') { lab.visible = false; return; }
+        const ink = solid ? (lum(fill) > 0.45 ? '#1d1f1e' : '#f4f1ea') : '#1d1f1e';
+        lab.material.map && lab.material.map.dispose();
+        lab.material.map = tex(text, 256, 256, solid ? null : '#fbfaf6', ink, `600 ${size}px Barlow, system-ui, sans-serif`);
+        lab.material.needsUpdate = true;
+        lab.position.z = META.cap_z + (solid ? 9.05 : 7.6);
+        lab.scale.setScalar(solid ? 0.95 : 1);
+        lab.visible = true;
+        return;
+      }
+      const cc = captive[L.caps]; if (!cc) return;
+      const col = fill || (b.layout === 'cushion' ? hsl(new THREE.Color(b.shell).getHSL({}).h, 0.35, 0.86) : '#e9e4d8');
+      cc.cap.material.color.set(col);
+      if (cc.lab) {
+        const ink = lum(col) > 0.45 ? '#1d1f1e' : '#f4f1ea';
+        const m = cc.lab.material; m.map && m.map.dispose();
+        m.map = tex(text, 256, 256, null, ink, `700 ${Math.round(size * (L.caps === 'cushion' ? 1.1 : 1))}px Barlow, system-ui, sans-serif`);
+        m.needsUpdate = true;
+      }
     });
     M.stem.color.set(b.stem);
     key.color.set(b.mood.key); key.intensity = b.mood.k; hemi.intensity = b.mood.hemi;
-    if (panelMat) { panelMat.map && panelMat.map.dispose(); panelMat.map = tex(b.screen, 1024, 400, '#e8e6de', '#1b1b1b', '600 92px "Courier New", monospace'); panelMat.needsUpdate = true; }
+    if (panelMat) { panelMat.map && panelMat.map.dispose(); panelMat.map = screenTex(b.screen, L); panelMat.needsUpdate = true; }
     setBase(b);
   }
+  const SHEET_NAMES = {};
   function caption(b) {
-    const parts = ['No. ' + String(b.serial).padStart(5, '0'), b.scn.name, colourName(b.shell) + ' ' + FINISH[b.finishKind],
-      CRADLE_NAMES[b.cradle] || b.cradle];
-    if (b.base !== 'none') parts.push(b.base);
+    const L = LAYOUTS[b.layout];
+    const parts = ['No. ' + String(b.serial).padStart(5, '0'), b.scn.name];
+    if (b.layout === 'proto') {
+      parts.push(colourName(b.shell) + ' ' + FINISH[b.finishKind], CRADLE_NAMES[b.cradle] || b.cradle);
+      if (b.base !== 'none') parts.push(b.base);
+    } else if (b.layout === 'flat') parts.push(L.label, b.sheet[0]);
+    else if (b.layout === 'wall') parts.push(L.label, colourName(b.shell) + ' ' + FINISH[b.finishKind], b.rocker[0] + ' hook');
+    else parts.push(L.label, colourName(b.shell) + ' ' + FINISH[b.finishKind]);
     return parts.join(' · ');
   }
   function place(ex) {
-    const E = META.explode;
-    for (const g in groups) groups[g].position.z = (E[g] || 0) * ex;
-    groups.handset.position.z += META.rides[current.cradle] || 0;
+    const E = LAYOUTS[current.layout].explode;
+    for (const g in groups) { const v = E[g] || [0, 0, 0]; groups[g].position.set(v[0] * ex, v[1] * ex, v[2] * ex); }
+    if (current.layout === 'proto') groups.handset.position.z += META.rides[current.cradle] || 0;
   }
 
   // ------------------------------------------------------------------ shots
+  // Every shot shows the whole phone (and, in an exploded view, the whole stack) inside the part
+  // of the hero the page's text leaves free: the camera is fitted to it for every shot.
   const SHOT_KINDS = [
-    {name: 'wide', el: [18, 34], d: [440, 560], tz: [30, 45], rate: [4, 8]},
-    {name: 'low', el: [8, 16], d: [270, 340], tz: [45, 60], rate: [6, 10]},
-    {name: 'high', el: [45, 62], d: [340, 430], tz: [30, 45], rate: [4, 7]},
-    {name: 'cradle', el: [14, 26], d: [220, 280], tz: [65, 80], rate: [7, 11], tx: -55},
-    {name: 'keys', el: [55, 72], d: [230, 290], tz: [20, 30], rate: [4, 7], tx: 20},
-    {name: 'explode', el: [22, 36], d: [520, 620], tz: [55, 75], rate: [3, 6]},
+    {name: 'wide', el: [18, 34], rate: [3, 7]},
+    {name: 'low', el: [10, 18], rate: [4, 8]},
+    {name: 'high', el: [40, 60], rate: [3, 6]},
+    {name: 'explode', el: [22, 38], rate: [2, 5]},
   ];
   const range = ([a, b]) => a + rnd() * (b - a);
-  function makeShot() {
-    const k = chance(0.22) ? SHOT_KINDS[5] : pick(SHOT_KINDS.slice(0, 5));
-    return {kind: k.name, az: rnd() * 360, el: range(k.el), d: range(k.d) * 1.3, tz: range(k.tz), rate: range(k.rate) * (chance(0.5) ? 1 : -1), tx: k.tx || 0, len: 1.4 + rnd() * 0.9};
+  function makeShot(L) {
+    let k = chance(0.3) ? SHOT_KINDS[3] : pick(SHOT_KINDS.slice(0, 3));
+    if (FORCE[1]) k = SHOT_KINDS.find(s => s.name === FORCE[1]) || k;
+    const sh = {kind: k.name, el: range(k.el), rate: range(k.rate) * (chance(0.5) ? 1 : -1),
+      len: k.name === 'explode' ? 5.6 + rnd() * 1.2 : 2.2 + rnd() * 1.0};
+    if (L.front) { sh.az = -90 + (rnd() * 2 - 1) * 55; sh.el = Math.min(sh.el, 26); if (sh.el > 18 && chance(0.5)) sh.el = 8 + rnd() * 10; }
+    else sh.az = chance(0.85) ? -90 + (rnd() * 2 - 1) * 80 : rnd() * 360;   // mostly from the front: the screen reads
+    return sh;
+  }
+  // the explode shot: together, apart, a pause, back together
+  function explodeAt(u) {
+    const ph = u / current.shot.len;
+    if (ph < 0.12 || ph > 0.92) return 0;
+    if (ph < 0.42) return ease((ph - 0.12) / 0.3);
+    if (ph < 0.62) return 1;
+    return 1 - ease((ph - 0.62) / 0.3);
+  }
+  const box = new THREE.Box3(), v3 = new THREE.Vector3();
+  function visibleIn(o) { for (let p = o; p; p = p.parent) if (!p.visible) return false; return true; }
+  // corners of every visible part's box, assembled and (for an exploded view) apart
+  function fitPoints(exploded) {
+    const pts = [];
+    for (const ex of exploded ? [0, 1] : [0]) {
+      place(ex); scene.updateMatrixWorld(true);
+      posed.traverse(o => {
+        if (!o.isMesh || o.userData.noFit || !visibleIn(o)) return;
+        if (!o.geometry.boundingBox) o.geometry.computeBoundingBox();
+        box.copy(o.geometry.boundingBox).applyMatrix4(o.matrixWorld);
+        for (let i = 0; i < 8; i++) pts.push(new THREE.Vector3(i & 1 ? box.max.x : box.min.x, i & 2 ? box.max.y : box.min.y, i & 4 ? box.max.z : box.min.z));
+      });
+    }
+    place(0);
+    return pts;
+  }
+  // the free part of the canvas: right of the headline, tagline and buttons, above the caption
+  // and the fade at the bottom
+  function freeRect() {
+    const w = canvas.clientWidth || 1, h = canvas.clientHeight || 1, cr = canvas.getBoundingClientRect();
+    let x0 = w * 0.5, x1 = w - 28, y0 = h * 0.07, y1 = h * 0.86;
+    for (const el of (opts.avoid ? opts.avoid() : [])) {
+      const r = el.getBoundingClientRect(); if (!r.width || !r.height) continue;
+      const l = r.left - cr.left, rt = r.right - cr.left, t = r.top - cr.top, bt = r.bottom - cr.top;
+      if (bt < 0 || t > h) continue;
+      if ((l + rt) / 2 < w * 0.5) x0 = Math.max(x0, rt + 40); else y1 = Math.min(y1, t - 12);
+    }
+    if (x1 - x0 < w * 0.25) x0 = x1 - w * 0.25;                  // never nothing
+    return {x0, x1, y0, y1, w, h};
+  }
+  function camDir(az, el) {
+    const a = THREE.MathUtils.degToRad(az), e = THREE.MathUtils.degToRad(el);
+    return new THREE.Vector3(Math.cos(e) * Math.cos(a), Math.cos(e) * Math.sin(a), Math.sin(e));
+  }
+  function frameShot(sh) {
+    const pts = fitPoints(sh.kind === 'explode');
+    const c = new THREE.Box3().setFromPoints(pts).getCenter(new THREE.Vector3());
+    const fr = freeRect(), hw = (fr.x1 - fr.x0) / 2, hh = (fr.y1 - fr.y0) / 2;
+    const f = (fr.h / 2) / Math.tan(THREE.MathUtils.degToRad(cam.fov / 2));
+    const up = new THREE.Vector3(0, 0, 1);
+    const samples = [0, 0.25, 0.5, 0.75, 1].map(t => {
+      const dir = camDir(sh.az + sh.rate * sh.len * t, sh.el);
+      const right = new THREE.Vector3().crossVectors(up, dir).normalize();   // camera's right is -x of lookAt basis
+      const top = new THREE.Vector3().crossVectors(dir, right).normalize();
+      return {dir, right, top};
+    });
+    let d = 0;
+    for (const s of samples) for (const p of pts) {
+      v3.subVectors(p, c);
+      const al = v3.dot(s.dir);
+      d = Math.max(d, al + f * Math.abs(v3.dot(s.right)) / hw, al + f * Math.abs(v3.dot(s.top)) / hh);
+    }
+    d *= 1.03;
+    // centre what the shot shows (its pixel extent over the whole shot) in the free part
+    let mnx = 1e9, mxx = -1e9, mny = 1e9, mxy = -1e9;
+    for (const s of samples) for (const p of pts) {
+      v3.subVectors(p, c); const z = d - v3.dot(s.dir);
+      const x = f * v3.dot(s.right) / z, y = f * v3.dot(s.top) / z;
+      mnx = Math.min(mnx, x); mxx = Math.max(mxx, x); mny = Math.min(mny, y); mxy = Math.max(mxy, y);
+    }
+    sh.target = c; sh.d = d;
+    scene.fog.near = d + 600; scene.fog.far = d + 2600;    // never fogs the phone, however far
+    sh.px = (fr.x0 + fr.x1) / 2 - (mnx + mxx) / 2; sh.py = (fr.y0 + fr.y1) / 2 + (mny + mxy) / 2;
+    sh.fw = fr.w; sh.fh = fr.h;
+    cam.setViewOffset(fr.w, fr.h, fr.w / 2 - sh.px, fr.h / 2 - sh.py, fr.w, fr.h);
+    cam.updateProjectionMatrix();
   }
   function shotCam(sh, t) {
-    const a = THREE.MathUtils.degToRad(sh.az + sh.rate * t), e = THREE.MathUtils.degToRad(sh.el);
-    const tx = CX + sh.tx * Math.cos(THREE.MathUtils.degToRad(sh.az));
-    cam.position.set(tx + sh.d * Math.cos(e) * Math.cos(a), CY + sh.d * Math.cos(e) * Math.sin(a), sh.tz + sh.d * Math.sin(e));
-    cam.lookAt(tx, CY, sh.tz);
+    const dir = camDir(sh.az + sh.rate * Math.min(t, sh.len), sh.el);
+    cam.position.copy(sh.target).addScaledVector(dir, sh.d);
+    cam.lookAt(sh.target);
   }
   const ease = x => x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
 
@@ -444,15 +669,17 @@ diffuseColor.rgb *= 1.0 - uSpeck * step(0.93, vn(vWP * 1.3)) - 0.035 * (vn(vWP *
   const draw = () => R.render(scene, cam);
   function cut(now) {
     current = makeBuild(); dress(current);
-    shot = makeShot(); shotStart = now;
+    shot = makeShot(LAYOUTS[current.layout]); current.shot = shot; shotStart = now;
+    frameShot(shot);
+    // the key light follows the phone (the wall phone stands higher)
+    const c = shot.target; key.target.position.copy(c); key.position.set(c.x - 160, c.y - 260, c.z + 520);
     if (capEl) capEl.textContent = caption(current);
   }
   function frame(now) {
     const t = (now - shotStart) / 1000;
     if (t > shot.len) cut(now);
     const u = (now - shotStart) / 1000;
-    const ex = shot.kind === 'explode' ? ease(Math.min(1, u / (shot.len * 0.6))) : 0;
-    place(ex); shotCam(shot, u); draw();
+    place(shot.kind === 'explode' ? explodeAt(u) : 0); shotCam(shot, u); draw();
   }
   function tick(now) { frame(now); raf = requestAnimationFrame(tick); }
   function sync() {
@@ -460,20 +687,28 @@ diffuseColor.rgb *= 1.0 - uSpeck * step(0.93, vn(vWP * 1.3)) - 0.035 * (vn(vWP *
     if (want && !running) { running = true; shotStart = performance.now() - 300; raf = requestAnimationFrame(tick); }
     if (!want && running) { running = false; cancelAnimationFrame(raf); }
   }
-  function start() { cut(performance.now()); draw(); opts.onReady && opts.onReady(); sync(); }
+  function start() { cut(performance.now()); shotCam(shot, 0); draw(); opts.onReady && opts.onReady(); sync(); }
   document.addEventListener('visibilitychange', () => { visible = !document.hidden; sync(); });
   new IntersectionObserver(es => { onScreen = es[0].isIntersecting; sync(); }).observe(canvas);
   function resize() {
     const w = canvas.clientWidth || 1, h = canvas.clientHeight || 1;
     R.setSize(w, h, false);
     cam.aspect = w / h;
-    // On wide screens the headline sits on the left: frame the phone on the right.
-    if (w > 860) cam.setViewOffset(w, h, -w * 0.2, 0, w, h); else cam.clearViewOffset();
-    cam.updateProjectionMatrix();
-    if (shot && !running) draw();
+    if (shot) frameShot(shot); else cam.updateProjectionMatrix();
+    if (shot && !running) { shotCam(shot, 0); draw(); }
   }
   new ResizeObserver(resize).observe(canvas); resize();
-  return {
+  const api = {
     setRoom(c) { ROOM.set(c); scene.fog.color.set(c); floor.material.opacity = new THREE.Color(c).getHSL({}).l > 0.5 ? 0.06 : 0.25; if (shot) draw(); },
+    // for checking frames: hold a case, a shot kind and an explode amount (0..1)
+    hold(layout, kind, ex) {
+      running = false; cancelAnimationFrame(raf);
+      FORCE[0] = layout; FORCE[1] = kind; cut(performance.now());
+      place(ex || 0); shotCam(shot, shot.len / 2); draw();
+      return caption(current);
+    },
+    screen() { return panelMat && panelMat.map ? panelMat.map.image.toDataURL() : ''; },
   };
+  window.OLPHero.last = api;
+  return api;
 }};
