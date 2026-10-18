@@ -1,6 +1,6 @@
 ---
 title: Boards and cases
-description: "One open ESP32-S3 board in different bodies: the printed desk box, a laser-cut acrylic phone, a wall phone and a plush case. Board v0.1 runs on Wi-Fi; v0.901 adds Ethernet and PoE."
+description: "One open ESP32-S3 board in different bodies: the printed desk box, a laser-cut acrylic phone, a wall phone and a plush case. Board v0.1 runs on Wi-Fi; v0.2 adds Ethernet and PoE."
 sidebar:
   order: 0
 ---
@@ -14,7 +14,7 @@ one or design your own.
 <Aside type="caution" title="Where the hardware stands">
   Four phones on the first dev boards ([hardware
   v0.1](https://github.com/Open-Lounge-Phone/open-lounge-phone/releases/tag/hw-v0.1)) are built
-  and working, lightly tested. Board v0.901 is designed but not built. The cases are designs,
+  and working, lightly tested. Board v0.2 is designed but not built. The cases are designs,
   checked against the board in CAD. To start, use the
   phone in a browser; we'll recommend building your own at board v1.0.
 </Aside>
@@ -75,7 +75,7 @@ schematic and a build guide.
   </figure>
 </div>
 
-### Board v0.901: Ethernet and PoE (in design)
+### Board v0.2: Ethernet and PoE (in design)
 
 The next revision adds an **RJ45 jack**, so the phone can run on a network cable instead of
 Wi-Fi, and **PoE**: one cable for network and power, like an office desk phone. USB-C still works,
@@ -96,18 +96,18 @@ it.
 <figure class="board-hero">
   <img
     class="screenshot"
-    src="/hardware/builds/board-v0901.webp"
-    alt="Board v0.901 from above at an angle: the twelve key positions, the hook key, the display socket, the piezo ringer and the RJ45 jack at the right edge"
+    src="/hardware/builds/board-v02.webp"
+    alt="Board v0.2 from above at an angle: the twelve key positions, the hook key, the display socket, the piezo ringer and the RJ45 jack at the right edge"
   />
-  <figcaption>Board v0.901: the RJ45 jack with its PoE module at the right edge (CAD render).</figcaption>
+  <figcaption>Board v0.2: the RJ45 jack with its PoE module at the right edge (CAD render).</figcaption>
 </figure>
 
 <div class="board-pics">
   <figure>
-    <a href="/hardware/v0901/schematic-ethernet.png">
+    <a href="/hardware/v02/schematic-ethernet.png">
       <img
         class="screenshot"
-        src="/hardware/v0901/schematic-ethernet.png"
+        src="/hardware/v02/schematic-ethernet.png"
         alt="Schematic page: the W5500 Ethernet chip with its pins and nets, the HR871150C RJ45 jack with PoE taps and LEDs, the 3.3 V regulator, the 25 MHz crystal and the list of resistors and capacitors"
         loading="lazy"
       />
@@ -115,10 +115,10 @@ it.
     <figcaption>Ethernet: the W5500 on the display's SPI wires, its own 3.3 V regulator, and the RJ45 jack.</figcaption>
   </figure>
   <figure>
-    <a href="/hardware/v0901/schematic-poe.png">
+    <a href="/hardware/v02/schematic-poe.png">
       <img
         class="screenshot"
-        src="/hardware/v0901/schematic-poe.png"
+        src="/hardware/v02/schematic-poe.png"
         alt="Schematic page: two bridge rectifiers from the RJ45's PoE pairs, a 58 V TVS diode, the DP9900LP-5V isolated PoE module and the Schottky diode into the 5 V rail"
         loading="lazy"
       />
@@ -127,7 +127,7 @@ it.
   </figure>
 </div>
 
-The full review is [one PDF](/hardware/v0901/schematic-v0901.pdf) with a page for every block.
+The full review is [one PDF](/hardware/v02/schematic-v02.pdf) with a page for every block.
 
 ## The cases
 
