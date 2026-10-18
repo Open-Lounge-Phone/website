@@ -55,7 +55,7 @@ affiliated with or endorsed by Tin Can, and "Tin Can" is their trademark.
 | Phone firmware (ESP32-S3), 0.9.x | end-to-end tests in a simulator; on the dev boards next |
 | Labs firmware, 0.0.0 | the experimental build on the v0.1 dev boards for now; lightly tested |
 | Circuit board, hardware v0.1 | early prototype: four phones built and working |
-| Board v0.9, assembled or bare PCB | coming soon for tinkerers; no price or date |
+| Board v0.3, assembled or bare PCB | coming soon for tinkerers; no price or date |
 | Board v1.0 | the one we'll recommend building |
 
 What changed and when: [versions and releases](/project/versions/). See the
